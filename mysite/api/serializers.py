@@ -1,10 +1,12 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-from polls.models import User, Question, Choice
+from polls.models import Question, Choice
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
+        User = get_user_model()
         model = User
         fields = ('url', 'username', 'email', 'first_name', 'last_name',
                   'patronymic', 'job')

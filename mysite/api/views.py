@@ -1,10 +1,12 @@
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 
-from polls.models import User, Question, Choice
+from polls.models import Question, Choice
 from .serializers import UserSerializer, QuestionSerializer, ChoiceSerializer
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    User = get_user_model()
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
