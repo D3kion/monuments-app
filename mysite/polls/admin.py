@@ -1,6 +1,22 @@
 from django.contrib import admin
 
-from .models import Choice, Question, Profile
+from .models import User, Choice, Question
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.utils.translation import gettext as _
+
+
+class UserAdmin(BaseUserAdmin):
+    fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name',
+                                         'patronymic', 'email')}),
+        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+                                       'groups', 'user_permissions')}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
+    list_display = ('username', 'email', 'first_name', 'last_name',
+                    'patronymic', 'is_staff')
+    readonly_fields = ('last_login', 'date_joined')
 
 
 class ChoiceInLine(admin.TabularInline):
@@ -20,12 +36,6 @@ class QuestionAdmin(admin.ModelAdmin):
     search_fields = ['question_text']
 
 
-class ProfileAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['user']}),
-        ('Информация о пользователе', {'fields': ['patronymic', 'job']}),
-    ]
-
+admin.site.register(User, UserAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice)
-admin.site.register(Profile, ProfileAdmin)
