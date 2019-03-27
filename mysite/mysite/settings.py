@@ -31,8 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
     'rest_framework',
+    'polls.apps.PollsConfig',
+    'api.apps.ApiConfig',
+    'core.apps.CoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -125,7 +127,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'polls.User'
+AUTH_USER_MODEL = 'core.User'
 
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 

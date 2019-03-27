@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from polls.models import Question, User
+from polls.models import Question
 
 
 class Command(BaseCommand):
