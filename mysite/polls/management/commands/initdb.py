@@ -19,7 +19,7 @@ class Command(BaseCommand):
         q.choice_set.create(choice_text="Nah, we don't need that")
 
         User = get_user_model()
-        User.objects.create_superuser('admin', '', 'supersecret')
+        User.objects.create_superuser('admin', '', 'qwerty12+')
         User.objects.create_user(username='user1', email='testing@tests.test',
                                  password='qwerty12+')
         User.objects.create_user(username='user2', email='test@testing.tests',
