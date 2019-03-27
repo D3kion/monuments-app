@@ -1,15 +1,15 @@
 from django.contrib import admin
-
-from .models import User, Choice, Question
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
+
+from .models import User, Choice, Question
 
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name',
-                                         'patronymic', 'email')}),
+                                         'patronymic', 'email', 'job')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
@@ -27,8 +27,8 @@ class ChoiceInLine(admin.TabularInline):
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['question_text']}),
-        ('Date information', {'fields': ['pub_date'],
-                              'classes': ['collapse']}),
+        (_('Date information'), {'fields': ['pub_date'],
+                                 'classes': ['collapse']}),
     ]
     inlines = [ChoiceInLine]
     list_display = ('question_text', 'pub_date', 'was_published_recently')
