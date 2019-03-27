@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <h1>{{ question.question_text }}</h1>
 
 {% if error_message %}
@@ -10,5 +12,6 @@
     <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
     <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
     {% endfor %}
-    <input type="submit" value="Vote">
+    <br>
+    <input type="submit" value="{% trans 'Vote' %}">
 </form>
