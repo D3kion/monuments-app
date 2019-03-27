@@ -6,11 +6,9 @@ $ pip install -r requirements.txt
 $
 $ cd mysite
 $
-$ python manage.py makemigrations
 $ python manage.py migrate
-$
 $ python manage.py initdb
 $
 $ python manage.py runserver
 
-And open http://127.0.0.1:8000/polls/
+And go to http://127.0.0.1:8000/
