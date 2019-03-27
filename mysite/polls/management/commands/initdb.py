@@ -1,7 +1,8 @@
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 
-from polls.models import Question
+from polls.models import Question, User
 
 
 class Command(BaseCommand):
@@ -16,3 +17,10 @@ class Command(BaseCommand):
                                     pub_date=timezone.now())
         q.choice_set.create(choice_text="Yeah, let's do this")
         q.choice_set.create(choice_text="Nah, we don't need that")
+
+        User = get_user_model()
+        User.objects.create_superuser('admin', '', 'supersecret')
+        User.objects.create_user(username='user1', email='testing@tests.test',
+                                 password='qwerty12+')
+        User.objects.create_user(username='user2', email='test@testing.tests',
+                                 password='qwerty12+')
