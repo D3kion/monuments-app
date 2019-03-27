@@ -10,7 +10,7 @@ Deployment instruction:
     $ source venv/bin/activate
     $ pip install -r requirements.txt
     
-  3. Migrate, create super user and run
+  3. Migrate, init db, create superuser and run
     $ cd mysite
     $
     $ python manage.py migrate
