@@ -32,9 +32,11 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'rest_framework_gis',
     'polls.apps.PollsConfig',
     'api.apps.ApiConfig',
     'core.apps.CoreConfig',
+    'geoapi.apps.GeoapiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,7 +81,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'django_db',
         'USER': 'django_user',
         'PASSWORD': 'supersecret',
