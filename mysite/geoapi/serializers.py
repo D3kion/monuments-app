@@ -7,11 +7,11 @@ class CountrySerializer(GeoFeatureModelSerializer):
     class Meta:
         model = Country
         geo_field = 'geometry'
-        fields = ['name']
+        fields = ['url', 'name', 'city_set']
 
 
 class CitySerializer(GeoFeatureModelSerializer):
     class Meta:
         model = City
         geo_field = 'geometry'
-        fields = ['name', 'description']
+        fields = ['url', 'name', 'description', 'country']

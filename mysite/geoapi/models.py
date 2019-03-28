@@ -5,12 +5,16 @@ class Country(models.Model):
     name = models.CharField(max_length=50)
     geometry = models.PolygonField()
 
+    def __str__(self):
+        return self.name
+
 
 class City(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     # photos
-    country = models.ForeignKey(Country, on_delete=models.DO_NOTHING)
+    country = models.ForeignKey(Country, on_delete=models.DO_NOTHING,
+                                null=True)
     geometry = models.PointField()
 
     def __str__(self):
@@ -19,7 +23,3 @@ class City(models.Model):
 
 # class Capital(City):
 #     capital_of = models.OneToOneField(Country, on_delete=models.DO_NOTHING)
-
-
-# class Capital:
-#     pass
