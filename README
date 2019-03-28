@@ -4,6 +4,7 @@ Deployment instruction:
     =# CREATE USER django_user WITH PASSWORD 'supersecret';
     =# CREATE DATABASE django_db WITH OWNER django_user;
     =# \q
+    $ psql -U postgres -d django_db -c "CREATE EXTENSION postgis"
     
   2. Create venv and install dependecies
     $ cd mysite
