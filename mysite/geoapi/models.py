@@ -16,7 +16,7 @@ class Country(models.Model):
 class City(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    # photos
+    # photos  # TODO: Implement photos field
     country = models.ForeignKey(Country, on_delete=models.DO_NOTHING,
                                 null=True)
     geometry = models.PointField()
@@ -29,5 +29,6 @@ class City(models.Model):
         verbose_name_plural = 'cities'  # TODO: Add localization
 
 
+# TODO: Implement Capital model
 # class Capital(City):
 #     capital_of = models.OneToOneField(Country, on_delete=models.DO_NOTHING)
