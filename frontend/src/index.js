@@ -5,6 +5,7 @@ import Vector from 'ol/source/Vector'
 import GeoJSON from 'ol/format/GeoJSON'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
+import ZoomToExtent from 'ol/control/ZoomToExtent'
 
 let view = new View({
   projection: 'EPSG:4326',
@@ -60,11 +61,17 @@ let cityLayer = new VectorLayer({
   source: citySource
 }) 
 
+let homeExtent = new ZoomToExtent({
+  extent: [26, 34, 52, 60]
+})
+
 let map = new Map({
   target: 'map',
   layers: [layer, countryLayer, cityLayer],
   view: view,
 })
+
+map.addControl(homeExtent)
 
 /*
 
