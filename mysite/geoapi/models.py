@@ -14,12 +14,12 @@ class City(models.Model):
     description = models.TextField(blank=True, null=True)
     # photos
     country = models.ForeignKey(Country, on_delete=models.DO_NOTHING,
-                                null=True)
+                                null=True)  # Need review
     geometry = models.PointField()
 
     def __str__(self):
         return self.name
 
-
+# Need review
 # class Capital(City):
 #     capital_of = models.OneToOneField(Country, on_delete=models.DO_NOTHING)
