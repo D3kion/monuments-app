@@ -17,3 +17,30 @@ const map = new Map({
   layers: [layer],
   view: view,
 });
+
+/*
+
+// Obtaining loken
+const tokenAuthUrl = 'http://127.0.0.1:8000/geoapi/api-token-auth/'
+let token
+fetch(tokenAuthUrl, {
+  method: 'POST',
+  headers: {
+    "Content-Type": "application/json"
+  }, 
+  body: JSON.stringify({
+    username: 'dekion',
+    password: 'salikov'
+  })
+}).then(res => res.json()).then(data => token = data.token)
+
+// Get countries object
+const countryurl = 'http://127.0.0.1:8000/geoapi/country/'
+fetch(countryurl, {
+  method: 'GET',
+  headers: {
+    "Authorization": "Token " + token
+  }
+}).then(res => res.json()).then(data => console.log(data))
+
+*/
