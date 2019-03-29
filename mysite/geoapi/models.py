@@ -3,7 +3,7 @@ from django.contrib.gis.db import models
 
 class Country(models.Model):
     name = models.CharField(max_length=50)
-    geometry = models.PolygonField()
+    geometry = models.MultiPolygonField()
 
     def __str__(self):
         return self.name
