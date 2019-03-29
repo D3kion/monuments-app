@@ -10,7 +10,7 @@ router.register('questions', views.QuestionViewSet)
 router.register('choice', views.ChoiceViewSet)
 
 urlpatterns = [
-    path('auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('auth/', include('rest_framework.urls', namespace='geo-auth')),
     path('api-token-auth/', tokenviews.obtain_auth_token),
     path('', include(router.urls)),
 ]
