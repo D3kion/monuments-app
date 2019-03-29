@@ -26,4 +26,4 @@ Deployment instructions:
     $ python manage.py runserver
     ```
 
-And go to http://127.0.0.1:8000/polls | http://127.0.0.1:8000/admin | http://127.0.0.1:8000/api | http://127.0.0.1:8000/geoapi
+And go to [Polls app](http://127.0.0.1:8000/polls) | [Admin panel](http://127.0.0.1:8000/admin) | [Polls API](http://127.0.0.1:8000/api) | [Geo API](http://127.0.0.1:8000/geoapi)
