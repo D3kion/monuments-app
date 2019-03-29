@@ -20,6 +20,10 @@ const map = new Map({
 
 /*
 
+Login page (Obtaining token) -> Map
+
+
+
 // Obtaining loken
 const tokenAuthUrl = 'http://127.0.0.1:8000/geoapi/api-token-auth/'
 let token
@@ -29,8 +33,8 @@ fetch(tokenAuthUrl, {
     "Content-Type": "application/json"
   }, 
   body: JSON.stringify({
-    username: 'dekion',
-    password: 'salikov'
+    username: 'admin',
+    password: 'qwerty12+'
   })
 }).then(res => res.json()).then(data => token = data.token)
 
