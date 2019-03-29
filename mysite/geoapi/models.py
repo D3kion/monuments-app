@@ -9,8 +9,8 @@ class Country(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'country'
-        verbose_name_plural = 'countries'
+        verbose_name = 'country'  # TODO: Add localization
+        verbose_name_plural = 'countries'  # TODO: Add localization
 
 
 class City(models.Model):
@@ -25,8 +25,8 @@ class City(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'city'
-        verbose_name_plural = 'cities'
+        verbose_name = 'city'  # TODO: Add localization
+        verbose_name_plural = 'cities'  # TODO: Add localization
 
 
 # class Capital(City):
