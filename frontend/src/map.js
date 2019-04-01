@@ -29,7 +29,7 @@ export const MapView = MnView.extend({
 
     this.initLayers()
     this.map = new Map({
-      target: '#map',  // hack
+      target: '#map', // hack
       layers: [this.mainLayer, this.countryLayer, this.cityLayer],
       view: new View({
         projection: 'EPSG:4326',
@@ -42,7 +42,7 @@ export const MapView = MnView.extend({
   },
 
   onDomRefresh() {
-    this.map.setTarget('map')  // hack
+    this.map.setTarget('map') // hack
   },
 
   onLogout() {
