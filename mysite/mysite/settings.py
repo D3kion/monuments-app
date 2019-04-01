@@ -25,7 +25,7 @@ SECRET_KEY = 'jstdyvlpcssdo4#2=atx!d=n+qfg#4k=96&yq_%(kay3flwczq'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.202.214']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

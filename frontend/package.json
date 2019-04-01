@@ -10,7 +10,11 @@
   },
   "author": "",
   "dependencies": {
-    "ol": "^5.3.1"
+    "backbone": "^1.4.0",
+    "backbone.marionette": "^4.0.0",
+    "jquery": "^3.3.1",
+    "ol": "^5.3.1",
+    "underscore": "^1.9.1"
   },
   "devDependencies": {
     "css-loader": "^2.1.1",
