@@ -19,19 +19,4 @@ const App = Application.extend({
 
 const app = new App()
 
-app.Router = Backbone.Router.extend({
-  routes: {
-    ''     : 'index',
-    'read' : 'read' 
-  },
-
-  index: function() {
-    console.log('Всем привет от индексного роута!');   
-  },
-
-  read: function() {
-    console.log('это роут Read');   
-  }
-});
-
 app.start()
