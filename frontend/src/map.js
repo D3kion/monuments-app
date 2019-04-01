@@ -11,7 +11,7 @@ import { View as MnView } from 'backbone.marionette'
 
 export const MapView = MnView.extend({
   template: require('./templates/map.hbs'),
-  // TODO: Not rendering name
+  // TODO: Fix this or pick another way to implement this
   model: new Bb.Model({
     name: 'null'
   }),
@@ -26,8 +26,8 @@ export const MapView = MnView.extend({
 
   initialize() {
     this.getUsername()
-    this.initLayers()
 
+    this.initLayers()
     this.map = new Map({
       target: '#map',  // hack
       layers: [this.mainLayer, this.countryLayer, this.cityLayer],
@@ -37,10 +37,8 @@ export const MapView = MnView.extend({
         zoom: 5,
       }),
     })
-    
-    this.map.addControl(new ZoomToExtent({
-      extent: [26, 34, 52, 60]
-    }))
+
+    this.map.addControl(new ZoomToExtent({extent: [26, 34, 52, 60]}))
   },
 
   onDomRefresh() {
