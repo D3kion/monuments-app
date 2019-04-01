@@ -20,6 +20,14 @@ from .serializers import (
 from .authentication import token_expire_handler, expires_in
 
 
+@api_view(["GET"])
+def user_info(request):
+    return Response({
+        'user': request.user.username,
+        'expires_in': expires_in(Token.objects.get(user=request.user))
+    }, status=HTTP_200_OK)
+
+
 @api_view(['POST'])
 @permission_classes((AllowAny,))
 def signin(request):

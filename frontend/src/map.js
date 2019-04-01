@@ -6,13 +6,26 @@ import GeoJSON from 'ol/format/GeoJSON'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import ZoomToExtent from 'ol/control/ZoomToExtent'
-import _ from 'underscore'
+import Bb from 'backbone'
 import { View as MnView } from 'backbone.marionette'
 
 export const MapView = MnView.extend({
-  template: _.template('<div id="map"></div>'),
+  template: require('./templates/map.hbs'),
+  // TODO: Not rendering name
+  model: new Bb.Model({
+    name: 'null'
+  }),
+
+  ui: {
+    logout: '#logout',
+  },
+
+  events: {
+    'click @ui.logout': 'onLogout',
+  },
 
   initialize() {
+    this.getUsername()
     this.initLayers()
 
     this.map = new Map({
@@ -34,8 +47,13 @@ export const MapView = MnView.extend({
     this.map.setTarget('map')  // hack
   },
 
+  onLogout() {
+    localStorage.removeItem('token')
+    location.reload()
+  },
+
   initLayers() {
-    const url = 'http://' + location.hostname + ':8000/geoapi/'
+    const url = 'http://' + location.hostname + ':8000/api/geo/'
 
     let countrySource = new Vector({
       format: new GeoJSON(),
@@ -81,4 +99,15 @@ export const MapView = MnView.extend({
       source: citySource
     })
   },
+
+  getUsername() {
+    const url = 'http://' + location.hostname + ':8000/api/'
+    fetch(url + 'token-info/', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Token ' + localStorage.token
+      }
+    }).then(res => res.json())
+      .then(data => this.model.set('name', data.user))
+  }
 })

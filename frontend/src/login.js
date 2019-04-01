@@ -27,7 +27,7 @@ export const LoginView = View.extend({
   onSubmit(e) {
     e.preventDefault()
 
-    fetch('http://127.0.0.1:8000/geoapi/token-auth/', {
+    fetch('http://' + location.hostname + ':8000/api/token-auth/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

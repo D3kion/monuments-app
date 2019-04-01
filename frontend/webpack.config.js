@@ -10,13 +10,22 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.js?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
         test: /\.html$/,
-        use: 'html-loader'
+        use: 'html-loader',
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.hbs$/,
+        loader: 'handlebars-loader',
+      }
     ],
   },
   plugins: [

@@ -12,6 +12,7 @@
   "dependencies": {
     "backbone": "^1.4.0",
     "backbone.marionette": "^4.0.0",
+    "handlebars": "^4.1.1",
     "jquery": "^3.3.1",
     "ol": "^5.3.1",
     "underscore": "^1.9.1"
@@ -23,6 +24,10 @@
     "style-loader": "^0.23.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.2.1",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "babel-loader": "^8.0.5",
+    "handlebars-loader": "^1.7.1"
   }
 }
