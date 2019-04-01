@@ -141,7 +141,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'api.authentication.ExpiringTokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
@@ -153,6 +153,8 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = [
     'localhost:8080'
 ]
+
+TOKEN_EXPIRATION_PERIOD = 86400
 
 try:
     from .local_settings import *  # noqa: F401, F403

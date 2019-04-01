@@ -4,6 +4,11 @@ from rest_framework import serializers
 from polls.models import Question, Choice
 
 
+class UserSigninSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
+
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         User = get_user_model()
