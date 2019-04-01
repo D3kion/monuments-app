@@ -20,26 +20,30 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: core/admin.py:10
-msgid "Personal info"
-msgstr "Персональная информация"
+#: geoapi/models.py:6 geoapi/models.py:18
+msgid "name"
+msgstr "название"
 
-#: core/admin.py:12
-msgid "Permissions"
-msgstr "Права доступа"
+#: geoapi/models.py:7 geoapi/models.py:24
+msgid "geometry"
+msgstr "геометрия"
 
-#: core/admin.py:14
-msgid "Important dates"
-msgstr "Важные даты"
+#: geoapi/models.py:13 geoapi/models.py:23
+msgid "country"
+msgstr "страна"
 
-#: core/apps.py:7
-msgid "Core"
-msgstr "Ядро"
+#: geoapi/models.py:14
+msgid "countries"
+msgstr "страны"
 
-#: core/models.py:11
-msgid "Patronymic"
-msgstr "Отчество"
+#: geoapi/models.py:20
+msgid "desription"
+msgstr "описание"
 
-#: core/models.py:13
-msgid "Job"
-msgstr "Работа"
+#: geoapi/models.py:30
+msgid "city"
+msgstr "город"
+
+#: geoapi/models.py:31
+msgid "cities"
+msgstr "города"
