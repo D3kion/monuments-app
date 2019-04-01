@@ -1,5 +1,6 @@
 Deployment instructions:
 -------------------------
+#### Backend:
 1. *Create db*
     ```
     $ psql -U postgres
@@ -27,3 +28,18 @@ Deployment instructions:
     ```
 
 And go to [Polls app](http://127.0.0.1:8000/polls) | [Admin panel](http://127.0.0.1:8000/admin) | [Polls API](http://127.0.0.1:8000/api) | [Geo API](http://127.0.0.1:8000/geoapi)
+
+#### Frontend:
+1. *Install dependencies*
+    ```
+    $ cd frontend
+    $ npm install
+    ```
+2. *Run*
+    ```
+    $ npm start
+    ```
+3. *Build (optional)*
+    ```
+    $ npm run build
+    ```
