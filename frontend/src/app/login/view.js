@@ -1,18 +1,8 @@
-import _ from 'underscore'
 import { View } from 'backbone.marionette'
+import template from './template.hbs'
 
 export const LoginView = View.extend({
-  template: _.template(`
-    <form>
-      <label for="username">Username</label>
-      <input type="text" id="username" placeholder="Username">
-
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Password">
-
-      <button type="submit" id="submit">Submit</button>
-    </form>
-  `),
+  template: template,
 
   ui: {
     username: '#username',
@@ -21,12 +11,11 @@ export const LoginView = View.extend({
   },
   
   events: {
-    'click @ui.submit': 'onSubmit'
+    'click @ui.submit': 'onSubmit',
   },
 
   onSubmit(e) {
     e.preventDefault()
-
     fetch('http://' + location.hostname + ':8000/api/token-auth/', {
       method: 'POST',
       headers: {
