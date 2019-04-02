@@ -31,6 +31,5 @@ class City(models.Model):
         verbose_name_plural = _('cities')
 
 
-# TODO: Implement Capital model
-# class Capital(City):
-#     capital_of = models.OneToOneField(Country, on_delete=models.DO_NOTHING)
+class Capital(City):
+    capital_of = models.OneToOneField(Country, on_delete=models.DO_NOTHING)
