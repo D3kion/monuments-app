@@ -35,11 +35,8 @@ export const MapView = MnView.extend({
       }),
     })
 
+    // HomeExtent button
     this.map.addControl(new ZoomToExtent({extent: [26, 34, 52, 60]}))
-
-
-    console.log(this.map)
-
 
     this.model.on('change', this.render, this)
     this.getUsername()
