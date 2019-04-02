@@ -9,12 +9,12 @@ import ZoomToExtent from 'ol/control/ZoomToExtent'
 import Bb from 'backbone'
 import { View as MnView } from 'backbone.marionette'
 
+import template from './templates/map.hbs'
+
 export const MapView = MnView.extend({
-  template: require('./templates/map.hbs'),
-  // TODO: Fix this or pick another way to implement this
-  model: new Bb.Model({
-    name: 'null'
-  }),
+  template: template,
+
+  model: new Bb.Model(),
 
   ui: {
     logout: '#logout',
@@ -25,11 +25,8 @@ export const MapView = MnView.extend({
   },
 
   initialize() {
-    this.getUsername()
-
     this.initLayers()
     this.map = new Map({
-      target: '#map', // hack
       layers: [this.mainLayer, this.countryLayer, this.cityLayer],
       view: new View({
         projection: 'EPSG:4326',
@@ -39,9 +36,17 @@ export const MapView = MnView.extend({
     })
 
     this.map.addControl(new ZoomToExtent({extent: [26, 34, 52, 60]}))
+
+
+    console.log(this.map)
+
+
+    this.model.on('change', this.render, this)
+    this.getUsername()
   },
 
   onDomRefresh() {
+    this.map.setTarget('#map') // hack
     this.map.setTarget('map') // hack
   },
 
