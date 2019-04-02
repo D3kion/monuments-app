@@ -1,3 +1,4 @@
+import '../../styles/login.css'
 import { View } from 'backbone.marionette'
 import template from './template.hbs'
 
