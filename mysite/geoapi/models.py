@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Country(models.Model):
     name = models.CharField(max_length=50, verbose_name=_('name'))
-    geometry = models.MultiPolygonField(verbose_name=_('geometry'))
+    geometry = models.GeometryField(verbose_name=_('geometry'))
 
     def __str__(self):
         return self.name
