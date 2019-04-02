@@ -36,8 +36,8 @@ export const MainView = View.extend({
   },
 
   getUsername() {
-    const url = 'http://' + location.hostname + ':8000/api/'
-    fetch(url + 'token-info/', {
+    const url = 'http://' + location.hostname + ':8000/api/token-info/'
+    fetch(url, {
       method: 'GET',
       headers: {
         'Authorization': 'Token ' + localStorage.token
