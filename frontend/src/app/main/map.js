@@ -21,16 +21,17 @@ export const MapView = MnView.extend({
         center: [39, 47],
         zoom: 5,
       }),
+      controls: [],
     })
-
-    // HomeExtent button
-    this.map.addControl(new ZoomToExtent({extent: [26, 34, 52, 60]}))
   },
 
-  // onDomRefresh() {
-  //   this.map.setTarget('#map') // hack
-  //   this.map.setTarget('map') // hack
-  // },
+  homeExtent() {
+    this.map.setView(new View({
+      projection: 'EPSG:4326',
+      center: [39, 47],
+      zoom: 5,
+    }))
+  },
 
   initLayers() {
     const url = 'http://' + location.hostname + ':8000/api/geo/'

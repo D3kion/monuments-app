@@ -14,10 +14,12 @@ export const MainView = View.extend({
   },
 
   ui: {
+    homeExtent: '#home-extent',
     logout: '#logout',
   },
 
   events: {
+    'click @ui.homeExtent': 'onHomeExtent',
     'click @ui.logout': 'onLogout',
   },
 
@@ -28,6 +30,10 @@ export const MainView = View.extend({
 
   onRender() {
     this.map = new MapView()
+  },
+
+  onHomeExtent() {
+    this.map.homeExtent()
   },
 
   onLogout() {
