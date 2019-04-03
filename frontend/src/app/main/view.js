@@ -30,7 +30,7 @@ export default View.extend({
       menu: {
         el: '#menu-placeholder',
         replaceElement: true,
-      }
+      },
     })
 
     this.model.on('change', this.render, this)
