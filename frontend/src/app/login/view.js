@@ -2,7 +2,7 @@ import '../../styles/login.css'
 import { View } from 'backbone.marionette'
 import template from './template.hbs'
 
-export const LoginView = View.extend({
+export default View.extend({
   template: template,
 
   ui: {

@@ -5,10 +5,9 @@ import Vector from 'ol/source/Vector'
 import GeoJSON from 'ol/format/GeoJSON'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
-import ZoomToExtent from 'ol/control/ZoomToExtent'
 import { View as MnView } from 'backbone.marionette'
 
-export const MapView = MnView.extend({
+export default MnView.extend({
   template: false,
   
   initialize() {

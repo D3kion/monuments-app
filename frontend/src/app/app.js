@@ -1,10 +1,9 @@
 import '../styles/main.css'
 import { Application } from 'backbone.marionette'
+import LoginView from './login/view'
+import MainView from './main/view'
 
-import { LoginView } from './login/view'
-import { MainView } from './main/view'
-
-export const App = Application.extend({
+export default Application.extend({
   region: '#root',
 
   onStart() {

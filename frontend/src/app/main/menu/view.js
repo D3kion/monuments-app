@@ -1,9 +1,7 @@
-import Bb from 'backbone'
 import { View } from 'backbone.marionette'
-
 import template from './template.hbs'
 
-export const MenuView = View.extend({
+export default View.extend({
   template: template,
 
   ui: {

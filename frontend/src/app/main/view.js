@@ -1,10 +1,10 @@
 import Bb from 'backbone'
 import { View } from 'backbone.marionette'
 import template from './template.hbs'
-import { MapView } from './map'
-import { MenuView } from './menu/view'
+import MapView from './map'
+import MenuView from './menu/view'
 
-export const MainView = View.extend({
+export default View.extend({
   template: template,
 
   model: new Bb.Model(),
