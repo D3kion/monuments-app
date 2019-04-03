@@ -16,9 +16,13 @@ export const MainView = View.extend({
   },
 
   events: {
-    'click @ui.layers': 'onLayers',
+    'click @ui.layers': 'showLayersMenu',
     'click @ui.homeExtent': 'onHomeExtent',
     'click @ui.logout': 'onLogout',
+  },
+
+  childViewEvents: {
+    'close:menu': 'closeMenu',
   },
 
   initialize() {
@@ -37,8 +41,12 @@ export const MainView = View.extend({
     this.map = new MapView()
   },
 
-  onLayers() {
-    this.getRegion('menu').show(new MenuView())
+  showLayersMenu() {
+    this.showChildView('menu', new MenuView())
+  },
+
+  closeMenu() {
+    this.getRegion('menu').empty()
   },
 
   onHomeExtent() {
@@ -48,6 +56,10 @@ export const MainView = View.extend({
   onLogout() {
     localStorage.removeItem('token')
     location.reload()
+  },
+
+  onCloseMenu() {
+    console.log('close')
   },
 
   getUsername() {

@@ -10,7 +10,11 @@ export const MenuView = View.extend({
     close: '#close',
   },
 
-  trigers: {
-    'click @ui.close': 'close',
+  events: {
+    'click @ui.close': 'onClose',
+  },
+
+  onClose() {
+    this.triggerMethod('close:menu', this)
   },
 })
