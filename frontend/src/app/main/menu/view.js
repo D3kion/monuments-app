@@ -12,6 +12,15 @@ export default View.extend({
     'click @ui.close': 'onClose',
   },
 
+  initialize(obj) {
+    this.contentView = obj.contentView
+  },
+
+  onRender() {
+    this.addRegions({ content: '#content' })
+    this.showChildView('content', this.contentView)
+  },
+
   onClose() {
     this.triggerMethod('close:menu', this)
   },

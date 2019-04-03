@@ -35,7 +35,7 @@
   font-style: oblique;
 }
 
-#menu .content {
+#menu #content {
   height: 100%;
   padding: 1em 1.25em;
   background-color: azure;

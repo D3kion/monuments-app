@@ -3,6 +3,7 @@ import { View } from 'backbone.marionette'
 import template from './template.hbs'
 import MapView from './map'
 import MenuView from './menu/view'
+import CountryView from './menu/country'
 
 export default View.extend({
   template: template,
@@ -47,8 +48,10 @@ export default View.extend({
     this.showChildView('map', this.map)
   },
 
-  showMenu() {
-    this.showChildView('menu', new MenuView())
+  showMenu(view) {
+    this.showChildView('menu', new MenuView({
+      contentView: view
+    }))
   },
 
   closeMenu() {
@@ -60,9 +63,8 @@ export default View.extend({
   },
 
   openFeature(view, feature) {
-    console.log(feature)
     if (feature !== undefined)
-      this.showMenu()
+      this.showMenu(new CountryView(feature))
   },
 
   onHomeExtent() {
