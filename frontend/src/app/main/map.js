@@ -5,7 +5,8 @@ import Vector from 'ol/source/Vector'
 import GeoJSON from 'ol/format/GeoJSON'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
-import Select from 'ol/interaction/Select.js';
+import Select from 'ol/interaction/Select.js'
+import { never } from 'ol/events/condition'
 import { View as MnView } from 'backbone.marionette'
 import template from './map.hbs'
 
@@ -24,7 +25,9 @@ export default MnView.extend({
       controls: [],
     })
 
-    this.select = new Select({})
+    this.select = new Select({
+      toggleCondition: never
+    })
     this.map.addInteraction(this.select)
     this.select.on('select', this.onSelect.bind(this))
   },

@@ -61,7 +61,8 @@ export default View.extend({
 
   openFeature(view, feature) {
     console.log(feature)
-    this.showMenu()
+    if (feature !== undefined)
+      this.showMenu()
   },
 
   onHomeExtent() {
