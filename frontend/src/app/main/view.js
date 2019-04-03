@@ -16,19 +16,24 @@ export default View.extend({
   },
 
   events: {
-    'click @ui.layers': 'showLayersMenu',
+    'click @ui.layers': 'openLayers',
     'click @ui.homeExtent': 'onHomeExtent',
     'click @ui.logout': 'onLogout',
   },
 
   childViewEvents: {
     'close:menu': 'closeMenu',
+    'open:feature': 'openFeature',
   },
 
   initialize() {
     this.addRegions({
       menu: {
         el: '#menu-placeholder',
+        replaceElement: true,
+      },
+      map: {
+        el: '#map-placeholder',
         replaceElement: true,
       },
     })
@@ -39,14 +44,25 @@ export default View.extend({
 
   onRender() {
     this.map = new MapView()
+    this.showChildView('map', this.map)
+    console.log(this.map)
   },
 
-  showLayersMenu() {
+  showMenu() {
     this.showChildView('menu', new MenuView())
   },
 
   closeMenu() {
     this.getRegion('menu').empty()
+  },
+
+  openLayers() {
+    console.log(this)
+    this.showMenu()
+  },
+
+  openFeature() {
+    this.showMenu()
   },
 
   onHomeExtent() {

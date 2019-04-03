@@ -5,15 +5,16 @@ import Vector from 'ol/source/Vector'
 import GeoJSON from 'ol/format/GeoJSON'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
+import Select from 'ol/interaction/Select.js';
 import { View as MnView } from 'backbone.marionette'
+import template from './map.hbs'
 
 export default MnView.extend({
-  template: false,
+  template: template,
   
   initialize() {
     this.initLayers()
     this.map = new Map({
-      target: 'map',
       layers: [this.mainLayer, this.countryLayer, this.cityLayer],
       view: new View({
         projection: 'EPSG:4326',
@@ -22,6 +23,20 @@ export default MnView.extend({
       }),
       controls: [],
     })
+
+    this.select = new Select({})
+    this.map.addInteraction(this.select)
+    this.select.on('select', this.onSelect.bind(this))
+  },
+
+  onDomRefresh() {
+    this.map.setTarget('map')
+  },
+
+  onSelect(e) {
+    const feature = e.target.getFeatures().getArray()[0]
+    console.log(feature)
+    this.triggerMethod('open:feature', this)
   },
 
   homeExtent() {
