@@ -20,8 +20,7 @@
   left: 4em;
   width: 22em;
   top: 10%;
-  bottom: 5%;
-  background-color: azure;
+  bottom: 15%;
 }
 
 #menu .menu-header {
@@ -29,13 +28,17 @@
   padding-right: .5em;
   background-color: cornflowerblue;
   text-align: end;
+  border-radius: 10px 10px 0 0;
 }
 #menu .menu-header a {
   color: #fff;
 }
 
 #menu .content {
+  height: 100%;
   padding: 1em 1.25em;
+  background-color: azure;
+  border-radius: 0 0 10px 10px;
 }
 
 
