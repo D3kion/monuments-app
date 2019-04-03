@@ -58,10 +58,6 @@ export default View.extend({
     location.reload()
   },
 
-  onCloseMenu() {
-    console.log('close')
-  },
-
   getUsername() {
     const url = 'http://' + location.hostname + ':8000/api/token-info/'
     fetch(url, {
