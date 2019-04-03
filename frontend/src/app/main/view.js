@@ -45,7 +45,6 @@ export default View.extend({
   onRender() {
     this.map = new MapView()
     this.showChildView('map', this.map)
-    console.log(this.map)
   },
 
   showMenu() {
@@ -57,11 +56,11 @@ export default View.extend({
   },
 
   openLayers() {
-    console.log(this)
     this.showMenu()
   },
 
-  openFeature() {
+  openFeature(view, feature) {
+    console.log(feature)
     this.showMenu()
   },
 

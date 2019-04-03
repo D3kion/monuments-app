@@ -35,8 +35,7 @@ export default MnView.extend({
 
   onSelect(e) {
     const feature = e.target.getFeatures().getArray()[0]
-    console.log(feature)
-    this.triggerMethod('open:feature', this)
+    this.triggerMethod('open:feature', this, feature)
   },
 
   homeExtent() {
