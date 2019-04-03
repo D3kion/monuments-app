@@ -1,1 +1,13 @@
-<span>{{ name }}</span>
+<span class="h3">{{ name }}</span>
+<button type="button" class="btn btn-success btn-sm">Edit</button>
+<hr>
+{{#if isCountry}}
+    CountryInfo
+    {{!-- Capital -- clickable --}}
+    {{!-- CityList -- clickable --}}
+{{^}}
+    CityInfo
+    {{!-- Country (Capital) -- clickable --}}
+    {{!-- Description --}}
+    {{!-- Photos --}}
+{{/if}}

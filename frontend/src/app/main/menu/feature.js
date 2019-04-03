@@ -10,8 +10,19 @@ export default View.extend({
   },
 
   serializeData() {
-    return {
-      name: this.feature.name,
-    }
+    const isCountry = this.feature.city_set !== undefined
+
+    if (isCountry)
+      return {
+        isCountry,
+        name: this.feature.name,
+        // capital, city_set
+      }
+    else
+      return {
+        isCountry,
+        name: this.feature.name,
+        // country, description, photos
+      }
   },
 })
