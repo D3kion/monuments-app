@@ -14,6 +14,31 @@
   right: 1.5em;
 }
 
+#menu {
+  z-index: 10;
+  position: fixed;
+  left: 4em;
+  width: 22em;
+  top: 10%;
+  bottom: 5%;
+  background-color: azure;
+}
+
+#menu .menu-header {
+  height: 1.5em;
+  padding-right: .5em;
+  background-color: cornflowerblue;
+  text-align: end;
+}
+#menu .menu-header a {
+  color: #fff;
+}
+
+#menu .content {
+  padding: .75em 1em;
+}
+
+
 /*
  * Navbar
  */

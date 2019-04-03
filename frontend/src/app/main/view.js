@@ -1,35 +1,44 @@
 import Bb from 'backbone'
 import { View } from 'backbone.marionette'
-
-import { MapView } from './map'
 import template from './template.hbs'
+import { MapView } from './map'
+import { MenuView } from './menu/view'
 
 export const MainView = View.extend({
   template: template,
 
   model: new Bb.Model(),
 
-  region: {
-    'mapRegion': '#map',
-  },
-
   ui: {
+    layers: '#layers',
     homeExtent: '#home-extent',
     logout: '#logout',
   },
 
   events: {
+    'click @ui.layers': 'onLayers',
     'click @ui.homeExtent': 'onHomeExtent',
     'click @ui.logout': 'onLogout',
   },
 
   initialize() {
+    this.addRegions({
+      menu: {
+        el: '#menu-placeholder',
+        replaceElement: true,
+      }
+    })
+
     this.model.on('change', this.render, this)
     this.getUsername()
   },
 
   onRender() {
     this.map = new MapView()
+  },
+
+  onLayers() {
+    this.getRegion('menu').show(new MenuView())
   },
 
   onHomeExtent() {
