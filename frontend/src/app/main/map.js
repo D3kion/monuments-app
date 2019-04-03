@@ -1,4 +1,5 @@
 import 'ol/ol.css'
+import * as proj from 'ol/proj'
 import { Map, View } from 'ol'
 import OSM from 'ol/source/OSM'
 import Vector from 'ol/source/Vector'
@@ -18,9 +19,8 @@ export default MnView.extend({
     this.map = new Map({
       layers: [this.mainLayer, this.countryLayer, this.cityLayer],
       view: new View({
-        projection: 'EPSG:4326',
-        center: [39, 47],
-        zoom: 5,
+        center: proj.transform([39, 47], 'EPSG:4326', 'EPSG:3857'),
+        zoom: 4,
       }),
       controls: [],
     })
@@ -43,9 +43,8 @@ export default MnView.extend({
 
   homeExtent() {
     this.map.setView(new View({
-      projection: 'EPSG:4326',
-      center: [39, 47],
-      zoom: 5,
+      center: proj.transform([39, 47], 'EPSG:4326', 'EPSG:3857'),
+      zoom: 4,
     }))
   },
 
@@ -53,7 +52,10 @@ export default MnView.extend({
     const url = 'http://' + location.hostname + ':8000/api/geo/'
 
     let countrySource = new Vector({
-      format: new GeoJSON(),
+      format: new GeoJSON({
+        defaultDataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'
+      }),
       loader: function() {
         fetch(url + 'country/', {
           method: 'GET',
@@ -69,7 +71,10 @@ export default MnView.extend({
     })
     
     let citySource = new Vector({
-      format: new GeoJSON(),
+      format: new GeoJSON({
+        defaultDataProjection: 'EPSG:4326',
+        featureProjection: 'EPSG:3857'
+      }),
       loader: function() {
         fetch(url + 'city/', {
           method: 'GET',
