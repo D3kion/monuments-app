@@ -31,5 +31,13 @@ class City(models.Model):
         verbose_name_plural = _('cities')
 
 
-class Capital(City):
+class Capital(models.Model):
+    city = models.OneToOneField(City, on_delete=models.CASCADE)
     capital_of = models.OneToOneField(Country, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.city.name
+
+    class Meta:
+        verbose_name = _('capital')
+        verbose_name_plural = _('capitals')
