@@ -53,30 +53,8 @@ export default View.extend({
   },
 
   searchFeature(e) {
-    if (e.keyCode == 13) {
-      const q = e.target.value
-      let res = []
-
-      const url = 'http://' + location.hostname + ':8000/api/geo/search/'
-      fetch(url + 'country/?search=' + q, {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Token ' + localStorage.token
-        }
-      }).then(res => res.json())
-        .then(data => res.push({countries: data}))
-
-      fetch(url + 'city/?search=' + q, {
-        method: 'GET',
-        headers: {
-          'Authorization': 'Token ' + localStorage.token
-        }
-      }).then(res => res.json())
-        .then(data => {
-          res.push({cities: data})
-          this.showMenu(new SearchView(res))
-        })
-    }
+    if (e.keyCode == 13)
+      this.showMenu(new SearchView(e.target.value))
   },
 
   showMenu(view) {

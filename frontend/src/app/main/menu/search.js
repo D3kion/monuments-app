@@ -15,9 +15,38 @@ export default View.extend({
     'click @ui.feature': 'openFeature'
   },
 
-  initialize(list) {
+  initialize(q) {
     this.model.on('change', this.render, this)
-    this.model.set('list', list)
+    
+    this.search(q)
+  },
+
+  search(q) {
+    const url = 'http://' + location.hostname + ':8000/api/geo/search/'
+    let res = []
+
+    fetch(url + 'country/?search=' + q, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Token ' + localStorage.token
+      }
+    }).then(res => res.json())
+      .then(data => {
+        if (data.length > 0)
+          res.push({countries: data})
+      }).then(() => {
+        fetch(url + 'city/?search=' + q, {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Token ' + localStorage.token
+          }
+        }).then(res => res.json())
+          .then(data => {
+            if (data.length > 0)
+              res.push({countries: data})
+            this.model.set('list', res)
+          })
+      })
   },
 
   openFeature(e) {
