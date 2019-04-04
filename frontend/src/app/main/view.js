@@ -56,6 +56,7 @@ export default View.extend({
 
   closeMenu() {
     this.getRegion('menu').empty()
+    this.map.select.getFeatures().clear()
   },
 
   openLayers() {
