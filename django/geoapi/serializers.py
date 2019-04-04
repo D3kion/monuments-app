@@ -5,12 +5,14 @@ from .models import City, Capital, Country
 
 
 class CitySerializer(GeoFeatureModelSerializer):
-    country = serializers.StringRelatedField()
+    country_name = serializers.StringRelatedField(source='country')
 
     class Meta:
         model = City
         geo_field = 'geometry'
-        fields = ['url', 'name', 'description', 'country']
+        fields = ['url', 'country',
+                  'name', 'description', 'country_name']
+
 
 class CapitalSerializer(serializers.ModelSerializer):
     city_name = serializers.StringRelatedField(source='city')
@@ -23,9 +25,11 @@ class CapitalSerializer(serializers.ModelSerializer):
 
 
 class CountrySerializer(GeoFeatureModelSerializer):
-    city_set = serializers.StringRelatedField(many=True)
+    cities = serializers.StringRelatedField(source='city_set', many=True)
+    capital_name = serializers.StringRelatedField(source='capital')
 
     class Meta:
         model = Country
         geo_field = 'geometry'
-        fields = ['url', 'name', 'city_set']
+        fields = ['url', 'city_set', 'capital',
+                  'name', 'capital_name', 'cities']
