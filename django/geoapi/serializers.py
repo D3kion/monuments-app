@@ -1,13 +1,7 @@
+from rest_framework import serializers
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 from .models import City, Country
-
-
-class CountrySerializer(GeoFeatureModelSerializer):
-    class Meta:
-        model = Country
-        geo_field = 'geometry'
-        fields = ['url', 'name', 'city_set']
 
 
 class CitySerializer(GeoFeatureModelSerializer):
@@ -15,3 +9,12 @@ class CitySerializer(GeoFeatureModelSerializer):
         model = City
         geo_field = 'geometry'
         fields = ['url', 'name', 'description', 'country']
+
+
+class CountrySerializer(GeoFeatureModelSerializer):
+    city_set = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Country
+        geo_field = 'geometry'
+        fields = ['url', 'name', 'city_set']
