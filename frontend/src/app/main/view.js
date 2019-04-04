@@ -76,14 +76,8 @@ export default View.extend({
     const id = Object.entries(feature)[0][1]
     this.showMenu(new FeatureView(type, id))
     
-    let mapFeature = null
-    if (type == 'city')
-      mapFeature = this.map.cityLayer.getSource().getFeatureById(id)
-    else
-      mapFeature = this.map.countryLayer.getSource().getFeatureById(id)
-    
     this.map.select.getFeatures().clear()
-    this.map.select.getFeatures().push(mapFeature)
+    this.map.select.getFeatures().push(this.getFeature(type, id))
   },
 
   onHomeExtent() {
@@ -105,4 +99,11 @@ export default View.extend({
     }).then(res => res.json())
       .then(data => this.model.set('name', data.user))
   },
+
+  getFeature(type, id) {
+    if (type == 'city')
+      return this.map.cityLayer.getSource().getFeatureById(id)
+    else
+      return this.map.countryLayer.getSource().getFeatureById(id)
+  }
 })
