@@ -16,13 +16,16 @@ export default View.extend({
       return {
         isCountry,
         name: this.feature.name,
-        // capital, city_set
+        capital: this.feature.capital_name,
+        city_set: this.feature.cities
       }
     else
       return {
         isCountry,
         name: this.feature.name,
-        // country, description, photos
+        country: this.feature.country_name,
+        description: this.feature.description,
+        // photos
       }
   },
 })
