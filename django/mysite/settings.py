@@ -151,7 +151,9 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'localhost:8080'
+    'localhost:8080',
+    '0.0.0.0:8080',
+    '192.168.202.214:8080',
 ]
 
 TOKEN_EXPIRATION_PERIOD = 86400
