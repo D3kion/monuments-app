@@ -25,6 +25,7 @@ export default View.extend({
   childViewEvents: {
     'close:menu': 'closeMenu',
     'open:feature': 'openFeature',
+    'open:feature:id': 'openFeatureById',
   },
 
   initialize() {
@@ -64,8 +65,15 @@ export default View.extend({
   },
 
   openFeature(view, feature) {
-    if (feature !== undefined)
-      this.showMenu(new FeatureView(feature))
+    if (feature !== undefined) {
+      const type = feature.getGeometry().constructor.name === 'Point' ? 'city' : 'country'    
+      this.showMenu(new FeatureView(type, feature.getId()))
+    }
+  },
+
+  openFeatureById(view, feature) {
+    const obj = Object.entries(feature)[0]
+    this.showMenu(new FeatureView(obj[0], obj[1]))
   },
 
   onHomeExtent() {

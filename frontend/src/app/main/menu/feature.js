@@ -6,12 +6,23 @@ export default View.extend({
   template: template,
 
   model: new Bb.Model(),
+  
+  ui: {
+    feature: '.clickable',
+  },
 
-  initialize(feature) {
-    const featureType = feature.getGeometry().constructor.name === 'Point' ? 'city' : 'country'
+  events: {
+    'click @ui.feature': 'openFeature'
+  },
+
+  initialize(type, id) {
 
     this.model.on('change', this.render, this)
-    this.loadFeatureInfo(featureType, feature.getId())
+    this.loadFeatureInfo(type, id)
+  },
+
+  openFeature(e) {
+    this.triggerMethod('open:feature:id', this, e.target.dataset)
   },
 
   loadFeatureInfo(type, id) {

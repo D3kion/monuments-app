@@ -14,6 +14,12 @@ export default View.extend({
 
   initialize(obj) {
     this.contentView = obj.contentView
+
+    this.contentView.on('open:feature:id', this.openFeatureById, this)
+  },
+
+  openFeatureById(view, feature) {
+    this.triggerMethod('open:feature:id', this, feature)
   },
 
   onRender() {

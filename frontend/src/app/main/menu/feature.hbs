@@ -2,15 +2,15 @@
 <button type="button" class="btn btn-success btn-sm">Edit</button>
 <hr>
 {{#if isCountry}}
-    <strong>Capital:</strong> <a href="#">{{capital}}</a><br>
+    <strong>Capital:</strong> <a class="clickable" data-city={{capital.id}} href="#">{{capital.name}}</a><br>
     <strong>Cities:</strong>
     <ul>
     {{#each city_set as |city|}}
-        <li><a href="#">{{city}}</a></li>
+        <li><a class="clickable" data-city={{city.id}} href="#">{{city.name}}</a></li>
     {{/each}}
     </ul>
 {{else}}
-    <strong>Country:</strong> <a href="#">{{country}}</a><br>
+    <strong>Country:</strong> <a class="clickable" data-country={{country.id}} href="#">{{country.name}}</a><br>
     {{#if description}}
     <strong>Description:</strong>
     <p>{{description}}</p>
