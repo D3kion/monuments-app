@@ -5,27 +5,34 @@ import template from './feature.hbs'
 export default View.extend({
   template: template,
 
+  model: new Bb.Model(),
+
   initialize(feature) {
-    this.feature = feature.values_
+    const featureType = feature.getGeometry().constructor.name === 'Point' ? 'city' : 'country'
+
+    this.model.on('change', this.render, this)
+    this.loadFeatureInfo(featureType, feature.getId())
   },
 
-  serializeData() {
-    const isCountry = this.feature.city_set !== undefined
+  loadFeatureInfo(type, id) {
+    const url = 'http://' + location.hostname + ':8000/api/geo/info/'
+    fetch(url + type + '/' + id, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Token ' + localStorage.token
+      }
+    }).then(res => res.json())
+      .then(data => {
+        this.model.set('isCountry', type === 'country')
+        this.model.set('name', data.name)
 
-    if (isCountry)
-      return {
-        isCountry,
-        name: this.feature.name,
-        capital: this.feature.capital_name,
-        city_set: this.feature.cities
-      }
-    else
-      return {
-        isCountry,
-        name: this.feature.name,
-        country: this.feature.country_name,
-        description: this.feature.description,
-        // photos
-      }
+        if (type === 'country') {
+          this.model.set('capital', data.capital)
+          this.model.set('city_set', data.city_set)
+        } else {
+          this.model.set('country', data.country)
+          this.model.set('description', data.description)
+        }
+      })
   },
 })

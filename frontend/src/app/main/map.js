@@ -49,7 +49,7 @@ export default MnView.extend({
   },
 
   initLayers() {
-    const url = 'http://' + location.hostname + ':8000/api/geo/'
+    const url = 'http://' + location.hostname + ':8000/api/geo/geojson/'
 
     let countrySource = new Vector({
       format: new GeoJSON({
