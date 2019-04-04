@@ -8,7 +8,6 @@ router.register('country', views.CountryViewSet)
 router.register('city', views.CityViewSet)
 router.register('capital', views.CapitalViewSet)
 
-
 urlpatterns = [
     path('', include(router.urls)),
     path('geojson/country/', views.CountryGeoView.as_view(),
@@ -18,4 +17,8 @@ urlpatterns = [
          name='country-info'),
     path('info/city/<int:pk>/', views.CityInfoView.as_view(),
          name='city-info'),
+    path('search/country/', views.CountrySearchView.as_view(),
+         name='country-search'),
+    path('search/city/', views.CitySearchView.as_view(),
+         name='city-search'),
 ]

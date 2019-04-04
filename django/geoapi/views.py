@@ -1,9 +1,10 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, filters
 
 from .models import City, Capital, Country
 from .serializers import (
     CountryGeoSerializer, CityGeoSerializer,
     CountryInfoSerializer, CityInfoSerializer,
+    CountryInfoHelperSerializer, CityInfoHelperSerializer,
     CountrySerializer, CitySerializer, CapitalSerializer,
 )
 
@@ -46,3 +47,19 @@ class CountryInfoView(generics.RetrieveAPIView):
 class CityInfoView(generics.RetrieveAPIView):
     queryset = City.objects.all()
     serializer_class = CityInfoSerializer
+
+
+class CountrySearchView(generics.ListAPIView):
+    queryset = Country.objects.all()
+    serializer_class = CountryInfoHelperSerializer
+    pagination_class = None
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name',)
+
+
+class CitySearchView(generics.ListAPIView):
+    queryset = City.objects.all()
+    serializer_class = CityInfoHelperSerializer
+    pagination_class = None
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name',)
