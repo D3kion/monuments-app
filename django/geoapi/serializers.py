@@ -4,32 +4,52 @@ from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from .models import City, Capital, Country
 
 
-class CitySerializer(GeoFeatureModelSerializer):
-    country_name = serializers.StringRelatedField(source='country')
-
-    class Meta:
-        model = City
-        geo_field = 'geometry'
-        fields = ['url', 'country',
-                  'name', 'description', 'country_name']
-
-
-class CapitalSerializer(serializers.ModelSerializer):
-    city_name = serializers.StringRelatedField(source='city')
-    capital_name = serializers.StringRelatedField(source='capital_of')
-
-    class Meta:
-        model = Capital
-        fields = ['url', 'city', 'capital_of',
-                  'city_name', 'capital_name']
-
-
 class CountrySerializer(GeoFeatureModelSerializer):
-    cities = serializers.StringRelatedField(source='city_set', many=True)
-    capital_name = serializers.StringRelatedField(source='capital')
-
     class Meta:
         model = Country
         geo_field = 'geometry'
-        fields = ['url', 'city_set', 'capital',
-                  'name', 'capital_name', 'cities']
+        fields = ['id', 'url', 'name', 'capital', 'city_set']
+
+
+class CitySerializer(GeoFeatureModelSerializer):
+    class Meta:
+        model = City
+        geo_field = 'geometry'
+        fields = ['id', 'url', 'name', 'country', 'description']
+
+
+class CapitalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Capital
+        fields = ['url', 'city', 'capital_of']
+
+
+class CountryGeoSerializer(GeoFeatureModelSerializer):
+    class Meta:
+        model = Country
+        geo_field = 'geometry'
+        fields = ['id']
+
+
+class CityGeoSerializer(GeoFeatureModelSerializer):
+    class Meta:
+        model = City
+        geo_field = 'geometry'
+        fields = ['id']
+
+
+class CountryInfoSerializer(serializers.ModelSerializer):
+    city_set = serializers.StringRelatedField(many=True)
+    capital = serializers.StringRelatedField()
+
+    class Meta:
+        model = Country
+        fields = ['name', 'capital', 'city_set']
+
+
+class CityInfoSerializer(serializers.ModelSerializer):
+    country = serializers.StringRelatedField()
+
+    class Meta:
+        model = City
+        fields = ['name', 'country', 'description']  # +photos
