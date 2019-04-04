@@ -38,17 +38,38 @@ class CityGeoSerializer(GeoFeatureModelSerializer):
         fields = ['id']
 
 
+class CityInfoHelperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ['id', 'name']
+
+
+class CapitalInfoHelperSerializer(serializers.ModelSerializer):
+    id = serializers.PrimaryKeyRelatedField(source='city', read_only=True)
+    name = serializers.StringRelatedField(source='city')
+
+    class Meta:
+        model = Capital
+        fields = ['id', 'name']
+
+
 class CountryInfoSerializer(serializers.ModelSerializer):
-    city_set = serializers.StringRelatedField(many=True)
-    capital = serializers.StringRelatedField()
+    city_set = CityInfoHelperSerializer(many=True)
+    capital = CapitalInfoHelperSerializer()
 
     class Meta:
         model = Country
         fields = ['name', 'capital', 'city_set']
 
 
+class CountryInfoHelperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ['id', 'name']
+
+
 class CityInfoSerializer(serializers.ModelSerializer):
-    country = serializers.StringRelatedField()
+    country = CountryInfoHelperSerializer()
 
     class Meta:
         model = City
