@@ -5,6 +5,8 @@ from .models import City, Country
 
 
 class CitySerializer(GeoFeatureModelSerializer):
+    country = serializers.StringRelatedField()
+
     class Meta:
         model = City
         geo_field = 'geometry'
