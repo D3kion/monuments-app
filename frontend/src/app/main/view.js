@@ -4,6 +4,7 @@ import template from './template.hbs'
 import MapView from './map'
 import MenuView from './menu/view'
 import FeatureView from './menu/feature'
+import SearchView from './menu/search'
 
 export default View.extend({
   template: template,
@@ -14,12 +15,14 @@ export default View.extend({
     layers: '#layers',
     homeExtent: '#home-extent',
     logout: '#logout',
+    search: '#search',
   },
 
   events: {
     'click @ui.layers': 'openLayers',
     'click @ui.homeExtent': 'onHomeExtent',
     'click @ui.logout': 'onLogout',
+    'keyup @ui.search': 'searchFeature',
   },
 
   childViewEvents: {
@@ -49,10 +52,35 @@ export default View.extend({
     this.showChildView('map', this.map)
   },
 
+  searchFeature(e) {
+    if (e.keyCode == 13) {
+      const q = e.target.value
+      let res = []
+
+      const url = 'http://' + location.hostname + ':8000/api/geo/search/'
+      fetch(url + 'country/?search=' + q, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Token ' + localStorage.token
+        }
+      }).then(res => res.json())
+        .then(data => res.push({countries: data}))
+
+      fetch(url + 'city/?search=' + q, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Token ' + localStorage.token
+        }
+      }).then(res => res.json())
+        .then(data => {
+          res.push({cities: data})
+          this.showMenu(new SearchView(res))
+        })
+    }
+  },
+
   showMenu(view) {
-    this.showChildView('menu', new MenuView({
-      contentView: view
-    }))
+    this.showChildView('menu', new MenuView({ contentView: view }))
   },
 
   closeMenu() {

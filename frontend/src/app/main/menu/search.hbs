@@ -1,0 +1,16 @@
+<span class="h3">Search results:</span>
+<hr>
+{{#if list}}
+<ul>
+{{#each list as |l|}}
+    {{#each l.countries as |c|}}
+    <li>Country: <a class="clickable" data-country={{c.id}} href="#">{{c.name}}</a></li>
+    {{/each}}
+    {{#each l.cities as |c|}}
+    <li>City: <a class="clickable" data-city={{c.id}} href="#">{{c.name}}</a></li>
+    {{/each}}
+{{/each}}
+</ul>
+{{else}}
+    <strong>Nothing found.</strong>
+{{/if}}
