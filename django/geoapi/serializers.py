@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
-from .models import City, Capital, Country, Image
+from .models import City, Capital, Country, Image, CountriesHelper
 
 
 class CountrySerializer(GeoFeatureModelSerializer):
@@ -81,3 +81,13 @@ class CityInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = ['name', 'country', 'description', 'images']
+
+
+#
+# CountriesHelper
+#
+class CountriesHelperSerializer(GeoFeatureModelSerializer):
+    class Meta:
+        model = CountriesHelper
+        geo_field = 'geometry'
+        fields = ['id', 'name']

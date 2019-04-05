@@ -7,6 +7,7 @@ router = routers.DefaultRouter()
 router.register('country', views.CountryViewSet)
 router.register('city', views.CityViewSet)
 router.register('capital', views.CapitalViewSet)
+router.register('countries', views.CountriesHelperView)
 
 urlpatterns = [
     path('', include(router.urls)),

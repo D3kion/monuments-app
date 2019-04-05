@@ -5,6 +5,7 @@ import MapView from './map'
 import MenuView from './menu/view'
 import FeatureView from './menu/feature'
 import SearchView from './menu/search'
+import CreateView from './menu/create'
 
 export default View.extend({
   template: template,
@@ -13,6 +14,7 @@ export default View.extend({
 
   ui: {
     layers: '#layers',
+    create: '#create',
     homeExtent: '#home-extent',
     logout: '#logout',
     search: '#search',
@@ -20,6 +22,7 @@ export default View.extend({
 
   events: {
     'click @ui.layers': 'openLayers',
+    'click @ui.create': 'openCreate',
     'click @ui.homeExtent': 'onHomeExtent',
     'click @ui.logout': 'onLogout',
     'keyup @ui.search': 'searchFeature',
@@ -70,12 +73,16 @@ export default View.extend({
     this.showMenu()
   },
 
+  openCreate() {
+    this.showMenu(new CreateView())
+  },
+
   openFeature(view, feature) {
-    if (feature === undefined)
-      this.closeMenu()
-    else {
+    if (feature !== undefined) {
       const type = feature.getGeometry().constructor.name === 'Point' ? 'city' : 'country'    
       this.showMenu(new FeatureView(type, feature.getId()))
+    } else {
+      this.closeMenu()
     }
   },
 
