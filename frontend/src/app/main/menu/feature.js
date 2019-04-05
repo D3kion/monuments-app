@@ -40,9 +40,10 @@ export default View.extend({
         if (type === 'country') {
           this.model.set('capital', data.capital)
           this.model.set('city_set', data.city_set)
-        } else {
+        } else { // city
           this.model.set('country', data.country)
           this.model.set('description', data.description)
+          this.model.set('images', data.images)
         }
       })
   },

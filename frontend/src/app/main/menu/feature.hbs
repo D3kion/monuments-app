@@ -19,4 +19,13 @@
     {{/if}}
     {{!-- Photos --}}
     <strong>Photos:</strong><br>
+    {{#if images}}
+    {{#each images as |i|}}
+    <a href="{{i.image}}" target="_blank">
+        <img class="img-thumbnail" src="{{i.image}}" alt="{{i.name}}">
+    </a>
+    {{/each}}
+    {{else}}
+    No images found.
+    {{/if}}
 {{/if}}
