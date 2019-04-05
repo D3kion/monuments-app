@@ -18,7 +18,6 @@ class City(models.Model):
     name = models.CharField(max_length=100, verbose_name=_('name'))
     description = models.TextField(blank=True, null=True,
                                    verbose_name=_('desription'))
-    # photos  # TODO: Implement photos field
     country = models.ForeignKey(Country, on_delete=models.DO_NOTHING,
                                 null=True, verbose_name=_('country'))
     geometry = models.PointField(verbose_name=_('geometry'))
@@ -29,6 +28,20 @@ class City(models.Model):
     class Meta:
         verbose_name = _('city')
         verbose_name_plural = _('cities')
+
+
+class Image(models.Model):
+    name = models.CharField(max_length=100, verbose_name=_('name'))
+    city = models.ForeignKey(City, on_delete=models.CASCADE,
+                             verbose_name=_('city'))
+    image = models.ImageField(upload_to='uploads/', verbose_name=_('image'))
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('image')
+        verbose_name_plural = _('images')
 
 
 class Capital(models.Model):
