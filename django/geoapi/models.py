@@ -12,7 +12,7 @@ def get_image_path(instance, filename):
 
 
 class Country(models.Model):
-    name = models.CharField(max_length=50, verbose_name=_('name'))
+    name = models.CharField(max_length=100, verbose_name=_('name'))
     geometry = models.GeometryField(verbose_name=_('geometry'))
 
     def __str__(self):
@@ -64,3 +64,8 @@ class Capital(models.Model):
     class Meta:
         verbose_name = _('capital')
         verbose_name_plural = _('capitals')
+
+
+class CountriesHelper(models.Model):
+    name = models.CharField(max_length=100, verbose_name=_('name'))
+    geometry = models.GeometryField(verbose_name=_('geometry'))

@@ -10,19 +10,19 @@ from .serializers import (
 
 
 class CountryViewSet(viewsets.ModelViewSet):
-    queryset = Country.objects.all().order_by('id')
+    queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
     pagination_class = None
 
 
 class CityViewSet(viewsets.ModelViewSet):
-    queryset = City.objects.all().order_by('id')
+    queryset = City.objects.all().order_by('country.name').order_by('name')
     serializer_class = CitySerializer
     pagination_class = None
 
 
 class CapitalViewSet(viewsets.ModelViewSet):
-    queryset = Capital.objects.all().order_by('id')
+    queryset = Capital.objects.all().order_by('name')
     serializer_class = CapitalSerializer
     pagination_class = None
 
@@ -50,7 +50,7 @@ class CityInfoView(generics.RetrieveAPIView):
 
 
 class CountrySearchView(generics.ListAPIView):
-    queryset = Country.objects.all()
+    queryset = Country.objects.all().order_by('name')
     serializer_class = CountryInfoHelperSerializer
     pagination_class = None
     filter_backends = (filters.SearchFilter,)
@@ -58,7 +58,7 @@ class CountrySearchView(generics.ListAPIView):
 
 
 class CitySearchView(generics.ListAPIView):
-    queryset = City.objects.all()
+    queryset = City.objects.all().order_by('country.name').order_by('name')
     serializer_class = CityInfoHelperSerializer
     pagination_class = None
     filter_backends = (filters.SearchFilter,)

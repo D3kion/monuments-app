@@ -71,7 +71,7 @@ class CountryInfoHelperSerializer(serializers.ModelSerializer):
 class ImageInfoHelperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = ['name', 'image']
+        fields = ['id', 'name', 'image']
 
 
 class CityInfoSerializer(serializers.ModelSerializer):
