@@ -43,7 +43,7 @@ export default View.extend({
         }).then(res => res.json())
           .then(data => {
             if (data.length > 0)
-              res.push({countries: data})
+              res.push({cities: data})
             this.model.set('list', res)
           })
       })
