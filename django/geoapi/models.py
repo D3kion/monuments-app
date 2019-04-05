@@ -1,5 +1,14 @@
+import uuid
+import os
+
 from django.contrib.gis.db import models
 from django.utils.translation import gettext_lazy as _
+
+
+def get_image_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+    return os.path.join('uploads/', filename)
 
 
 class Country(models.Model):
@@ -34,7 +43,8 @@ class Image(models.Model):
     name = models.CharField(max_length=100, verbose_name=_('name'))
     city = models.ForeignKey(City, on_delete=models.CASCADE,
                              verbose_name=_('city'))
-    image = models.ImageField(upload_to='uploads/', verbose_name=_('image'))
+    image = models.ImageField(upload_to=get_image_path,
+                              verbose_name=_('image'))
 
     def __str__(self):
         return self.name
