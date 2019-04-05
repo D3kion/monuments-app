@@ -1,0 +1,24 @@
+<div class="container-fluid btn-group" role="group">
+  <button type="button" class="choose btn btn-secondary" data-choose="country">
+        Страна
+    </button>
+    <button type="button" class="choose btn btn-secondary" data-choose="city">
+        Город
+    </button>
+</div>
+<br><br>
+
+{{#if isCountry}}
+    <strong class="h5">Создать страну</strong><br><br>
+    <select class="form-control">
+        <option>Россия</option>
+        <option>США</option>
+        <option>Корея</option>
+        <option>Япония</option>
+    </select>
+    <small id="passwordHelpBlock" class="form-text text-muted">
+        Вы можете начать печатать навзвание страны, чтобы быстрее найти её.
+    </small>
+{{else}}
+    <strong class="h5">Создать город</strong>
+{{/if}}
