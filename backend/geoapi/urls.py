@@ -7,7 +7,6 @@ router = routers.DefaultRouter()
 router.register('country', views.CountryViewSet)
 router.register('city', views.CityViewSet)
 router.register('capital', views.CapitalViewSet)
-router.register('countries', views.CountriesHelperView)
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -22,4 +21,8 @@ urlpatterns = [
          name='country-search'),
     path('search/city/', views.CitySearchView.as_view(),
          name='city-search'),
+    path('countries/', views.CountriesHelperListView.as_view(),
+         name='countires-list'),
+    path('countries/<int:pk>/', views.CountriesHelperView.as_view(),
+         name='countires-detail'),
 ]

@@ -6,7 +6,7 @@ from .serializers import (
     CountryInfoSerializer, CityInfoSerializer,
     CountryInfoHelperSerializer, CityInfoHelperSerializer,
     CountrySerializer, CitySerializer, CapitalSerializer,
-    CountriesHelperSerializer,
+    CountriesHelperSerializer, CountriesHelperListSerializer,
 )
 
 
@@ -69,7 +69,13 @@ class CitySearchView(generics.ListAPIView):
 #
 # CountriesHelper
 #
-class CountriesHelperView(viewsets.ModelViewSet):
+class CountriesHelperView(generics.RetrieveAPIView):
     queryset = CountriesHelper.objects.all().order_by('name')
     serializer_class = CountriesHelperSerializer
+    pagination_class = None
+
+
+class CountriesHelperListView(generics.ListAPIView):
+    queryset = CountriesHelper.objects.all().order_by('name')
+    serializer_class = CountriesHelperListSerializer
     pagination_class = None

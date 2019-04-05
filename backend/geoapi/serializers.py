@@ -91,3 +91,9 @@ class CountriesHelperSerializer(GeoFeatureModelSerializer):
         model = CountriesHelper
         geo_field = 'geometry'
         fields = ['id', 'name']
+
+
+class CountriesHelperListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CountriesHelper
+        fields = ['id', 'name']
