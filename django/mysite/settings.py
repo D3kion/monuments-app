@@ -131,11 +131,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'core.User'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+AUTH_USER_MODEL = 'core.User'
+TOKEN_EXPIRATION_PERIOD = 86400
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -151,8 +155,6 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
-
-TOKEN_EXPIRATION_PERIOD = 86400
 
 try:
     from .local_settings import *  # noqa: F401, F403
