@@ -16,10 +16,15 @@ export default View.extend({
     this.contentView = obj.contentView
 
     this.contentView.on('open:feature:id', this.openFeatureById, this)
+    this.contentView.on('refresh:map', this.refreshMap, this)
   },
 
   openFeatureById(view, feature) {
     this.triggerMethod('open:feature:id', this, feature)
+  },
+
+  refreshMap(view) {
+    this.triggerMethod('refreshData', this)
   },
 
   onRender() {

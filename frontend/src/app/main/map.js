@@ -15,21 +15,21 @@ export default MnView.extend({
   template: template,
   
   initialize() {
-    this.initLayers()
     this.map = new Map({
-      layers: [this.mainLayer, this.countryLayer, this.cityLayer],
+      layers: [],
       view: new View({
         center: proj.transform([39, 47], 'EPSG:4326', 'EPSG:3857'),
         zoom: 4,
       }),
       controls: [],
     })
-
+    
     this.select = new Select({
       toggleCondition: never
     })
     this.map.addInteraction(this.select)
     this.select.on('select', this.onSelect.bind(this))
+    this.loadLayers()
   },
 
   onDomRefresh() {
@@ -48,7 +48,7 @@ export default MnView.extend({
     }))
   },
 
-  initLayers() {
+  loadLayers() {
     const url = 'http://' + location.hostname + ':8000/api/geo/geojson/'
 
     let countrySource = new Vector({
@@ -100,5 +100,9 @@ export default MnView.extend({
     this.cityLayer = new VectorLayer({
       source: citySource
     })
+
+    this.map.addLayer(this.mainLayer)
+    this.map.addLayer(this.countryLayer)
+    this.map.addLayer(this.cityLayer)
   },
 })

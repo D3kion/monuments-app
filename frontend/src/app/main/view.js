@@ -32,6 +32,7 @@ export default View.extend({
     'close:menu': 'closeMenu',
     'open:feature': 'openFeature',
     'open:feature:id': 'openFeatureById',
+    'refresh:map': 'refreshMap',
   },
 
   initialize() {
@@ -89,10 +90,15 @@ export default View.extend({
   openFeatureById(view, feature) {
     const type = Object.entries(feature)[0][0]
     const id = Object.entries(feature)[0][1]
+
     this.showMenu(new FeatureView(type, id))
     
     this.map.select.getFeatures().clear()
     this.map.select.getFeatures().push(this.getFeature(type, id))
+  },
+  
+  refreshMap(view) {
+    this.map.loadLayers()
   },
 
   onHomeExtent() {

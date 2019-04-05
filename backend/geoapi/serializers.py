@@ -5,6 +5,9 @@ from .models import City, Capital, Country, Image, CountriesHelper
 
 
 class CountrySerializer(GeoFeatureModelSerializer):
+    capital = serializers.PrimaryKeyRelatedField(read_only=True)
+    city_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
     class Meta:
         model = Country
         geo_field = 'geometry'

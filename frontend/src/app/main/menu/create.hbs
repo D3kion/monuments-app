@@ -10,15 +10,16 @@
 
 {{#if isCountry}}
     <strong class="h5">Создать страну</strong><br><br>
-    <select class="form-control">
-        <option>Россия</option>
-        <option>США</option>
-        <option>Корея</option>
-        <option>Япония</option>
+    <select id="country" class="form-control">
+        {{#each countries as |c|}}
+        <option data-id="{{c.id}}">{{c.name}}</option>
+        {{/each}}
     </select>
-    <small id="passwordHelpBlock" class="form-text text-muted">
+    <small class="form-text text-muted">
         Вы можете начать печатать навзвание страны, чтобы быстрее найти её.
     </small>
+    <br>
+    <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
 {{else}}
     <strong class="h5">Создать город</strong>
 {{/if}}

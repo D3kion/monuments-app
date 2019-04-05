@@ -11,14 +11,19 @@ export default View.extend({
 
   ui: {
     choose: '.choose',
+    country: '#country',
+    submit: '#submit',
   },
 
   events: {
-    'click @ui.choose': 'onChoose'
+    'click @ui.choose': 'onChoose',
+    'click @ui.country': 'onCountrySelect',
+    'click @ui.submit': 'onSubmit',
   },
 
   initialize() {
-    this.model.on('change', this.render, this)
+    this.model.on('change:countries', this.render, this)
+    this.loadCountries()
   },
 
   onChoose(e) {
@@ -26,28 +31,57 @@ export default View.extend({
       this.model.set('isCountry', true)
     else
       this.model.set('isCountry', false)
-  }
+  },
 
-//   loadFeatureInfo(type, id) {
-//     const url = 'http://' + location.hostname + ':8000/api/geo/info/'
-//     fetch(url + type + '/' + id, {
-//       method: 'GET',
-//       headers: {
-//         'Authorization': 'Token ' + localStorage.token
-//       }
-//     }).then(res => res.json())
-//       .then(data => {
-//         this.model.set('isCountry', type === 'country')
-//         this.model.set('name', data.name)
+  onCountrySelect(e) {
+    this.model.set('countryName', e.target.value)
+    this.model.set('countryId', e.target.children[e.target.selectedIndex].dataset.id)
+  },
 
-//         if (type === 'country') {
-//           this.model.set('capital', data.capital)
-//           this.model.set('city_set', data.city_set)
-//         } else { // city
-//           this.model.set('country', data.country)
-//           this.model.set('description', data.description)
-//           this.model.set('images', data.images)
-//         }
-//       })
-//   },
+  onSubmit() {
+    const url = 'http://' + location.hostname + ':8000/api/geo/countries/' + this.model.get('countryId') + '/'
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Token ' + localStorage.token,
+      },
+    }).then(res => res.json())
+      .then(data => {
+        this.model.set('countryGeometry', data.geometry)
+
+        const url = 'http://' + location.hostname + ':8000/api/geo/country/'
+        fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Token ' + localStorage.token,
+          },
+          body: JSON.stringify({
+            name: this.model.get('countryName'),
+            geometry: this.model.get('countryGeometry'),
+          }),
+        }).then(res => res.json())
+          .then(data => {
+            if (data.id !== undefined)
+              this.triggerMethod('refresh:map', this)
+          })
+      })
+  },
+
+  loadCountries() {
+    const url = 'http://' + location.hostname + ':8000/api/geo/countries/'
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Token ' + localStorage.token
+      }
+    }).then(res => res.json())
+      .then(data => {
+        this.model.set('countries', data)
+      })
+  },
+
+  createCountry() {
+
+  },
 })
