@@ -2,23 +2,23 @@
 <button type="button" class="btn btn-success btn-sm">Edit</button>
 <hr>
 {{#if isCountry}}
-    <strong>Capital:</strong> <a class="clickable" data-city={{capital.id}} href="#">{{capital.name}}</a><br>
-    <strong>Cities:</strong>
+    <strong>Столица:</strong> <a class="clickable" data-city={{capital.id}} href="#">{{capital.name}}</a><br>
+    <strong>Города:</strong>
     <ul>
     {{#each city_set as |city|}}
         <li><a class="clickable" data-city={{city.id}} href="#">{{city.name}}</a></li>
     {{/each}}
     </ul>
 {{else}}
-    <strong>Country:</strong> <a class="clickable" data-country={{country.id}} href="#">{{country.name}}</a><br>
+    <strong>Страна:</strong> <a class="clickable" data-country={{country.id}} href="#">{{country.name}}</a><br>
     {{#if description}}
-    <strong>Description:</strong>
+    <strong>Описание:</strong>
     <p>{{description}}</p>
     {{else}}
     <br>
     {{/if}}
     {{!-- Photos --}}
-    <strong>Photos:</strong><br>
+    <strong>Фото достопримечательностей:</strong><br>
     {{#if images}}
     {{#each images as |i|}}
     <a href="{{i.image}}" target="_blank">
