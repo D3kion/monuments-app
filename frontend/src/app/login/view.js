@@ -28,8 +28,8 @@ export default View.extend({
       })
     }).then(res => res.json())
       .then(data => {
-        if (data.token === undefined)
-          console.log('Error', data)
+        if (typeof data.token === "undefined")
+          alert('Error: ' + data.detail)
         else
           localStorage.setItem('token', data.token)
           location.reload()
