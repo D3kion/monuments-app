@@ -23,8 +23,8 @@ export default View.extend({
     this.triggerMethod('open:feature:id', this, feature)
   },
 
-  refreshMap(view) {
-    this.triggerMethod('refreshData', this)
+  refreshMap() {
+    this.triggerMethod('refresh:map', this)
   },
 
   onRender() {

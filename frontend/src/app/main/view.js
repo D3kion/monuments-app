@@ -97,7 +97,7 @@ export default View.extend({
     this.map.select.getFeatures().push(this.getFeature(type, id))
   },
   
-  refreshMap(view) {
+  refreshMap() {
     this.map.loadLayers()
   },
 
