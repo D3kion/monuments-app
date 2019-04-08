@@ -1,5 +1,8 @@
 <span class="h3">{{name}}</span>
-<button type="button" class="btn btn-success btn-sm">Edit</button>
+<div class="feature-header-buttons">
+    <button type="button" class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+    <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+</div>
 <hr>
 {{#if isCountry}}
     <strong>Столица:</strong> <a class="clickable" data-city={{capital.id}} href="#">{{capital.name}}</a><br>

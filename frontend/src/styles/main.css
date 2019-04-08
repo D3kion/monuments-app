@@ -43,6 +43,12 @@
   overflow-y: auto;
 }
 
+.feature-header-buttons {
+  position: absolute;
+  display: inline-block;
+  right: 1em;
+  text-align: end;
+}
 
 /*
  * Navbar
