@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css'
 import '../styles/main.css'
 import { Application } from 'backbone.marionette'
 import LoginView from './login/view'
