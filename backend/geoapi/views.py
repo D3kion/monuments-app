@@ -76,6 +76,9 @@ class CountriesHelperView(generics.RetrieveAPIView):
 
 
 class CountriesHelperListView(generics.ListAPIView):
-    queryset = CountriesHelper.objects.all().order_by('name')
+    qs1 = Country.objects.values_list('name')
+    qs2 = CountriesHelper.objects.values_list('name')
+    qs = qs2.difference(qs1)
+    queryset = CountriesHelper.objects.filter(name__in=qs).order_by('name')
     serializer_class = CountriesHelperListSerializer
     pagination_class = None

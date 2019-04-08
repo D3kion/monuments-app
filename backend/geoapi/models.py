@@ -12,7 +12,8 @@ def get_image_path(instance, filename):
 
 
 class Country(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_('name'))
+    name = models.CharField(max_length=100, unique=True,
+                            verbose_name=_('name'))
     geometry = models.GeometryField(verbose_name=_('geometry'))
 
     def __str__(self):
@@ -24,7 +25,8 @@ class Country(models.Model):
 
 
 class City(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_('name'))
+    name = models.CharField(max_length=100, unique=True,
+                            verbose_name=_('name'))
     description = models.TextField(blank=True, null=True,
                                    verbose_name=_('description'))
     country = models.ForeignKey(Country, on_delete=models.DO_NOTHING,
@@ -69,3 +71,6 @@ class Capital(models.Model):
 class CountriesHelper(models.Model):
     name = models.CharField(max_length=100, verbose_name=_('name'))
     geometry = models.GeometryField(verbose_name=_('geometry'))
+
+    def __str__(self):
+        return self.name
