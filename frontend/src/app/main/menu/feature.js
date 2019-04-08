@@ -9,14 +9,17 @@ export default View.extend({
   
   ui: {
     feature: '.clickable',
+    edit: '#edit',
+    delete : '#delete',
   },
 
   events: {
-    'click @ui.feature': 'openFeature'
+    'click @ui.feature': 'openFeature',
+    'click @ui.edit': 'editFeature',
+    'click @ui.delete': 'deleteFeature',
   },
 
   initialize(type, id) {
-
     this.model.on('change', this.render, this)
     this.loadFeatureInfo(type, id)
   },
@@ -25,16 +28,42 @@ export default View.extend({
     this.triggerMethod('open:feature:id', this, e.target.dataset)
   },
 
+  editFeature(e) {
+    console.log('edit')
+    const type = e.currentTarget.dataset.type
+    const id = e.currentTarget.dataset.id
+    console.log(type, id)
+    const url = 'http://' + location.hostname + ':8000/api/geo/'
+  },
+
+  deleteFeature(e) {
+    const type = e.currentTarget.dataset.type
+    const id = e.currentTarget.dataset.id
+    const url = 'http://' + location.hostname + ':8000/api/geo/'
+    fetch(url + type + '/' + id, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Token ' + localStorage.token,
+      },
+    }).then(() => {
+      this.triggerMethod('refresh:map', this)
+      this.triggerMethod('close:menu', this)
+    })
+      
+  },
+
   loadFeatureInfo(type, id) {
     const url = 'http://' + location.hostname + ':8000/api/geo/info/'
     fetch(url + type + '/' + id, {
       method: 'GET',
       headers: {
-        'Authorization': 'Token ' + localStorage.token
+        'Authorization': 'Token ' + localStorage.token,
       }
     }).then(res => res.json())
       .then(data => {
         this.model.set('isCountry', type === 'country')
+        this.model.set('id', id)
+        this.model.set('type', type)
         this.model.set('name', data.name)
 
         if (type === 'country') {

@@ -17,6 +17,7 @@ export default View.extend({
 
     this.contentView.on('open:feature:id', this.openFeatureById, this)
     this.contentView.on('refresh:map', this.refreshMap, this)
+    this.contentView.on('close:menu', this.onClose, this)
   },
 
   openFeatureById(view, feature) {
