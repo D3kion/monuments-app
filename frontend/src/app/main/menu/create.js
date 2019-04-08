@@ -23,6 +23,7 @@ export default View.extend({
 
   initialize() {
     this.model.on('change:countries', this.render, this)
+    this.model.on('change:isCountry', this.render, this)
     this.loadCountries()
   },
 
@@ -62,9 +63,13 @@ export default View.extend({
           }),
         }).then(res => res.json())
           .then(data => {
-            if (data.id !== undefined)
+            if (typeof data.id !== 'undefined') {
               this.triggerMethod('refresh:map', this)
               this.loadCountries()
+              alert('Страна (' + data.properties.name + ') добавлена!')
+            }
+            else
+              console.log('Ошибка: ', data)
           })
       })
 
