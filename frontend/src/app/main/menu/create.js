@@ -66,7 +66,6 @@ export default View.extend({
             if (typeof data.id !== 'undefined') {
               this.triggerMethod('refresh:map', this)
               this.loadCountries()
-              // alert('Страна (' + data.properties.name + ') добавлена!')
             }
             else
               console.log('Ошибка: ', data)

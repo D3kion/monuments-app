@@ -8,7 +8,7 @@ export default Application.extend({
   region: '#root',
 
   onStart() {
-    if (localStorage.token === undefined)
+    if (typeof localStorage.token === 'undefined')
       this.showView(new LoginView())
     else
       this.showView(new MainView())
