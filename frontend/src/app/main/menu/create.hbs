@@ -9,7 +9,8 @@
 <br><br>
 
 {{#if isCountry}}
-    <strong class="h5">Создать страну</strong><br><br>
+    {{#if countries}}
+    <strong class="h5">Добавить страну</strong><br><br>
     <select id="country" class="form-control">
         {{#each countries as |c|}}
         <option data-id="{{c.id}}">{{c.name}}</option>
@@ -20,6 +21,10 @@
     </small>
     <br>
     <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
+    {{else}}
+    <strong>Нет стран для добавления</strong>
+    {{/if}}
+    
 {{else}}
-    <strong class="h5">Создать город</strong>
+    <strong class="h5">Добавить город</strong>
 {{/if}}
