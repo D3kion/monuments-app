@@ -85,7 +85,6 @@ export default View.extend({
     }).then(res => res.json())
       .then(data => {
         this.model.set('countries', data)
-        console.log(data)
         if (data.length > 0) {
           this.model.set('countryName', data[0].name)
           this.model.set('countryId', data[0].id)
