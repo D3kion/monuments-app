@@ -80,8 +80,4 @@ export default View.extend({
         this.model.set('countries', data)
       })
   },
-
-  createCountry() {
-
-  },
 })
