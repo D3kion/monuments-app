@@ -91,7 +91,7 @@ export default View.extend({
   },
 
   openFeature(view, feature) {
-    if (feature !== undefined) {
+    if (typeof feature !== 'undefined') {
       const type = feature.getGeometry().constructor.name === 'Point' ? 'city' : 'country'    
       this.showMenu(new FeatureView(type, feature.getId()))
     } else {
