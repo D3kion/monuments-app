@@ -35,6 +35,11 @@ export default MnView.extend({
     this.map.addInteraction(this.select)
     this.select.on('select', this.onSelect.bind(this))
     this.loadLayers()
+
+    this.map.on('pointermove', function(e) {
+      let hit = this.forEachFeatureAtPixel(e.pixel, () => true)
+      this.getTargetElement().style.cursor = hit ? 'pointer' : ''
+    })
   },
 
   onDomRefresh() {
