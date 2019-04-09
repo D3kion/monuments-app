@@ -8,9 +8,21 @@ export default Application.extend({
   region: '#root',
 
   onStart() {
-    if (typeof localStorage.token === 'undefined')
+    if (typeof localStorage.token !== 'undefined') {
+      const url = 'http://' + location.hostname + ':8000/api/token-info/'
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Token ' + localStorage.token
+        }
+      }).then(res => {
+        if (res.status == 401)
+          this.showView(new LoginView())
+        else
+          this.showView(new MainView())
+      })
+    } else {
       this.showView(new LoginView())
-    else
-      this.showView(new MainView())
+    }
   },
 })
