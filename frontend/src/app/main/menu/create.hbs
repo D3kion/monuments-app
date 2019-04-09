@@ -5,6 +5,9 @@
     <button type="button" class="choose btn btn-secondary" data-choose="city">
         Город
     </button>
+    <button type="button" class="choose btn btn-secondary" data-choose="capital">
+        Столица
+    </button>
 </div>
 <br><br>
 
@@ -13,7 +16,7 @@
     <strong class="h5">Добавить страну</strong><br><br>
     <select id="country" class="form-control">
         {{#each countries as |c|}}
-        <option data-id="{{c.id}}">{{c.name}}</option>
+        <option value="{{c.id}}">{{c.name}}</option>
         {{/each}}
     </select>
     <small class="form-text text-muted">
@@ -24,7 +27,10 @@
     {{else}}
     <strong>Нет стран для добавления</strong>
     {{/if}}
-    
-{{else}}
+{{/if}}  
+{{#if isCity}}
     <strong class="h5">Добавить город</strong>
+{{/if}}
+{{#if isCapital}}
+    <strong class="h5">Добавить столицу</strong>
 {{/if}}
