@@ -5,9 +5,9 @@ import template from './template.hbs'
 import MapView from './map'
 import MenuView from './menu/view'
 import FeatureView from './menu/feature'
-import SearchView from './menu/search'
 import CreateView from './menu/create'
 import EditCityView from './menu/editCity'
+import SearchView from './menu/search'
 
 export default View.extend({
   template: template,
@@ -53,10 +53,31 @@ export default View.extend({
     this.model.on('change', this.render, this)
     this.getUsername()
   },
-
+  
   onRender() {
     this.map = new MapView()
     this.showChildView('map', this.map)
+  },
+
+  showMenu(view) {
+    this.showChildView('menu', new MenuView({ contentView: view }))
+  },
+  
+  openLayers() {
+    this.showMenu()
+  },
+
+  openCreate() {
+    this.showMenu(new CreateView())
+  },
+
+  onHomeExtent() {
+    this.map.homeExtent()
+  },
+
+  onLogout() {
+    localStorage.removeItem('token')
+    location.reload()
   },
 
   searchFeature(e) {
@@ -64,21 +85,9 @@ export default View.extend({
       this.showMenu(new SearchView(e.target.value))
   },
 
-  showMenu(view) {
-    this.showChildView('menu', new MenuView({ contentView: view }))
-  },
-
   closeMenu() {
     this.getRegion('menu').empty()
     this.map.select.getFeatures().clear()
-  },
-
-  openLayers() {
-    this.showMenu()
-  },
-
-  openCreate() {
-    this.showMenu(new CreateView())
   },
 
   openFeature(view, feature) {
@@ -106,15 +115,6 @@ export default View.extend({
   
   refreshMap() {
     this.map.loadLayers()
-  },
-
-  onHomeExtent() {
-    this.map.homeExtent()
-  },
-
-  onLogout() {
-    localStorage.removeItem('token')
-    location.reload()
   },
 
   getUsername() {
