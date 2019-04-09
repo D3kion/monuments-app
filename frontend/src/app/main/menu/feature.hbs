@@ -1,9 +1,12 @@
 <span class="h3">{{name}}</span>
 <div class="feature-header-buttons">
-    <button id="edit" type="button" class="btn btn-success btn-sm" data-id={{id}} data-type={{type}}>
+    {{#if isCountry}}
+    {{else}}
+    <button id="edit" type="button" class="btn btn-success btn-sm">
         <i class="far fa-edit"></i>
     </button>
-    <button id="delete" type="button" class="btn btn-danger btn-sm" data-id={{id}} data-type={{type}}>
+    {{/if}}
+    <button id="delete" type="button" class="btn btn-danger btn-sm">
         <i class="fas fa-trash-alt"></i>
     </button>
 </div>

@@ -1,0 +1,15 @@
+<span class="h3">{{name}}</span>
+<hr>
+<strong>Страна:</strong>
+<select id="country" class="form-control" disabled="disabled">
+    <option data-id={{country.id}}>{{country.name}}</option>
+</select>
+<small class="form-text text-muted">
+    Вы можете начать печатать навзвание страны, чтобы быстрее найти её.
+</small>
+<strong>Описание:</strong>
+<textarea id="description" class="form-control" cols="30" rows="10">
+{{description}}
+</textarea>
+<br>
+<button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Сохранить</button>

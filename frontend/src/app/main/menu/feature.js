@@ -28,17 +28,19 @@ export default View.extend({
     this.triggerMethod('open:feature:id', this, e.target.dataset)
   },
 
-  editFeature(e) {
-    console.log('edit')
-    const type = e.currentTarget.dataset.type
-    const id = e.currentTarget.dataset.id
-    console.log(type, id)
-    const url = 'http://' + location.hostname + ':8000/api/geo/'
+  editFeature() {
+    const type = this.model.get('type')
+    const id = this.model.get('id')
+
+    // if (type === 'country')
+    //   this.triggerMethod('edit:feature:country', this, id)
+    // else
+    this.triggerMethod('edit:feature:city', this, id)
   },
 
-  deleteFeature(e) {
-    const type = e.currentTarget.dataset.type
-    const id = e.currentTarget.dataset.id
+  deleteFeature() {
+    const type = this.model.get('type')
+    const id = this.model.get('id')
     const url = 'http://' + location.hostname + ':8000/api/geo/'
     fetch(url + type + '/' + id, {
       method: 'DELETE',
@@ -54,7 +56,7 @@ export default View.extend({
 
   loadFeatureInfo(type, id) {
     const url = 'http://' + location.hostname + ':8000/api/geo/info/'
-    fetch(url + type + '/' + id, {
+    fetch(url + type + '/' + id + '/', {
       method: 'GET',
       headers: {
         'Authorization': 'Token ' + localStorage.token,

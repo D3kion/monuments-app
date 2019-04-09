@@ -1,0 +1,17 @@
+<span class="h3">{{name}}</span>
+<hr>
+{{#if city_set}}
+<strong>Столица:</strong>
+<select id="country" class="form-control">
+    {{#each city_set as |c|}}
+    <option data-id={{c.id}}>{{c.name}}</option>
+    {{/each}}
+</select>
+<small class="form-text text-muted">
+    Вы можете начать печатать навзвание города, чтобы быстрее найти его.
+</small>
+<br>
+<button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Сохранить</button>
+{{else}}
+<strong>В этой стране нет городов. Добавьте город, чтобы выбрать столицу.</strong>
+{{/if}}

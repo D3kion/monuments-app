@@ -6,6 +6,7 @@ import MenuView from './menu/view'
 import FeatureView from './menu/feature'
 import SearchView from './menu/search'
 import CreateView from './menu/create'
+import EditCityView from './menu/editCity'
 
 export default View.extend({
   template: template,
@@ -32,6 +33,7 @@ export default View.extend({
     'close:menu': 'closeMenu',
     'open:feature': 'openFeature',
     'open:feature:id': 'openFeatureById',
+    'edit:feature:city': 'editCity',
     'refresh:map': 'refreshMap',
   },
 
@@ -95,6 +97,10 @@ export default View.extend({
     
     this.map.select.getFeatures().clear()
     this.map.select.getFeatures().push(this.getFeature(type, id))
+  },
+
+  editCity(view, id) {
+    this.showMenu(new EditCityView(id))
   },
   
   refreshMap() {
