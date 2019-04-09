@@ -1,16 +1,14 @@
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-  <span class="navbar-brand text-white col-sm-2 mr-0">Пользователь: <strong>{{ name }}</strong></span>
-  <div class="col-sm-5 text-white">
-    <a id="layers" class="text-white" href="#">Слои</a> |
-    <a id="create" class="text-white" href="#">Добавить</a>
-  </div>
-  <input id="search" class="form-control form-control-dark w-100" type="text" placeholder="Поиск" aria-label="Search">
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a id="logout" class="nav-link text-light" href="#">Выйти</a>
-    </li>
-  </ul>
+  <input id="search" class="form-control form-control-dark" type="text" placeholder="Поиск">
+  <span class="navbar-brand text-white col-sm-8 mr-0 text-right">
+    Пользователь: <strong>{{ name }}</strong>
+    <button id="logout" class="btn btn-sm btn-danger"><i class="fas fa-sign-out-alt"></i></button>
+  </span>
 </nav>
 <div id="menu-placeholder"></div>
-<button id="home-extent" type="button" class="btn btn-success"><i class="fas fa-home"></i></button>
+<div id="controls">
+  <button id="home-extent" class="btn btn-lg btn-success"><i class="fas fa-home"></i></button>
+  <button id="layers" class="btn btn-lg btn-warning"><i class="fas fa-bars"></i></button>
+  <button id="create" class="btn btn-lg btn-primary"><i class="fas fa-plus"></i></button>
+</div>
 <div id="map-placeholder"></div>

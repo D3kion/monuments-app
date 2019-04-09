@@ -7,11 +7,17 @@
   height: 100%;
 }
 
-#home-extent {
+#controls {
   z-index: 10;
   position: fixed;
   top: 5em;
   right: 1.5em;
+}
+
+#controls>* {
+  display: block;
+  margin-bottom: .5em;
+  width: 3em;
 }
 
 #menu {
@@ -57,12 +63,18 @@
 .navbar-brand {
   padding-top: .75rem;
   padding-bottom: .75rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
   background-color: rgba(0, 0, 0, .25);
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
 }
 
+.navbar-brand>button {
+  margin-left: .75em;
+}
+
 .navbar .form-control {
+  margin-left: .75em;
+  margin-right: .75em;
   padding: .75rem 1rem;
   border-width: 0;
   border-radius: 0;
