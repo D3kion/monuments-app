@@ -105,6 +105,7 @@ export default MnView.extend({
       source: citySource
     })
 
+    this.map.getLayers().clear()
     this.map.addLayer(this.mainLayer)
     this.map.addLayer(this.countryLayer)
     this.map.addLayer(this.cityLayer)
