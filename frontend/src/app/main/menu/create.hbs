@@ -13,7 +13,7 @@
 
 {{#if isCountry}}
     {{#if countries}}
-    <strong class="h5">Добавить страну</strong><br><br>
+    <strong class="h5">Создать страну</strong><br><br>
     <select id="country" class="form-control">
         {{#each countries as |c|}}
         <option value="{{c.id}}">{{c.name}}</option>
@@ -29,8 +29,8 @@
     {{/if}}
 {{/if}}  
 {{#if isCity}}
-    <strong class="h5">Добавить город</strong>
+    <strong class="h5">Создать город</strong>
 {{/if}}
 {{#if isCapital}}
-    <strong class="h5">Добавить столицу</strong>
+    <strong class="h5">Создать столицу</strong>
 {{/if}}
