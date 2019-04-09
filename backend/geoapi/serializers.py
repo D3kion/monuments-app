@@ -90,6 +90,12 @@ class CityInfoSerializer(serializers.ModelSerializer):
         fields = ['name', 'country', 'description', 'images']
 
 
+class CityPUTSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ['name', 'country', 'description']
+
+
 #
 # Capital
 #

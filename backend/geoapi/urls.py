@@ -23,6 +23,8 @@ urlpatterns = [
          name='city-info'),
     path('search/city/', views.CitySearchView.as_view(),
          name='city-search'),
+    path('edit/city/<int:pk>/', views.CityPUTView.as_view(),
+         name='city-edit'),
     # CountriesHelper
     path('countries/', views.CountriesHelperListView.as_view(),
          name='countires-list'),

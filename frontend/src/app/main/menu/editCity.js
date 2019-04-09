@@ -9,6 +9,9 @@ export default View.extend({
   model: new Bb.Model(),
   
   ui: {
+    city: '#city',
+    country: '#country',
+    description: '#description',
     submit: '#submit',
   },
 
@@ -22,27 +25,14 @@ export default View.extend({
   },
 
   onSubmit() {
-  //   const url = 'http://' + location.hostname + ':8000/api/geo/country/'
-  //       fetch(url + id + '/', {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //           'Authorization': 'Token ' + localStorage.token,
-  //         },
-  //         body: JSON.stringify({
-  //           name: this.model.get('countryName'),
-  //           geometry: this.model.get('countryGeometry'),
-  //         }),
-  //       }).then(res => res.json())
-  //         .then(data => {
-  //           if (typeof data.id !== 'undefined') {
-  //             this.triggerMethod('refresh:map', this)
-  //             this.loadCountries()
-  //           }
-  //           else
-  //             console.log('Ошибка: ', data)
-  //         })
-    this.openFeature()
+    const id = this.model.get('id')
+    const url = 'api/geo/edit/city/' + id + '/'
+    fetch('PUT', url, JSON.stringify({
+      name: this.getUI('city').val(),
+      country: this.getUI('country').val(),
+      description: this.getUI('description').val(),
+    }))
+    .then(() => this.openFeature())
   },
 
   openFeature() {
@@ -60,6 +50,14 @@ export default View.extend({
       this.model.set('country', data.country)
       this.model.set('description', data.description)
       this.model.set('images', data.images)
+
+      fetch('GET', 'api/geo/search/country/')
+      .then(res => res.json())
+      .then(data => {
+        this.model.set('countryList', data.filter((val) => {
+          return val.id != this.model.get('country').id
+        }))
+      })
     })
   },
 })

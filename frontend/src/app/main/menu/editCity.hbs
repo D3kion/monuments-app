@@ -1,12 +1,19 @@
 <span class="h3">{{name}}</span>
 <hr>
+<strong>Название:</strong>
+<input id="city" class="form-control" type="text" value="{{name}}">
+<br>
 <strong>Страна:</strong>
-<select id="country" class="form-control" disabled="disabled">
-    <option data-id={{country.id}}>{{country.name}}</option>
+<select id="country" class="form-control">
+    <option value={{country.id}} selected>{{country.name}}</option>
+    {{#each countryList as |c|}}
+    <option value={{c.id}}>{{c.name}}</option>
+    {{/each}}
 </select>
 <small class="form-text text-muted">
     Вы можете начать печатать навзвание страны, чтобы быстрее найти её.
 </small>
+<br>
 <strong>Описание:</strong>
 <textarea id="description" class="form-control" cols="30" rows="10">
 {{description}}

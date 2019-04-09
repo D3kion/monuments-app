@@ -5,6 +5,7 @@ from .serializers import (
     CountrySerializer, CitySerializer, CapitalSerializer,
     CountryGeoSerializer, CityGeoSerializer,
     CountryInfoSerializer, CityInfoSerializer,
+    CityPUTSerializer,
     CountryInfoHelperSerializer, CityInfoHelperSerializer,
     CountriesHelperSerializer, CountriesHelperListSerializer,
 )
@@ -64,6 +65,11 @@ class CitySearchView(generics.ListAPIView):
     pagination_class = None
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name',)
+
+
+class CityPUTView(generics.UpdateAPIView):
+    queryset = City.objects.all()
+    serializer_class = CityPUTSerializer
 
 
 #
