@@ -60,7 +60,6 @@ export default View.extend({
         this.model.set('name', data.name)
         this.model.set('capital', data.capital)
         this.model.set('city_set', data.city_set)
-        console.log(this.model)
       })
   },
 })

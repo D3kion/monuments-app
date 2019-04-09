@@ -63,7 +63,6 @@ export default View.extend({
         this.model.set('country', data.country)
         this.model.set('description', data.description)
         this.model.set('images', data.images)
-        console.log(this.model)
       })
   },
 })
