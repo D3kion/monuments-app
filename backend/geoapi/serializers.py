@@ -4,6 +4,9 @@ from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from .models import City, Capital, Country, Image, CountriesHelper
 
 
+#
+# Country
+#
 class CountrySerializer(GeoFeatureModelSerializer):
     capital = serializers.PrimaryKeyRelatedField(read_only=True)
     city_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
@@ -14,19 +17,6 @@ class CountrySerializer(GeoFeatureModelSerializer):
         fields = ['id', 'url', 'name', 'capital', 'city_set']
 
 
-class CitySerializer(GeoFeatureModelSerializer):
-    class Meta:
-        model = City
-        geo_field = 'geometry'
-        fields = ['id', 'url', 'name', 'country', 'description', 'image_set']
-
-
-class CapitalSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Capital
-        fields = ['url', 'city', 'capital_of']
-
-
 class CountryGeoSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = Country
@@ -34,13 +24,7 @@ class CountryGeoSerializer(GeoFeatureModelSerializer):
         fields = ['id']
 
 
-class CityGeoSerializer(GeoFeatureModelSerializer):
-    class Meta:
-        model = City
-        geo_field = 'geometry'
-        fields = ['id']
-
-
+# Helpers
 class CityInfoHelperSerializer(serializers.ModelSerializer):
     class Meta:
         model = City
@@ -54,6 +38,7 @@ class CapitalInfoHelperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Capital
         fields = ['id', 'name']
+# /Helpers
 
 
 class CountryInfoSerializer(serializers.ModelSerializer):
@@ -65,6 +50,24 @@ class CountryInfoSerializer(serializers.ModelSerializer):
         fields = ['name', 'capital', 'city_set']
 
 
+#
+# City
+#
+class CitySerializer(GeoFeatureModelSerializer):
+    class Meta:
+        model = City
+        geo_field = 'geometry'
+        fields = ['id', 'url', 'name', 'country', 'description', 'image_set']
+
+
+class CityGeoSerializer(GeoFeatureModelSerializer):
+    class Meta:
+        model = City
+        geo_field = 'geometry'
+        fields = ['id']
+
+
+# Helpers
 class CountryInfoHelperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
@@ -75,6 +78,7 @@ class ImageInfoHelperSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = ['id', 'name', 'image']
+# /Helpers
 
 
 class CityInfoSerializer(serializers.ModelSerializer):
@@ -84,6 +88,15 @@ class CityInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = ['name', 'country', 'description', 'images']
+
+
+#
+# Capital
+#
+class CapitalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Capital
+        fields = ['url', 'city', 'capital_of']
 
 
 #
