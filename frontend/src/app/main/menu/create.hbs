@@ -29,7 +29,25 @@
     {{/if}}
 {{/if}}  
 {{#if isCity}}
-    <strong class="h5">Создать город</strong>
+    <strong class="h5">Создать город</strong><br><br>
+    <strong>Название:</strong>
+    <input id="name" class="form-control">
+    <br>
+    <strong>Страна:</strong>
+        <select id="country" class="form-control">
+            {{#each countries as |c|}}
+            <option value="{{c.id}}">{{c.name}}</option>
+            {{/each}}
+        </select>
+        <small class="form-text text-muted">
+            Вы можете начать печатать навзвание страны, чтобы быстрее найти её.
+        </small>
+    <br>
+    <strong>Описание:</strong>
+    <textarea id="description" class="form-control" cols="30" rows="10"></textarea>
+    <br>
+    <button id="place" type="button" class="btn btn-warning btn-block">Выбрать место</button>
+    <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
 {{/if}}
 {{#if isCapital}}
     <strong class="h5">Создать столицу</strong>

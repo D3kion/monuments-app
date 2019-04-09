@@ -13,15 +13,20 @@ export default View.extend({
   ui: {
     choose: '.choose',
     country: '#country',
+    name: '#name',
+    description: '#description',
+    place: '#place',
     submit: '#submit',
   },
 
   events: {
     'click @ui.choose': 'onChoose',
+    'click @ui.place': 'onPlace',
     'click @ui.submit': 'onSubmit',
   },
 
-  initialize() {
+  initialize(drawPoint) {
+    this.drawPoint = drawPoint
     this.model.on('change', this.render, this)
     this.loadCountries()
   },
@@ -42,12 +47,21 @@ export default View.extend({
         this.model.set('isCapital', true)
         break;
     }
+
+    this.loadCountries()
+  },
+
+  onPlace() {
+    this.drawPoint(this.model)
   },
 
   onSubmit() {
     if (this.model.get('isCountry'))
       this.onSubmitCountry()
-
+    else if (this.model.get('isCity'))
+      this.onSubmitCity()
+    else if (this.model.get('isCapital'))
+      this.onSubmitCapital()
   },
 
   onSubmitCountry() {
@@ -72,9 +86,42 @@ export default View.extend({
     })
   },
 
+  onSubmitCity() {
+    const name = this.getUI('name').val()
+    const country = this.getUI('country').val()
+    const description = this.getUI('description').val()
+    const geometry = {
+      type: 'Point',
+      coordinates: this.model.get('coords')
+    }
+
+    fetch('POST', 'api/geo/city/', JSON.stringify({
+      name,
+      country,
+      description,
+      geometry,
+      image_set: [],
+    }))
+    .then(res => {
+      if (res.ok) {
+        this.triggerMethod('refresh:map', this)
+        this.triggerMethod('close:menu', this)
+      }
+    })
+  },
+
+  onSubmitCapital() {
+
+  },
+
   loadCountries() {
-    fetch('GET', 'api/geo/countries/')
-    .then(res => res.json())
-    .then(data => this.model.set('countries', data))
+    if (this.model.get('isCountry'))
+      fetch('GET', 'api/geo/countries/')
+      .then(res => res.json())
+      .then(data => this.model.set('countries', data))
+    else
+      fetch('GET', 'api/geo/search/country/')
+      .then(res => res.json())
+      .then(data => this.model.set('countries', data))
   },
 })

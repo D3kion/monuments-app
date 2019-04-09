@@ -68,7 +68,7 @@ export default View.extend({
   },
 
   openCreate() {
-    this.showMenu(new CreateView())
+    this.showMenu(new CreateView(this.map.drawPoint.bind(this.map)))
   },
 
   onHomeExtent() {
