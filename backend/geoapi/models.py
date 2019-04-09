@@ -29,7 +29,7 @@ class City(models.Model):
                             verbose_name=_('name'))
     description = models.TextField(blank=True, null=True,
                                    verbose_name=_('description'))
-    country = models.ForeignKey(Country, on_delete=models.DO_NOTHING,
+    country = models.ForeignKey(Country, on_delete=models.CASCADE,
                                 null=True, verbose_name=_('country'))
     geometry = models.PointField(verbose_name=_('geometry'))
 
@@ -58,7 +58,7 @@ class Image(models.Model):
 
 class Capital(models.Model):
     city = models.OneToOneField(City, on_delete=models.CASCADE)
-    capital_of = models.OneToOneField(Country, on_delete=models.DO_NOTHING)
+    capital_of = models.OneToOneField(Country, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.city.name
