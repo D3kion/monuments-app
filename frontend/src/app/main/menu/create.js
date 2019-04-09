@@ -7,7 +7,8 @@ export default View.extend({
   template: template,
 
   model: new Bb.Model({
-    isCountry: true
+    isCountry: true,
+    coords: null,
   }),
 
   ui: {
@@ -27,7 +28,10 @@ export default View.extend({
 
   initialize(drawPoint) {
     this.drawPoint = drawPoint
-    this.model.on('change', this.render, this)
+    this.model.on('change:isCountry', this.render, this)
+    this.model.on('change:isCity', this.render, this)
+    this.model.on('change:isCapital', this.render, this)
+    this.model.on('change:countries', this.render, this)
     this.loadCountries()
   },
 
@@ -87,9 +91,12 @@ export default View.extend({
   },
 
   onSubmitCity() {
+    if (this.model.get('coords') == null)
+      return
+
     const name = this.getUI('name').val()
     const country = this.getUI('country').val()
-    const description = this.getUI('description').val()
+    const description = this.getUI('description').val() || ''
     const geometry = {
       type: 'Point',
       coordinates: this.model.get('coords')
