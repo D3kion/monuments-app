@@ -1,4 +1,4 @@
-export default function fetch_(method, url, withToken=true, body={}) {
+export default function fetch_(method, url, body=null, withToken=true) {
   let headers = new Headers({
     'Content-Type': 'application/json',
   })

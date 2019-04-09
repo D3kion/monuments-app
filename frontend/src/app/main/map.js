@@ -13,6 +13,7 @@ import VectorLayer from 'ol/layer/Vector'
 import Select from 'ol/interaction/Select.js'
 import { never } from 'ol/events/condition'
 import { View as MnView } from 'backbone.marionette'
+import fetch from '../utils'
 import template from './map.hbs'
 
 export default MnView.extend({
@@ -53,24 +54,18 @@ export default MnView.extend({
   },
 
   loadLayers() {
-    const url = 'http://' + location.hostname + ':8000/api/geo/geojson/'
-
     let countrySource = new Vector({
       format: new GeoJSON({
         defaultDataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857'
       }),
       loader: function() {
-        fetch(url + 'country/', {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Token ' + localStorage.token
-          }
-        }).then(res => res.json())
-          .then(data => {
-            countrySource.addFeatures(
-              countrySource.getFormat().readFeatures(data))
-          })
+        fetch('GET', 'api/geo/geojson/country/')
+        .then(res => res.json())
+        .then(data => {
+          countrySource.addFeatures(
+            countrySource.getFormat().readFeatures(data))
+        })
       }
     })
     
@@ -80,16 +75,12 @@ export default MnView.extend({
         featureProjection: 'EPSG:3857'
       }),
       loader: function() {
-        fetch(url + 'city/', {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Token ' + localStorage.token
-          }
-        }).then(res => res.json())
-          .then(data => {
-            citySource.addFeatures(
-              citySource.getFormat().readFeatures(data))
-          })
+        fetch('GET', 'api/geo/geojson/city/')
+        .then(res => res.json())
+        .then(data => {
+          citySource.addFeatures(
+            citySource.getFormat().readFeatures(data))
+        })
       }
     })
 

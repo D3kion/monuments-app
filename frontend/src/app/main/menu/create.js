@@ -1,5 +1,6 @@
 import Bb from 'backbone'
 import { View } from 'backbone.marionette'
+import fetch from '../../utils'
 import template from './create.hbs'
 
 export default View.extend({
@@ -40,54 +41,38 @@ export default View.extend({
   },
 
   onSubmit() {
-    const url = 'http://' + location.hostname + ':8000/api/geo/countries/' + this.model.get('countryId') + '/'
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Token ' + localStorage.token,
-      },
-    }).then(res => res.json())
-      .then(data => {
-        this.model.set('countryGeometry', data.geometry)
+    const url = 'api/geo/countries/' + this.model.get('countryId') + '/'
+    fetch('GET', url)
+    .then(res => res.json())
+    .then(data => {
+      this.model.set('countryGeometry', data.geometry)
 
-        const url = 'http://' + location.hostname + ':8000/api/geo/country/'
-        fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Token ' + localStorage.token,
-          },
-          body: JSON.stringify({
-            name: this.model.get('countryName'),
-            geometry: this.model.get('countryGeometry'),
-          }),
-        }).then(res => res.json())
-          .then(data => {
-            if (typeof data.id !== 'undefined') {
-              this.triggerMethod('refresh:map', this)
-              this.loadCountries()
-            }
-            else
-              console.log('Ошибка: ', data)
-          })
+      fetch('POST', 'api/geo/country/', JSON.stringify({
+        name: this.model.get('countryName'),
+        geometry: this.model.get('countryGeometry'),
+      }))
+      .then(res => res.json())
+      .then(data => {
+        if (typeof data.id !== 'undefined') {
+          this.triggerMethod('refresh:map', this)
+          this.loadCountries()
+        }
+        else
+          console.log('Ошибка: ', data)
       })
+    })
 
   },
 
   loadCountries() {
-    const url = 'http://' + location.hostname + ':8000/api/geo/countries/'
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Token ' + localStorage.token
+    fetch('GET', 'api/geo/countries/')
+    .then(res => res.json())
+    .then(data => {
+      this.model.set('countries', data)
+      if (data.length > 0) {
+        this.model.set('countryName', data[0].name)
+        this.model.set('countryId', data[0].id)
       }
-    }).then(res => res.json())
-      .then(data => {
-        this.model.set('countries', data)
-        if (data.length > 0) {
-          this.model.set('countryName', data[0].name)
-          this.model.set('countryId', data[0].id)
-        }
-      })
+    })
   },
 })
