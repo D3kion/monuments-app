@@ -1,5 +1,6 @@
 import Bb from 'backbone'
 import { View } from 'backbone.marionette'
+import fetch from '../../utils'
 import template from './editCity.hbs'
 
 export default View.extend({
@@ -50,19 +51,15 @@ export default View.extend({
   },
 
   loadFeatureInfo(id) {
-    const url = 'http://' + location.hostname + ':8000/api/geo/info/city/'
-    fetch(url + id + '/', {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Token ' + localStorage.token,
-      }
-    }).then(res => res.json())
-      .then(data => {
-        this.model.set('id', id)
-        this.model.set('name', data.name)
-        this.model.set('country', data.country)
-        this.model.set('description', data.description)
-        this.model.set('images', data.images)
-      })
+    const url = 'api/geo/info/city/' + id + '/'
+    fetch('GET', url)
+    .then(res => res.json())
+    .then(data => {
+      this.model.set('id', id)
+      this.model.set('name', data.name)
+      this.model.set('country', data.country)
+      this.model.set('description', data.description)
+      this.model.set('images', data.images)
+    })
   },
 })

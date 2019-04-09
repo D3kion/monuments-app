@@ -1,5 +1,6 @@
 import Bb from 'backbone'
 import { View } from 'backbone.marionette'
+import fetch from '../../utils'
 import template from './search.hbs'
 
 export default View.extend({
@@ -22,31 +23,24 @@ export default View.extend({
   },
 
   search(q) {
-    const url = 'http://' + location.hostname + ':8000/api/geo/search/'
     let res = []
-
-    fetch(url + 'country/?search=' + q, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Token ' + localStorage.token
-      }
-    }).then(res => res.json())
+    
+    const url = 'api/geo/search/country/?search=' + q
+    fetch('GET', url)
+    .then(res => res.json())
+    .then(data => {
+      if (data.length > 0)
+        res.push({countries: data})
+    }).then(() => {
+      const url = 'api/geo/search/city/?search=' + q
+      fetch('GET', url)
+      .then(res => res.json())
       .then(data => {
         if (data.length > 0)
-          res.push({countries: data})
-      }).then(() => {
-        fetch(url + 'city/?search=' + q, {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Token ' + localStorage.token
-          }
-        }).then(res => res.json())
-          .then(data => {
-            if (data.length > 0)
-              res.push({cities: data})
-            this.model.set('list', res)
-          })
+          res.push({cities: data})
+        this.model.set('list', res)
       })
+    })
   },
 
   openFeature(e) {

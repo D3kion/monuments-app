@@ -1,5 +1,6 @@
 import Bb from 'backbone'
 import { View } from 'backbone.marionette'
+import fetch from '../utils'
 import template from './template.hbs'
 import MapView from './map'
 import MenuView from './menu/view'
@@ -117,14 +118,9 @@ export default View.extend({
   },
 
   getUsername() {
-    const url = 'http://' + location.hostname + ':8000/api/token-info/'
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Token ' + localStorage.token
-      }
-    }).then(res => res.json())
-      .then(data => this.model.set('name', data.user))
+    fetch('GET', 'api/token-info/')
+    .then(res => res.json())
+    .then(data => this.model.set('name', data.user))
   },
 
   getFeature(type, id) {
