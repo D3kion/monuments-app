@@ -4,6 +4,10 @@ import template from './template.hbs'
 export default View.extend({
   template: template,
 
+  regions: {
+    content: '#content'
+  },
+
   ui: {
     close: '#close',
   },
@@ -13,7 +17,6 @@ export default View.extend({
   },
 
   onRender() {
-    this.addRegions({ content: '#content' })
     this.showChildView('content', this.contentView)
   },
 

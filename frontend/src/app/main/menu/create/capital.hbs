@@ -1,0 +1,35 @@
+{{#if countries}}
+<strong class="h5">Создать столицу</strong><br><br>
+<strong>Страна:</strong>
+<select id="country" class="form-control">
+    {{#each countries as |c|}}
+    <option value="{{c.id}}">{{c.name}}</option>
+    {{/each}}
+</select>
+<small class="form-text text-muted">
+    Вы можете начать печатать навзвание страны, чтобы быстрее найти её.
+</small>
+<br>
+<strong>Город:</strong>
+{{#if cities}}
+<select id="city" class="form-control">
+    {{#each cities as |c|}}
+    <option id="option" value="{{c.id}}">
+        {{c.name}}
+    </option>
+    {{/each}}
+</select>
+{{else}}
+<select id="city" class="form-control" disabled>
+    <option value="-1">Создайте город в этой стране</option>
+</select>
+{{/if}}
+
+<small class="form-text text-muted">
+    Вы можете начать печатать навзвание города, чтобы быстрее найти его.
+</small>
+<br>
+<button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
+{{else}}
+<strong>Нет стран для создания столиц.</strong>
+{{/if}}
