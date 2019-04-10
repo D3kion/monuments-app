@@ -21,7 +21,6 @@ Deployment instructions:
 3. *Configure and run*
     ```
     $ python manage.py migrate
-    $ python manage.py initdb
     $ python manage.py compilemessages -l ru
     $ python manage.py createsuperuser
     $ python manage.py runserver
