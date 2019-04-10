@@ -25,14 +25,14 @@ export default View.extend({
   search(q) {
     let res = []
     
-    const url = 'api/geo/search/country/?search=' + q
+    const url = 'api/search/country/?search=' + q
     fetch('GET', url)
     .then(res => res.json())
     .then(data => {
       if (data.length > 0)
         res.push({countries: data})
     }).then(() => {
-      const url = 'api/geo/search/city/?search=' + q
+      const url = 'api/search/city/?search=' + q
       fetch('GET', url)
       .then(res => res.json())
       .then(data => {

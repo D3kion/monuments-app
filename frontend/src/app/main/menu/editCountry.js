@@ -22,7 +22,7 @@ export default View.extend({
   },
 
   onSubmit() {
-    // const url = 'http://' + location.hostname + ':8000/api/geo/country/'
+    // const url = 'http://' + location.hostname + ':8000/api/country/'
     //     fetch(url + id + '/', {
     //       method: 'POST',
     //       headers: {
@@ -49,7 +49,7 @@ export default View.extend({
   },
 
   loadFeatureInfo(id) {
-    const url = 'api/geo/info/country/' + id + '/'
+    const url = 'api/info/country/' + id + '/'
     fetch('GET', url)
     .then(res => res.json())
     .then(data => {

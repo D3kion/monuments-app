@@ -86,7 +86,7 @@ export default MnView.extend({
         featureProjection: 'EPSG:3857'
       }),
       loader: function() {
-        fetch('GET', 'api/geo/geojson/country/')
+        fetch('GET', 'api/geojson/country/')
         .then(res => res.json())
         .then(data => {
           countrySource.addFeatures(
@@ -101,7 +101,7 @@ export default MnView.extend({
         featureProjection: 'EPSG:3857'
       }),
       loader: function() {
-        fetch('GET', 'api/geo/geojson/city/')
+        fetch('GET', 'api/geojson/city/')
         .then(res => res.json())
         .then(data => {
           citySource.addFeatures(

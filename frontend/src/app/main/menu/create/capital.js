@@ -47,7 +47,7 @@ export default View.extend({
     if (city == -1)
       return
 
-    fetch('POST', 'api/geo/capital/', JSON.stringify({
+    fetch('POST', 'api/capital/', JSON.stringify({
       capital_of,
       city,
     }))
@@ -60,7 +60,7 @@ export default View.extend({
   },
 
   loadCountries() {
-    fetch('GET', 'api/geo/info/country/')
+    fetch('GET', 'api/info/country/')
     .then(res => res.json())
     .then(data => {
       data = data.filter((x) => x.capital == null)

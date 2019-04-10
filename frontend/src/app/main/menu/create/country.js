@@ -27,11 +27,11 @@ export default View.extend({
     const itemId = this.getUI('country').prop('selectedIndex')
     const name = this.getUI('country').prop('options').item(itemId).text
 
-    const url = 'api/geo/countries/' + id + '/'
+    const url = 'api/countries/' + id + '/'
     fetch('GET', url)
     .then(res => res.json())
     .then(data => {
-      fetch('POST', 'api/geo/country/', JSON.stringify({
+      fetch('POST', 'api/country/', JSON.stringify({
         name,
         geometry: data.geometry,
       }))
@@ -45,7 +45,7 @@ export default View.extend({
   },
 
   loadCountries() {
-    fetch('GET', 'api/geo/countries/')
+    fetch('GET', 'api/countries/')
     .then(res => res.json())
     .then(data => this.model.set('countries', data))
   },

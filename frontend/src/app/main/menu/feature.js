@@ -42,7 +42,7 @@ export default View.extend({
   deleteFeature() {
     const type = this.model.get('type')
     const id = this.model.get('id')
-    const url = 'api/geo/' + type + '/' + id + '/'
+    const url = 'api/' + type + '/' + id + '/'
     fetch('DELETE', url)
     .then(() => {
       this.triggerMethod('refresh:map', this)
@@ -52,7 +52,7 @@ export default View.extend({
   },
 
   loadFeatureInfo(type, id) {
-    const url = 'api/geo/info/' + type + '/' + id + '/'
+    const url = 'api/info/' + type + '/' + id + '/'
     fetch('GET', url)
     .then(res => res.json())
     .then(data => {

@@ -50,7 +50,7 @@ export default View.extend({
       coordinates: this.model.get('coords')
     }
 
-    fetch('POST', 'api/geo/city/', JSON.stringify({
+    fetch('POST', 'api/city/', JSON.stringify({
       name,
       country,
       description,
@@ -66,7 +66,7 @@ export default View.extend({
   },
 
   loadCountries() {
-    fetch('GET', 'api/geo/info/country/')
+    fetch('GET', 'api/info/country/')
     .then(res => res.json())
     .then(data => this.model.set('countries', data))
   },
