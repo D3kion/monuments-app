@@ -28,10 +28,10 @@ export default View.extend({
 
   initialize(drawPoint) {
     this.drawPoint = drawPoint
-    this.model.on('change:isCountry', this.render, this)
-    this.model.on('change:isCity', this.render, this)
-    this.model.on('change:isCapital', this.render, this)
-    this.model.on('change:countries', this.render, this)
+    this.model.on('change', () => {
+      if (!this.model.hasChanged('coords'))
+        this.render()
+    }, this)
     this.loadCountries()
   },
 
