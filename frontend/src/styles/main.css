@@ -42,8 +42,9 @@
 }
 
 #menu #content {
+  position: relative;
   height: 100%;
-  padding: 1em 1.25em;
+  padding: .75em .9em;
   background-color: azure;
   border-radius: 0 0 10px 10px;
   overflow-y: auto;
@@ -51,9 +52,8 @@
 
 .feature-header-buttons {
   position: absolute;
-  display: inline-block;
   right: 1em;
-  text-align: end;
+  display: inline-block;
 }
 
 /*
