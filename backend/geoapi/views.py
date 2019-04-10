@@ -26,7 +26,13 @@ class CountryGeoView(generics.ListAPIView):
     pagination_class = None
 
 
-class CountryInfoView(generics.RetrieveAPIView):
+class CountryInfoView(generics.ListAPIView):
+    queryset = Country.objects.all().order_by('name')
+    serializer_class = CountryInfoSerializer
+    pagination_class = None
+
+
+class CountryInfoDetailView(generics.RetrieveAPIView):
     queryset = Country.objects.all()
     serializer_class = CountryInfoSerializer
 
@@ -54,7 +60,7 @@ class CityGeoView(generics.ListAPIView):
     pagination_class = None
 
 
-class CityInfoView(generics.RetrieveAPIView):
+class CityInfoDetailView(generics.RetrieveAPIView):
     queryset = City.objects.all()
     serializer_class = CityInfoSerializer
 
@@ -76,7 +82,7 @@ class CityPUTView(generics.UpdateAPIView):
 # Capital
 #
 class CapitalViewSet(viewsets.ModelViewSet):
-    queryset = Capital.objects.all().order_by('name')
+    queryset = Capital.objects.all().order_by('capital_of')
     serializer_class = CapitalSerializer
     pagination_class = None
 

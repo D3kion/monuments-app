@@ -17,11 +17,13 @@ export default View.extend({
     name: '#name',
     description: '#description',
     place: '#place',
+    city: '#city',
     submit: '#submit',
   },
 
   events: {
     'click @ui.choose': 'onChoose',
+    'change @ui.country': 'onCountry',
     'click @ui.place': 'onPlace',
     'click @ui.submit': 'onSubmit',
   },
@@ -33,6 +35,12 @@ export default View.extend({
         this.render()
     }, this)
     this.loadCountries()
+  },
+
+  onRender() {
+    if (this.model.get('isCapital')) {
+      this.getUI('country').val(this.model.get('selectedCountry'))
+    }
   },
 
   onChoose(e) {
@@ -53,6 +61,17 @@ export default View.extend({
     }
 
     this.loadCountries()
+  },
+
+  onCountry() {
+    if (this.model.get('isCapital')) {
+      const id = this.getUI('country').val()
+      this.model.set('selectedCountry', id)
+
+      const cities = this.model.get('countries')
+                      .filter((x) => x.id == id)[0].city_set
+      this.model.set('cities', cities)
+    }
   },
 
   onPlace() {
@@ -118,7 +137,22 @@ export default View.extend({
   },
 
   onSubmitCapital() {
+    const capital_of = this.getUI('country').val()
+    const city = this.getUI('city').val()
 
+    if (city == -1)
+      return
+
+    fetch('POST', 'api/geo/capital/', JSON.stringify({
+      capital_of,
+      city,
+    }))
+    .then(res => {
+      if (res.ok) {
+        this.triggerMethod('refresh:map', this)
+        this.triggerMethod('close:menu', this)
+      }
+    })
   },
 
   loadCountries() {
@@ -127,8 +161,15 @@ export default View.extend({
       .then(res => res.json())
       .then(data => this.model.set('countries', data))
     else
-      fetch('GET', 'api/geo/search/country/')
+      fetch('GET', 'api/geo/info/country/')
       .then(res => res.json())
-      .then(data => this.model.set('countries', data))
+      .then(data => {
+        if (this.model.get('isCapital')) {
+          data = data.filter((x) => x.capital == null)
+          this.model.set('selectedCountry', data[0].id)
+          this.model.set('cities', data[0].city_set)
+        }
+        this.model.set('countries', data)
+      })
   },
 })
