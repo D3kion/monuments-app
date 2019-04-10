@@ -54,9 +54,8 @@ export default View.extend({
       fetch('GET', 'api/geo/search/country/')
       .then(res => res.json())
       .then(data => {
-        this.model.set('countryList', data.filter((val) => {
-          return val.id != this.model.get('country').id
-        }))
+        const countries = data.filter(x => x.id != this.model.get('country').id)
+        this.model.set('countryList', countries)
       })
     })
   },
