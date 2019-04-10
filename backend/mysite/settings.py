@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'core.apps.CoreConfig',
-    'polls.apps.PollsConfig',
     'api.apps.ApiConfig',
     'geoapi.apps.GeoapiConfig',
     'corsheaders',

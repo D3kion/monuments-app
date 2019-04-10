@@ -27,7 +27,7 @@ Deployment instructions:
     $ python manage.py runserver
     ```
 
-And go to [Polls app](http://127.0.0.1:8000/polls) | [Admin panel](http://127.0.0.1:8000/admin) | [Polls API](http://127.0.0.1:8000/api) | [Geo API](http://127.0.0.1:8000/api/geo)
+And go to [Admin panel](http://127.0.0.1:8000/admin) | [API](http://127.0.0.1:8000/api) | [Geo API](http://127.0.0.1:8000/api/geo)
 
 #### Frontend:
 1. *Install dependencies*

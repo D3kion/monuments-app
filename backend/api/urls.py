@@ -5,8 +5,6 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('users', views.UserViewSet)
-router.register('questions', views.QuestionViewSet)
-router.register('choice', views.ChoiceViewSet)
 
 urlpatterns = [
     path('auth/', include('rest_framework.urls', namespace='geo-auth')),
