@@ -17,5 +17,6 @@ class MyUserAdmin(UserAdmin):
                     'patronymic', 'is_staff')
     readonly_fields = ('last_login', 'date_joined')
 
+
 User = get_user_model()
 admin.site.register(User, MyUserAdmin)

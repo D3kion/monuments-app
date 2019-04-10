@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-10 09:18+0300\n"
+"POT-Creation-Date: 2019-04-10 17:47+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,47 +20,46 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: geoapi/models.py:16 geoapi/models.py:29 geoapi/models.py:45
-#: geoapi/models.py:72
+#: api/models.py:16 api/models.py:29 api/models.py:45 api/models.py:72
 msgid "name"
 msgstr "название"
 
-#: geoapi/models.py:17 geoapi/models.py:34 geoapi/models.py:73
+#: api/models.py:17 api/models.py:34 api/models.py:73
 msgid "geometry"
 msgstr "геометрия"
 
-#: geoapi/models.py:23 geoapi/models.py:33
+#: api/models.py:23 api/models.py:33
 msgid "country"
 msgstr "страна"
 
-#: geoapi/models.py:24
+#: api/models.py:24
 msgid "countries"
 msgstr "страны"
 
-#: geoapi/models.py:31
+#: api/models.py:31
 msgid "description"
 msgstr "описание"
 
-#: geoapi/models.py:40 geoapi/models.py:47
+#: api/models.py:40 api/models.py:47
 msgid "city"
 msgstr "город"
 
-#: geoapi/models.py:41
+#: api/models.py:41
 msgid "cities"
 msgstr "города"
 
-#: geoapi/models.py:49 geoapi/models.py:55
+#: api/models.py:49 api/models.py:55
 msgid "image"
 msgstr "изображение"
 
-#: geoapi/models.py:56
+#: api/models.py:56
 msgid "images"
 msgstr "изображения"
 
-#: geoapi/models.py:67
+#: api/models.py:67
 msgid "capital"
 msgstr "столица"
 
-#: geoapi/models.py:68
+#: api/models.py:68
 msgid "capitals"
 msgstr "столицы"

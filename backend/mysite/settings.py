@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'api.apps.ApiConfig',
-    'geoapi.apps.GeoapiConfig',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
