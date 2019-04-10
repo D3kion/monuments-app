@@ -26,7 +26,7 @@ Deployment instructions:
     $ python manage.py runserver
     ```
 
-And go to [Admin panel](http://127.0.0.1:8000/admin) | [API](http://127.0.0.1:8000/api) | [Geo API](http://127.0.0.1:8000/api/geo)
+And go to [Admin panel](http://127.0.0.1:8000/admin) | [API](http://127.0.0.1:8000/api)
 
 #### Frontend:
 1. *Install dependencies*
