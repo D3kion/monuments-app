@@ -20,7 +20,7 @@ export default MnView.extend({
     this.map = new Map({
       layers: [],
       view: new View({
-        center: proj.transform([39, 47], 'EPSG:4326', 'EPSG:3857'),
+        center: proj.transform([65, 45], 'EPSG:4326', 'EPSG:3857'),
         zoom: 4,
       }),
       controls: [],
@@ -50,7 +50,7 @@ export default MnView.extend({
 
   homeExtent() {
     this.map.setView(new View({
-      center: proj.transform([39, 47], 'EPSG:4326', 'EPSG:3857'),
+      center: proj.transform([65, 45], 'EPSG:4326', 'EPSG:3857'),
       zoom: 4,
     }))
   },
