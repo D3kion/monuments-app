@@ -1,18 +1,19 @@
 <span class="h3">Результаты поиска:</span>
 <hr>
 {{#if list}}
-{{#each list as |l|}}
-    {{#if l.countries}}
+{{#each list}}
+    {{#if countries}}
     <span class="h5">Страны:</span><br>
-    {{#each l.countries as |c|}}
-    <a class="clickable" data-country={{c.id}} href="#">{{c.name}}</a><br>
+    {{#each countries}}
+    <a class="clickable" data-country={{id}} href="#">{{name}}</a><br>
     {{/each}}
     <br>
     {{/if}}
-    {{#if l.cities}}
+
+    {{#if cities}}
     <span class="h5">Города:</span><br>
-    {{#each l.cities as |c|}}
-    <a class="clickable" data-city={{c.id}} href="#">{{c.name}}</a><br>
+    {{#each cities}}
+    <a class="clickable" data-city={{id}} href="#">{{name}}</a><br>
     {{/each}}
     {{/if}}
 {{/each}}

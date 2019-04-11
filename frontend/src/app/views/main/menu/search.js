@@ -7,40 +7,32 @@ export default View.extend({
   template: template,
 
   model: new Bb.Model(),
-  
-  ui: {
-    feature: '.clickable',
-  },
 
   events: {
-    'click @ui.feature': 'openFeature'
+    'click .clickable': 'openFeature'
   },
 
   initialize(q) {
     this.model.on('change', this.render, this)
-    
     this.search(q)
   },
 
   search(q) {
     let res = []
-    
-    const url = 'api/search/country/?search=' + q
-    fetch('GET', url)
+    fetch('GET', 'api/search/country/?search=' + q)
     .then(res => res.json())
     .then(data => {
       if (data.length > 0)
         res.push({countries: data})
-    }).then(() => {
-      const url = 'api/search/city/?search=' + q
-      fetch('GET', url)
+    })
+    .then(() => 
+      fetch('GET', 'api/search/city/?search=' + q)
       .then(res => res.json())
       .then(data => {
         if (data.length > 0)
           res.push({cities: data})
-        this.model.set('list', res)
-      })
-    })
+        this.model.set({list: res})
+      }))
   },
 
   openFeature(e) {

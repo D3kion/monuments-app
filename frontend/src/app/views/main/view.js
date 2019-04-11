@@ -12,22 +12,25 @@ import SearchView from './menu/search'
 export default View.extend({
   template: template,
 
-  model: new Bb.Model(),
-
-  ui: {
-    layers: '#layers',
-    create: '#create',
-    homeExtent: '#home-extent',
-    logout: '#logout',
-    search: '#search',
+  regions: {
+    menu: {
+      el: '#menu-placeholder',
+      replaceElement: true,
+    },
+    map: {
+      el: '#map-placeholder',
+      replaceElement: true,
+    },
   },
 
+  model: new Bb.Model(),
+
   events: {
-    'click @ui.layers': 'openLayers',
-    'click @ui.create': 'openCreate',
-    'click @ui.homeExtent': 'onHomeExtent',
-    'click @ui.logout': 'onLogout',
-    'keyup @ui.search': 'searchFeature',
+    // 'click #layers': 'openLayers',
+    'click #create': 'openCreate',
+    'click #homeExtent': 'onHomeExtent',
+    'click #logout': 'onLogout',
+    'keyup #search': 'onSearch',
   },
 
   childViewEvents: {
@@ -39,17 +42,6 @@ export default View.extend({
   },
 
   initialize() {
-    this.addRegions({
-      menu: {
-        el: '#menu-placeholder',
-        replaceElement: true,
-      },
-      map: {
-        el: '#map-placeholder',
-        replaceElement: true,
-      },
-    })
-
     this.model.on('change', this.render, this)
     this.getUsername()
   },
@@ -60,14 +52,16 @@ export default View.extend({
   },
 
   showMenu(view) {
-    this.showChildView('menu', new MenuView({ contentView: view }))
+    this.showChildView('menu', new MenuView({contentView: view}))
   },
   
-  openLayers() {
-    this.showMenu()
-  },
+  // openLayers() {
+  //   this.map.select.getFeatures().clear()
+  //   this.showMenu()
+  // },
 
   openCreate() {
+    this.map.select.getFeatures().clear()
     this.showMenu(new CreateView(this.map.drawPoint.bind(this.map)))
   },
 
@@ -80,7 +74,8 @@ export default View.extend({
     location.reload()
   },
 
-  searchFeature(e) {
+  onSearch(e) {
+    this.map.select.getFeatures().clear()
     if (e.keyCode == 13)
       this.showMenu(new SearchView(e.target.value))
   },
