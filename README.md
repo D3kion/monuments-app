@@ -12,7 +12,7 @@ Deployment instructions:
 
 2. *Create venv and install dependecies*
     ```
-    $ cd django
+    $ cd backend
     $ python -m venv venv
     $ source venv/bin/activate
     $ pip install -r requirements.txt
