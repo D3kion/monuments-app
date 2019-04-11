@@ -1,6 +1,6 @@
 {{#if countries}}
 <strong class="h5">Создать страну</strong><br><br>
-<select id="country" class="form-control">
+<select id="country" name="country" class="form-control">
     {{#each countries as |c|}}
     <option value="{{c.id}}">{{c.name}}</option>
     {{/each}}

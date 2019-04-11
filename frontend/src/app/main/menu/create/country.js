@@ -8,13 +8,9 @@ export default View.extend({
 
   model: new Bb.Model(),
 
-  ui: {
-    country: '#country',
-    submit: '#submit',
-  },
-
   events: {
-    'click @ui.submit': 'onSubmit',
+    'click #submit': 'onSubmit',
+    'change #country': 'onChangeCountry',
   },
 
   initialize() {
@@ -23,30 +19,49 @@ export default View.extend({
   },
 
   onSubmit() {
-    const id = this.getUI('country').val()
-    const itemId = this.getUI('country').prop('selectedIndex')
-    const name = this.getUI('country').prop('options').item(itemId).text
+    // TODO: Move to models directory if need
+    const Country = Bb.Model.extend({
+      urlRoot: 'http://' + location.hostname + ':8000/api/country/',
+      defaults: {
+        name: '',
+        geometry: '',
+      },
+    })
 
-    const url = 'api/countries/' + id + '/'
+    const url = 'api/countries/' + this.model.get('countryHelperId') + '/'
     fetch('GET', url)
     .then(res => res.json())
     .then(data => {
-      fetch('POST', 'api/country/', JSON.stringify({
-        name,
+      (new Country()).save({
+        name: data.properties.name,
         geometry: data.geometry,
-      }))
-      .then(res => {
-        if (res.ok) {
+      },
+      {
+        success: (model) => {
           this.triggerMethod('refresh:map', this)
-          this.loadCountries()
+          this.triggerMethod('close:menu', this)
+        },
+
+        error: function(model, res) {
+          console.error(res)
         }
       })
+    })
+  },
+  
+  onChangeCountry(e) {
+    const countryHelper = this.model.get('countries').filter(x => x.id == e.target.value)[0]
+    this.model.set({
+      countryHelperId: countryHelper.id
     })
   },
 
   loadCountries() {
     fetch('GET', 'api/countries/')
     .then(res => res.json())
-    .then(data => this.model.set('countries', data))
+    .then(data => this.model.set({
+      countries: data,
+      countryHelperId: data[0].id,
+    }))
   },
 })
