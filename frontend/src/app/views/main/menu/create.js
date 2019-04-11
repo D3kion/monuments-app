@@ -1,4 +1,3 @@
-import Bb from 'backbone'
 import { View } from 'backbone.marionette'
 import template from './create.hbs'
 import CountryView from './create/country'
@@ -7,19 +6,13 @@ import CapitalView from './create/capital'
 
 export default View.extend({
   template: template,
-
-  model: new Bb.Model(),
   
   regions: {
     content: '#create-content'
   },
 
-  ui: {
-    choose: '.choose',
-  },
-
   events: {
-    'click @ui.choose': 'onChoose',
+    'click .choose': 'onChoose',
   },
 
   childViewEvents: {
@@ -29,15 +22,11 @@ export default View.extend({
 
   initialize(drawPoint) {
     this.drawPoint = drawPoint
-
-    this.model.on('change', this.render, this)
   },
 
   onChoose(e) {
-    this.model.set('target', e.target.dataset.choose)
-    
     let childView
-    switch (this.model.get('target')) {
+    switch (e.target.dataset.choose) {
       case 'country':
         childView = new CountryView()
         break;
@@ -48,7 +37,6 @@ export default View.extend({
         childView = new CapitalView()
         break;
     }
-    
     this.showChildView('content', childView)
   },
 
