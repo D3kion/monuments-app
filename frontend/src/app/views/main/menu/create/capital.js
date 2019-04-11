@@ -1,74 +1,58 @@
-import Bb from 'backbone'
 import { View } from 'backbone.marionette'
-import fetch from '../../../../utils'
 import template from './capital.hbs'
+import CapitalModel from 'Models/capital'
+import CountriesCollection from 'Collections/countries'
 
 export default View.extend({
   template: template,
 
-  model: new Bb.Model(),
-
-  ui: {
-    country: '#country',
-    city: '#city',
-    submit: '#submit',
-  },
-
   events: {
-    'change @ui.country': 'onCountry',
-    'click @ui.submit': 'onSubmit',
+    'change #country': 'onChangeCountry',
+    'click #submit': 'onSubmit',
   },
 
   initialize() {
-    this.model.on('change', this.render, this)
+    this.countries = new CountriesCollection()
+    this.countries.on('add', this.render, this)
+    this.countries.fetch({
+      success: collection => this.cities = collection.models[0].get('city_set')
+    })
+  },
 
-    this.loadCountries()
+  serializeData() {
+    return {
+      countries: this.countries.toJSON().filter(x => x.capital == null),
+      cities: this.cities,
+    }
   },
 
   onRender() {
-    this.getUI('country').val(this.model.get('selectedCountry'))
+    if (typeof this.activeCountry !== 'undefined')
+      this.$el.find('#country').val(this.activeCountry)
   },
 
-  onCountry() {
-    const id = this.getUI('country').val()
-    const cities = this.model.get('countries')
-                    .filter((x) => x.id == id)[0].city_set
-
-    this.model.set({
-      'selectedCountry': id,
-      'cities': cities,
-    })
+  onChangeCountry(e) {
+    const countryId = e.target.value
+    this.cities = this.countries.get(countryId).get('city_set')
+    this.activeCountry = countryId
+    this.render()
   },
 
   onSubmit() {
-    const capital_of = this.getUI('country').val()
-    const city = this.getUI('city').val()
+    const $form = this.$el.find('form')
+    let data = {}
+    $form.serializeArray().map(x => data[x.name] = x.value)
 
-    if (city == -1)
-      return
-
-    fetch('POST', 'api/capital/', JSON.stringify({
-      capital_of,
-      city,
-    }))
-    .then(res => {
-      if (res.ok) {
+    ;(new CapitalModel()).save({
+      capital_of: data.country,
+      city: data.city,
+    }, {
+      success: () => {
         this.triggerMethod('refresh:map', this)
         this.triggerMethod('close:menu', this)
-      }
-    })
-  },
+      },
 
-  loadCountries() {
-    fetch('GET', 'api/info/country/')
-    .then(res => res.json())
-    .then(data => {
-      data = data.filter((x) => x.capital == null)
-      this.model.set({
-        'countries': data,
-        'selectedCountry': data[0].id,
-        'cities': data[0].city_set,
-      })
+      error: (_model, res) => console.error(res),
     })
   },
 })
