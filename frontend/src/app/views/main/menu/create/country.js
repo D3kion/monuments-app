@@ -1,7 +1,7 @@
 import { View } from 'backbone.marionette'
 import template from './country.hbs'
-import CountryHelpers from 'Collections/countryHelpers'
-import Country from 'Models/country'
+import CountryHelpersCollection from 'Collections/countryHelpers'
+import CountryModel from 'Models/country'
 
 export default View.extend({
   template: template,
@@ -11,7 +11,7 @@ export default View.extend({
   },
 
   initialize() {
-    this.countries = new CountryHelpers()
+    this.countries = new CountryHelpersCollection()
     this.countries.on('add', this.render, this)
     this.countries.fetch()
   },
@@ -27,7 +27,7 @@ export default View.extend({
     const helperId = $form.serializeArray()[0].value
     this.countries.get(helperId).fetch({
       success: model => {
-        (new Country()).save({
+        (new CountryModel()).save({
           name: model.get('name'),
           geometry: model.get('geometry'),
         }, {
@@ -36,11 +36,11 @@ export default View.extend({
             this.triggerMethod('close:menu', this)
           },
   
-          error: (model, res) => console.error(res),
+          error: (_model, res) => console.error(res),
         })
       },
 
-      error: (model, res) => console.log(res),
+      error: (_model, res) => console.log(res),
     })
   },
 })

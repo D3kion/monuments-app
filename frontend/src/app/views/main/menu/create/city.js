@@ -1,73 +1,53 @@
-import Bb from 'backbone'
 import { View } from 'backbone.marionette'
-import fetch from '../../../../utils'
 import template from './city.hbs'
+import CityModel from 'Models/city'
+import CountriesCollection from 'Collections/countries'
 
 export default View.extend({
   template: template,
 
-  model: new Bb.Model({
-    coords: null,
-  }),
-
-  ui: {
-    country: '#country',
-    name: '#name',
-    description: '#description',
-    place: '#place',
-    submit: '#submit',
-  },
-
   events: {
-    'click @ui.place': 'onPlace',
-    'click @ui.submit': 'onSubmit',
+    'click #place': 'onPlace',
+    'click #submit': 'onSubmit',
   },
 
   initialize(drawPoint) {
     this.drawPoint = drawPoint
+    this.city = new CityModel()
+    this.countries = new CountriesCollection()
 
-    this.model.on('change', () => {
-      if (!this.model.hasChanged('coords'))
-        this.render()
-    }, this)
+    this.countries.on('add', this.render, this)
     
-    this.loadCountries()
+    this.countries.fetch()
+  },
+
+  serializeData() {
+    return {
+      countries: this.countries.toJSON()
+    }
   },
 
   onPlace() {
-    this.drawPoint(this.model)
+    this.drawPoint((coords) => this.city.set({geometry: {type: 'Point', coordinates: coords }}))
   },
 
   onSubmit() {
-    if (this.model.get('coords') == null)
-      return
+    const $form = this.$el.find('form')
+    let data = {}
+    $form.serializeArray().map(x => data[x.name] = x.value)
 
-    const name = this.getUI('name').val()
-    const country = this.getUI('country').val()
-    const description = this.getUI('description').val()
-    const geometry = {
-      type: 'Point',
-      coordinates: this.model.get('coords')
-    }
-
-    fetch('POST', 'api/city/', JSON.stringify({
-      name,
-      country,
-      description,
-      geometry,
+    this.city.save({
+      name: data.name,
+      country: data.country,
+      description: data.description,
       image_set: [],
-    }))
-    .then(res => {
-      if (res.ok) {
+    }, {
+      success: () => {
         this.triggerMethod('refresh:map', this)
         this.triggerMethod('close:menu', this)
-      }
-    })
-  },
+      },
 
-  loadCountries() {
-    fetch('GET', 'api/info/country/')
-    .then(res => res.json())
-    .then(data => this.model.set('countries', data))
+      error: (_model, res) => console.error(res),
+    })
   },
 })

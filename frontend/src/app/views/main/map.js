@@ -55,7 +55,7 @@ export default MnView.extend({
     }))
   },
 
-  drawPoint(model) {
+  drawPoint(setCoords) {
     let source = new Vector()
     let vector = new VectorLayer({source})
     this.map.addLayer(vector)
@@ -65,14 +65,12 @@ export default MnView.extend({
       type: 'Point',
     })
     draw.on('drawend', (e) => {
+      const rawCoords = e.feature.getGeometry().getCoordinates()
+      setCoords(proj.transform(rawCoords, 'EPSG:3857', 'EPSG:4326'))
+
       this.map.removeInteraction(draw)
-      model.set('coords', proj.transform(
-        e.feature.getGeometry().getCoordinates(),
-        'EPSG:3857', 'EPSG:4326'))
       this.map.removeLayer(vector)
-      setTimeout(() => {
-        this.map.addInteraction(this.select)
-      }, 1000)
+      setTimeout(() => this.map.addInteraction(this.select), 1000)
     })
 
     this.map.removeInteraction(this.select)
