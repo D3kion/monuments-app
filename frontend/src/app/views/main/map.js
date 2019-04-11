@@ -6,6 +6,7 @@ import Vector from 'ol/source/Vector'
 import GeoJSON from 'ol/format/GeoJSON'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
+import { defaults } from 'ol/interaction'
 import Select from 'ol/interaction/Select.js'
 import Draw from 'ol/interaction/Draw.js'
 import { never, click } from 'ol/events/condition'
@@ -24,6 +25,7 @@ export default MnView.extend({
         zoom: 4,
       }),
       controls: [],
+      interactions: defaults({doubleClickZoom: false})
     })
     
     this.select = new Select({
