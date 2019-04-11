@@ -1,5 +1,6 @@
 import Bb from 'backbone'
 import { View } from 'backbone.marionette'
+// TODO
 import fetch from '../../../utils'
 import template from './feature.hbs'
 
@@ -7,17 +8,11 @@ export default View.extend({
   template: template,
 
   model: new Bb.Model(),
-  
-  ui: {
-    feature: '.clickable',
-    edit: '#edit',
-    delete : '#delete',
-  },
 
   events: {
-    'click @ui.feature': 'openFeature',
-    'click @ui.edit': 'editFeature',
-    'click @ui.delete': 'deleteFeature',
+    'click .clickable': 'openFeature',
+    'click #edit': 'editFeature',
+    'click #delete': 'deleteFeature',
   },
 
   initialize(type, id) {
@@ -30,7 +25,7 @@ export default View.extend({
   },
 
   editFeature() {
-    const type = this.model.get('type')
+    // const type = this.model.get('type')
     const id = this.model.get('id')
 
     // if (type === 'country')
@@ -40,6 +35,7 @@ export default View.extend({
   },
 
   deleteFeature() {
+    // TODO
     const type = this.model.get('type')
     const id = this.model.get('id')
     const url = 'api/' + type + '/' + id + '/'
@@ -52,6 +48,7 @@ export default View.extend({
   },
 
   loadFeatureInfo(type, id) {
+    // TODO
     const url = 'api/info/' + type + '/' + id + '/'
     fetch('GET', url)
     .then(res => res.json())

@@ -2,21 +2,17 @@
 <div class="feature-header-buttons">
     {{#if isCountry}}
     {{else}}
-    <button id="edit" type="button" class="btn btn-success btn-sm" title="Редактировать">
-        <i class="far fa-edit"></i>
-    </button>
+    <button id="edit" type="button" class="btn btn-success btn-sm" title="Редактировать"><i class="far fa-edit"></i></button>
     {{/if}}
-    <button id="delete" type="button" class="btn btn-danger btn-sm" title="Удалить">
-        <i class="fas fa-trash-alt"></i>
-    </button>
+    <button id="delete" type="button" class="btn btn-danger btn-sm" title="Удалить"><i class="fas fa-trash-alt"></i></button>
 </div>
 <hr>
 {{#if isCountry}}
     <strong>Столица:</strong> <a class="clickable" data-city={{capital.id}} href="#">{{capital.name}}</a><br>
     <strong>Города:</strong>
     <ul>
-    {{#each city_set as |city|}}
-        <li><a class="clickable" data-city={{city.id}} href="#">{{city.name}}</a></li>
+    {{#each city_set}}
+        <li><a class="clickable" data-city={{id}} href="#">{{name}}</a></li>
     {{/each}}
     </ul>
 {{else}}
@@ -30,9 +26,9 @@
     {{!-- Photos --}}
     <strong>Фото достопримечательностей:</strong><br>
     {{#if images}}
-    {{#each images as |i|}}
-    <a href="{{i.image}}" target="_blank">
-        <img class="img-thumbnail" src="{{i.image}}" alt="{{i.name}}">
+    {{#each images}}
+    <a href="{{image}}" target="_blank">
+        <img class="img-thumbnail" src="{{image}}" alt="{{name}}">
     </a>
     {{/each}}
     {{else}}
