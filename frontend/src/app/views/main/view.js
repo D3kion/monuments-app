@@ -28,7 +28,7 @@ export default View.extend({
   events: {
     // 'click #layers': 'openLayers',
     'click #create': 'openCreate',
-    'click #homeExtent': 'onHomeExtent',
+    'click #home-extent': 'onHomeExtent',
     'click #logout': 'onLogout',
     'keyup #search': 'onSearch',
   },
