@@ -10,7 +10,7 @@ import Select from 'ol/interaction/Select.js'
 import Draw from 'ol/interaction/Draw.js'
 import { never, click } from 'ol/events/condition'
 import { View as MnView } from 'backbone.marionette'
-import fetch from '../utils'
+import fetch from '../../utils'
 import template from './map.hbs'
 
 export default MnView.extend({

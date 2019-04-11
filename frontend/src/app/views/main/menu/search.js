@@ -1,6 +1,6 @@
 import Bb from 'backbone'
 import { View } from 'backbone.marionette'
-import fetch from '../../utils'
+import fetch from '../../../utils'
 import template from './search.hbs'
 
 export default View.extend({

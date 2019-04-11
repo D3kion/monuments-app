@@ -3,8 +3,8 @@ import '../styles/main.css'
 import { Application } from 'backbone.marionette'
 import _ from 'underscore'
 import fetch from './utils'
-import LoginView from './login/view'
-import MainView from './main/view'
+import LoginView from './views/login/view'
+import MainView from './views/main/view'
 
 export default Application.extend({
   region: '#root',

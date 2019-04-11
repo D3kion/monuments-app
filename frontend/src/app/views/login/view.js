@@ -1,6 +1,6 @@
-import '../../styles/login.css'
+import '../../../styles/login.css'
 import { View } from 'backbone.marionette'
-import fetch from '../utils'
+import fetch from '../../utils'
 import template from './template.hbs'
 
 export default View.extend({
