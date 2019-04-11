@@ -5,22 +5,21 @@ import template from './template.hbs'
 
 export default View.extend({
   template: template,
-
-  ui: {
-    username: '#username',
-    password: '#password',
-    submit: '#submit',
-  },
   
   events: {
-    'click @ui.submit': 'onSubmit',
+    'click #submit': 'onSubmit',
   },
 
   onSubmit(e) {
     e.preventDefault()
+
+    const $form = this.$el.find('form')
+    let data = {}
+    $form.serializeArray().map(x => data[x.name] = x.value)
+
     fetch('POST', 'api/token-auth/', JSON.stringify({
-      username: this.getUI('username').val(),
-      password: this.getUI('password').val(),
+      username: data.username,
+      password: data.password,
     }), false)
     .then(res => res.json())
     .then(data => {

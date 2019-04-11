@@ -6,8 +6,8 @@
 <strong>Страна:</strong>
 <select id="country" class="form-control">
     <option value={{country.id}} selected>{{country.name}}</option>
-    {{#each countryList as |c|}}
-    <option value={{c.id}}>{{c.name}}</option>
+    {{#each countryList}}
+    <option value={{id}}>{{name}}</option>
     {{/each}}
 </select>
 <small class="form-text text-muted">

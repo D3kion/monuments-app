@@ -27,18 +27,17 @@ export default MnView.extend({
       controls: [],
       interactions: defaults({doubleClickZoom: false})
     })
+    this.select = new Select({toggleCondition: never})
     
-    this.select = new Select({
-      toggleCondition: never
-    })
-    this.map.addInteraction(this.select)
     this.select.on('select', this.onSelect.bind(this))
-    this.loadLayers()
-
     this.map.on('pointermove', function(e) {
       let hit = this.forEachFeatureAtPixel(e.pixel, () => true)
       this.getTargetElement().style.cursor = hit ? 'pointer' : ''
     })
+    
+    this.map.addInteraction(this.select)
+
+    this.loadLayers()
   },
 
   onDomRefresh() {
@@ -66,6 +65,7 @@ export default MnView.extend({
       source,
       type: 'Point',
     })
+
     draw.on('drawend', (e) => {
       const rawCoords = e.feature.getGeometry().getCoordinates()
       setCoords(proj.transform(rawCoords, 'EPSG:3857', 'EPSG:4326'))
@@ -85,14 +85,11 @@ export default MnView.extend({
         defaultDataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857'
       }),
-      loader: function() {
+
+      loader: () =>
         fetch('GET', 'api/geojson/country/')
         .then(res => res.json())
-        .then(data => {
-          countrySource.addFeatures(
-            countrySource.getFormat().readFeatures(data))
-        })
-      }
+        .then(data => countrySource.addFeatures(countrySource.getFormat().readFeatures(data)))
     })
     
     let citySource = new Vector({
@@ -100,27 +97,16 @@ export default MnView.extend({
         defaultDataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857'
       }),
-      loader: function() {
+
+      loader: () =>
         fetch('GET', 'api/geojson/city/')
         .then(res => res.json())
-        .then(data => {
-          citySource.addFeatures(
-            citySource.getFormat().readFeatures(data))
-        })
-      }
+        .then(data => citySource.addFeatures(citySource.getFormat().readFeatures(data)))
     })
 
-    this.mainLayer = new TileLayer({
-      source: new OSM(),
-    })
-    
-    this.countryLayer = new VectorLayer({
-      source: countrySource
-    })
-    
-    this.cityLayer = new VectorLayer({
-      source: citySource
-    })
+    this.mainLayer = new TileLayer({source: new OSM()})
+    this.countryLayer = new VectorLayer({source: countrySource})
+    this.cityLayer = new VectorLayer({source: citySource})
 
     this.map.getLayers().clear()
     this.map.addLayer(this.mainLayer)
