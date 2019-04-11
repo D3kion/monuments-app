@@ -19,7 +19,7 @@ from .serializers import (
     CountryInfoSerializer, CityInfoSerializer,
     CityPUTSerializer,
     CountryInfoHelperSerializer, CityInfoHelperSerializer,
-    CountriesHelperSerializer, CountriesHelperListSerializer,
+    CountriesHelperSerializer, CountriesHelperDetailSerializer,
 )
 
 
@@ -138,16 +138,16 @@ class CapitalViewSet(viewsets.ModelViewSet):
 #
 # CountriesHelper
 #
-class CountriesHelperView(generics.RetrieveAPIView):
-    queryset = CountriesHelper.objects.all().order_by('name')
-    serializer_class = CountriesHelperSerializer
-    pagination_class = None
-
-
-class CountriesHelperListView(generics.ListAPIView):
+class CountriesHelperView(generics.ListCreateAPIView):
     qs1 = Country.objects.values_list('name')
     qs2 = CountriesHelper.objects.values_list('name')
     qs = qs2.difference(qs1)
     queryset = CountriesHelper.objects.filter(name__in=qs).order_by('name')
-    serializer_class = CountriesHelperListSerializer
+    serializer_class = CountriesHelperSerializer
+    pagination_class = None
+
+
+class CountriesHelperDetailView(generics.RetrieveAPIView):
+    queryset = CountriesHelper.objects.all().order_by('name')
+    serializer_class = CountriesHelperDetailSerializer
     pagination_class = None

@@ -32,8 +32,8 @@ urlpatterns = [
     path('edit/city/<int:pk>/', views.CityPUTView.as_view(),
          name='city-edit'),
     # CountriesHelper
-    path('countries/', views.CountriesHelperListView.as_view(),
+    path('countries/', views.CountriesHelperView.as_view(),
          name='countires-list'),
-    path('countries/<int:pk>/', views.CountriesHelperView.as_view(),
+    path('countries/<int:pk>/', views.CountriesHelperDetailView.as_view(),
          name='countires-detail'),
 ]
