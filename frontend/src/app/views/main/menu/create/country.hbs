@@ -1,8 +1,8 @@
-{{#if []}}
+{{#if countries}}
 <strong class="h5">Создать страну</strong><br><br>
 <form>
-    <select id="country" name="country" class="form-control">
-        {{#each []}}
+    <select name="country" class="form-control">
+        {{#each countries}}
         <option value="{{id}}">{{name}}</option>
         {{/each}}
     </select>

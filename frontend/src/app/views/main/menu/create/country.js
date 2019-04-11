@@ -1,4 +1,3 @@
-import Bb from 'backbone'
 import { View } from 'backbone.marionette'
 import template from './country.hbs'
 import CountryHelpers from 'Collections/countryHelpers'
@@ -7,33 +6,32 @@ import Country from 'Models/country'
 export default View.extend({
   template: template,
 
-  collection: new CountryHelpers(),
-
   events: {
     'click #submit': 'onSubmit',
-    'change #country': 'onChangeCountry',
   },
 
   initialize() {
-    this.collection.on('add', this.render, this)
-
-    this.collection.fetch()
+    this.countries = new CountryHelpers()
+    this.countries.on('add', this.render, this)
+    this.countries.fetch()
   },
 
   serializeData: function() {
-    return this.collection.toJSON()
+    return {
+      countries: this.countries.toJSON(),
+    }
   },
 
   onSubmit() {
     const $form = this.$el.find('form')
     const helperId = $form.serializeArray()[0].value
-    this.collection.get(helperId).fetch({
+    this.countries.get(helperId).fetch({
       success: model => {
         (new Country()).save({
           name: model.get('name'),
           geometry: model.get('geometry'),
         }, {
-          success: model => {
+          success: () => {
             this.triggerMethod('refresh:map', this)
             this.triggerMethod('close:menu', this)
           },
