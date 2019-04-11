@@ -1,8 +1,8 @@
 import { View } from 'backbone.marionette'
-import template from './create.hbs'
-import CountryView from './create/country'
-import CityView from './create/city'
-import CapitalView from './create/capital'
+import template from './template.hbs'
+import CountryView from './country'
+import CityView from './city'
+import CapitalView from './capital'
 
 export default View.extend({
   template: template,

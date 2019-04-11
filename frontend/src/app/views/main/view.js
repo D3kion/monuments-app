@@ -5,7 +5,7 @@ import template from './template.hbs'
 import MapView from './map'
 import MenuView from './menu/view'
 import FeatureView from './menu/feature'
-import CreateView from './menu/create'
+import CreateView from './menu/create/view'
 import EditCityView from './menu/editCity'
 import SearchView from './menu/search'
 
