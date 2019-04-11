@@ -1,7 +1,7 @@
 import { View } from 'backbone.marionette'
 import template from './country.hbs'
-import CountryHelpersCollection from 'Collections/countryHelpers'
 import CountryModel from 'Models/country'
+import CountryHelpersCollection from 'Collections/countryHelpers'
 
 export default View.extend({
   template: template,
