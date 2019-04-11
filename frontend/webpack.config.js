@@ -1,3 +1,4 @@
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
   },
 
   output: {
-    path: __dirname + '/dist/',
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name]',
   },
 
@@ -40,6 +41,14 @@ module.exports = {
         use: 'file-loader',
       },
     ],
+  },
+
+  resolve: {
+    alias: {
+      Models: path.resolve(__dirname, 'src/app/models'),
+      Collections: path.resolve(__dirname, 'src/app/collections'),
+      Views: path.resolve(__dirname, 'src/app/Views'),
+    }
   },
 
   plugins: [
