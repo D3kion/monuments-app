@@ -1,20 +1,8 @@
 import Bb from 'backbone'
 import { View } from 'backbone.marionette'
 import template from './country.hbs'
-
-// TODO: Move to models directory if need
-const Country = Bb.Model.extend({
-  urlRoot: 'http://' + location.hostname + ':8000/api/country/',
-})
-
-const CountryHelper = Bb.Model.extend({
-  urlRoot: 'http://' + location.hostname + ':8000/api/countries/',
-})
-
-const CountryHelpers = Bb.Collection.extend({
-  url: 'http://' + location.hostname + ':8000/api/countries/',
-  model: CountryHelper,
-})
+import CountryHelpers from 'Collections/countryHelpers'
+import Country from 'Models/country'
 
 export default View.extend({
   template: template,
@@ -44,18 +32,17 @@ export default View.extend({
         (new Country()).save({
           name: model.get('name'),
           geometry: model.get('geometry'),
-        },
-        {
-          success: (model) => {
+        }, {
+          success: model => {
             this.triggerMethod('refresh:map', this)
             this.triggerMethod('close:menu', this)
           },
   
-          error: function(model, res) {
-            console.error(res)
-          }
+          error: (model, res) => console.error(res),
         })
-      }
+      },
+
+      error: (model, res) => console.log(res),
     })
   },
 })
