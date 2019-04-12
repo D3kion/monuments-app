@@ -38,12 +38,6 @@ class CountryHelperSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class ImageHelperSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ['id', 'name', 'image']
-
-
 #
 # Country
 #
@@ -75,13 +69,21 @@ class CountryGeoSerializer(GeoFeatureModelSerializer):
 
 
 #
+# Image
+#
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ['id', 'url', 'image', 'city']
+
+
+#
 # City
 #
 class CitySerializer(serializers.ModelSerializer):
     # read_only
     country = CountryHelperSerializer(read_only=True)
-    images = ImageHelperSerializer(source='image_set', read_only=True,
-                                   many=True)
+    images = ImageSerializer(source='image_set', read_only=True, many=True)
 
     # write_only
     country_ = serializers.PrimaryKeyRelatedField(
@@ -89,8 +91,6 @@ class CitySerializer(serializers.ModelSerializer):
     image_set = serializers.PrimaryKeyRelatedField(
         write_only=True, many=True, required=False,
         queryset=Image.objects.all())
-    
-    geometry = GeometryField()
 
     class Meta:
         model = City

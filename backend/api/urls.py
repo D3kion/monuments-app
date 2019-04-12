@@ -5,6 +5,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('country', views.CountryViewSet)
+router.register('image', views.ImageViewSet)
 router.register('city', views.CityViewSet)
 router.register('capital', views.CapitalViewSet)
 

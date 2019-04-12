@@ -11,10 +11,10 @@ from rest_framework.status import (
 )
 
 from .authentication import token_expire_handler, expires_in
-from .models import City, Capital, Country, CountriesHelper
+from .models import Country, Image, City, Capital, CountriesHelper
 from .serializers import (
     UserSigninSerializer,
-    CountrySerializer, CitySerializer, CapitalSerializer,
+    CountrySerializer, ImageSerializer, CitySerializer, CapitalSerializer,
     CountryGeoSerializer, CityGeoSerializer,
     CountriesHelperSerializer, CountriesHelperDetailSerializer,
 )
@@ -70,6 +70,15 @@ class CountryViewSet(viewsets.ModelViewSet):
 class CountryGeoView(generics.ListAPIView):
     queryset = Country.objects.all().order_by('id')
     serializer_class = CountryGeoSerializer
+    pagination_class = None
+
+
+#
+# Image
+#
+class ImageViewSet(viewsets.ModelViewSet):
+    queryset = Image.objects.all().order_by('city')
+    serializer_class = ImageSerializer
     pagination_class = None
 
 

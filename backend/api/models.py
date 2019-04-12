@@ -42,7 +42,6 @@ class City(models.Model):
 
 
 class Image(models.Model):
-    name = models.CharField(max_length=100, verbose_name=_('name'))
     city = models.ForeignKey(City, on_delete=models.CASCADE,
                              verbose_name=_('city'))
     image = models.ImageField(upload_to=get_image_path,
