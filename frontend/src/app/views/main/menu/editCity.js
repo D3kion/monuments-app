@@ -6,10 +6,12 @@ export default View.extend({
   template: template,
 
   events: {
+    'click #place': 'onPlace',
     'click #submit': 'onSubmit',
   },
 
-  initialize(feature) {
+  initialize(feature, drawPoint) {
+    this.drawPoint = drawPoint
     this.feature = feature.clone()
     this.countries = new CountriesCollection()
 
@@ -27,6 +29,10 @@ export default View.extend({
     }
   },
 
+  onPlace() {
+    this.drawPoint((coords) => this.feature.set({geometry: {type: 'Point', coordinates: coords}}))
+  },
+
   onSubmit() {
     const $form = this.$el.find('form')
     let data = {}
@@ -37,12 +43,12 @@ export default View.extend({
       country_: data.country,
       description: data.description,
     }, {
-      success: () => this.openFeature(),
+      success: () => {
+        this.triggerMethod('refresh:map', this)
+        this.triggerMethod('close:menu', this)
+      },
+
       error: (_model, res) => console.error(res),
     })
-  },
-
-  openFeature() {
-    this.triggerMethod('open:feature:id', this, {'city': this.feature.get('id')})
   },
 })

@@ -105,7 +105,7 @@ export default View.extend({
   },
 
   editCity(view, id) {
-    this.showMenu(new EditCityView(id))
+    this.showMenu(new EditCityView(id, this.map.drawPoint.bind(this.map)))
   },
   
   refreshMap() {
