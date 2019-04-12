@@ -1,7 +1,5 @@
-export default function fetch_(method, url, body=null, withToken=true) {
-  let headers = new Headers({
-    'Content-Type': 'application/json',
-  })
+export default function fetch_(method, url, body=null, withToken=true, headers_=null) {
+  let headers = headers_ || new Headers()
   if (withToken)
     headers.append('Authorization', 'Token ' + localStorage.token)
 

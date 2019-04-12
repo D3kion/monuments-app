@@ -20,7 +20,7 @@ export default View.extend({
     fetch('POST', 'api/token-auth/', JSON.stringify({
       username: data.username,
       password: data.password,
-    }), false)
+    }), false, new Headers({'Content-Type': 'application/json'}))
     .then(res => res.json())
     .then(data => {
       if (typeof data.token === "undefined")
