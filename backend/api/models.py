@@ -1,8 +1,10 @@
 import uuid
 import os
 
-from django.contrib.gis.db import models
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
+from django.contrib.gis.db import models
+from django.db.models.signals import post_delete
 
 
 def get_image_path(instance, filename):
@@ -53,6 +55,11 @@ class Image(models.Model):
     class Meta:
         verbose_name = _('image')
         verbose_name_plural = _('images')
+
+
+@receiver(post_delete, sender=Image)
+def submission_delete(sender, instance, **kwargs):
+    instance.image.delete(False)
 
 
 class Capital(models.Model):
