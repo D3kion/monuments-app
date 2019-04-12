@@ -89,7 +89,8 @@ class CitySerializer(serializers.ModelSerializer):
     image_set = serializers.PrimaryKeyRelatedField(
         write_only=True, many=True, required=False,
         queryset=Image.objects.all())
-    geometry = GeometryField(write_only=True)
+    
+    geometry = GeometryField()
 
     class Meta:
         model = City

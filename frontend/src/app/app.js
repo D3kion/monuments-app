@@ -29,6 +29,17 @@ export default Application.extend({
         options.contentType = 'application/json';
         options.data = JSON.stringify(options.attrs || model.toJSON());
       }
+
+      // Add trailing slash to backbone model views
+      const parts = _.result(model, 'url').split('?')
+      let _url = parts[0]
+      const params = parts[1]
+
+      _url += _url.endsWith('/') ? '' : '/'
+      if (!_.isUndefined(params))
+        _url += '?' + params
+
+      options.url = _url
   
       return _sync.call(this, method, model, options);
     }
