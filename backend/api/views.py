@@ -77,7 +77,7 @@ class CountryGeoView(generics.ListAPIView):
 # Image
 #
 class ImageViewSet(viewsets.ModelViewSet):
-    queryset = Image.objects.all().order_by('city')
+    queryset = Image.objects.all().order_by('-id')
     serializer_class = ImageSerializer
     pagination_class = None
 

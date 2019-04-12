@@ -16,6 +16,20 @@
     <strong>Описание:</strong>
     <textarea name="description" class="form-control" cols="30" rows="4">{{feature.description}}</textarea>
     <br>
+
+    <div class="custom-file">
+        <input type="file" id="images" class="custom-file-input" accept="image/*" multiple>
+        <label class="custom-file-label" for="images" data-browse="Открыть">Выберите изображения</label>
+    </div>
+    <br><br>
+    {{#if feature.images}}
+    <small class="form-text text-muted">Click to remove image.</small>
+    {{#each feature.images}}
+    <img class="remove img-thumbnail" src="{{image}}" alt="{{name}}" data-id="{{id}}">
+    {{/each}}
+    <br><br>
+    {{/if}}
+
     <button id="place" type="button" class="btn btn-warning btn-block">Выбрать место</button>
     <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Сохранить</button>
 </form>

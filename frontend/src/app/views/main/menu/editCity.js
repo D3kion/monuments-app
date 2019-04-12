@@ -1,11 +1,15 @@
 import { View } from 'backbone.marionette'
 import template from './editCity.hbs'
+import fetch from '../../../utils'
+import ImageModel from 'Models/image'
 import CountriesCollection from 'Collections/countries'
 
 export default View.extend({
   template: template,
 
   events: {
+    'change #images': 'uploadImages',
+    'click .remove': 'removeImage',
     'click #place': 'onPlace',
     'click #submit': 'onSubmit',
   },
@@ -25,8 +29,30 @@ export default View.extend({
   serializeData() {
     return {
       feature: this.feature.toJSON(),
-      countries: this.countries.toJSON().filter(x => x.id != this.feature.attributes.country.id)
+      countries: this.countries.toJSON().filter(x => x.id != this.feature.get('country').id)
     }
+  },
+
+  uploadImages(e) {
+    const files = e.target.files
+    for (let i = 0; i < files.length; i++) {
+      let formData = new FormData()
+      formData.append('city', this.feature.get('id'))
+      formData.append('image', files[i])
+
+      fetch('POST', 'api/image/', formData)
+      .then(res => {
+        if (res.ok)
+          this.feature.fetch()
+      })
+    }
+  },
+
+  removeImage(e) {
+    (new ImageModel()).set({id: e.target.dataset.id}).destroy({
+      success: () => this.feature.fetch(),
+      error: (_model, res) => console.log(res),
+    })
   },
 
   onPlace() {
