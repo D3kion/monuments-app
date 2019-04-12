@@ -10,28 +10,12 @@ router.register('capital', views.CapitalViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    # Auth
     path('auth/', include('rest_framework.urls', namespace='token-auth')),
     path('token-auth/', views.signin),
     path('token-info/', views.user_info),
-    # Country
     path('geojson/country/', views.CountryGeoView.as_view(),
          name='country-geo'),
-    path('info/country/', views.CountryInfoView.as_view(),
-         name='country-info'),
-    path('info/country/<int:pk>/', views.CountryInfoDetailView.as_view(),
-         name='country-detail-info'),
-    path('search/country/', views.CountrySearchView.as_view(),
-         name='country-search'),
-    # City
     path('geojson/city/', views.CityGeoView.as_view(), name='city-geo'),
-    path('info/city/<int:pk>/', views.CityInfoDetailView.as_view(),
-         name='city-detail-info'),
-    path('search/city/', views.CitySearchView.as_view(),
-         name='city-search'),
-    path('edit/city/<int:pk>/', views.CityPUTView.as_view(),
-         name='city-edit'),
-    # CountriesHelper
     path('countries/', views.CountriesHelperView.as_view(),
          name='countires-list'),
     path('countries/<int:pk>/', views.CountriesHelperDetailView.as_view(),

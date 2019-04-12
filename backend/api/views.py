@@ -16,9 +16,6 @@ from .serializers import (
     UserSigninSerializer,
     CountrySerializer, CitySerializer, CapitalSerializer,
     CountryGeoSerializer, CityGeoSerializer,
-    CountryInfoSerializer, CityInfoSerializer,
-    CityPUTSerializer,
-    CountryInfoHelperSerializer, CityInfoHelperSerializer,
     CountriesHelperSerializer, CountriesHelperDetailSerializer,
 )
 
@@ -66,31 +63,14 @@ class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
     pagination_class = None
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name',)
 
 
 class CountryGeoView(generics.ListAPIView):
     queryset = Country.objects.all().order_by('id')
     serializer_class = CountryGeoSerializer
     pagination_class = None
-
-
-class CountryInfoView(generics.ListAPIView):
-    queryset = Country.objects.all().order_by('name')
-    serializer_class = CountryInfoSerializer
-    pagination_class = None
-
-
-class CountryInfoDetailView(generics.RetrieveAPIView):
-    queryset = Country.objects.all()
-    serializer_class = CountryInfoSerializer
-
-
-class CountrySearchView(generics.ListAPIView):
-    queryset = Country.objects.all().order_by('name')
-    serializer_class = CountryInfoHelperSerializer
-    pagination_class = None
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('name',)
 
 
 #
@@ -100,30 +80,14 @@ class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all().order_by('country.name').order_by('name')
     serializer_class = CitySerializer
     pagination_class = None
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name',)
 
 
 class CityGeoView(generics.ListAPIView):
     queryset = City.objects.all().order_by('id')
     serializer_class = CityGeoSerializer
     pagination_class = None
-
-
-class CityInfoDetailView(generics.RetrieveAPIView):
-    queryset = City.objects.all()
-    serializer_class = CityInfoSerializer
-
-
-class CitySearchView(generics.ListAPIView):
-    queryset = City.objects.all().order_by('country.name').order_by('name')
-    serializer_class = CityInfoHelperSerializer
-    pagination_class = None
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('name',)
-
-
-class CityPUTView(generics.UpdateAPIView):
-    queryset = City.objects.all()
-    serializer_class = CityPUTSerializer
 
 
 #

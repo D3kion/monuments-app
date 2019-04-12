@@ -15,16 +15,56 @@ class UserSigninSerializer(serializers.Serializer):
 
 
 #
+# Helpers
+#
+class CapitalHelperSerializer(serializers.ModelSerializer):
+    id = serializers.PrimaryKeyRelatedField(source='city', read_only=True)
+    name = serializers.StringRelatedField(source='city')
+
+    class Meta:
+        model = Capital
+        fields = ['id', 'name']
+
+
+class CityHelperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = ['id', 'name']
+
+
+class CountryHelperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ['id', 'name']
+
+
+class ImageHelperSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ['id', 'name', 'image']
+
+
+#
 # Country
 #
-class CountrySerializer(GeoFeatureModelSerializer):
-    capital = serializers.PrimaryKeyRelatedField(read_only=True)
-    city_set = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+class CountrySerializer(serializers.ModelSerializer):
+    # read_only
+    capital = CapitalHelperSerializer(read_only=True)
+    cities = CityHelperSerializer(source='city_set', read_only=True, many=True)
+
+    # write_only
+    capital_ = serializers.PrimaryKeyRelatedField(
+        source='capital', write_only=True, required=False,
+        queryset=Capital.objects.all())
+    city_set = serializers.PrimaryKeyRelatedField(
+        write_only=True, many=True, required=False,
+        queryset=City.objects.all())
+    geometry = GeometryField(write_only=True)
 
     class Meta:
         model = Country
-        geo_field = 'geometry'
-        fields = ['id', 'url', 'name', 'capital', 'city_set']
+        fields = ['id', 'url', 'name', 'capital', 'cities',
+                  'capital_', 'city_set', 'geometry']
 
 
 class CountryGeoSerializer(GeoFeatureModelSerializer):
@@ -34,40 +74,27 @@ class CountryGeoSerializer(GeoFeatureModelSerializer):
         fields = ['id']
 
 
-# Helpers
-class CityInfoHelperSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = City
-        fields = ['id', 'name']
-
-
-class CapitalInfoHelperSerializer(serializers.ModelSerializer):
-    id = serializers.PrimaryKeyRelatedField(source='city', read_only=True)
-    name = serializers.StringRelatedField(source='city')
-
-    class Meta:
-        model = Capital
-        fields = ['id', 'name']
-# /Helpers
-
-
-class CountryInfoSerializer(serializers.ModelSerializer):
-    city_set = CityInfoHelperSerializer(many=True)
-    capital = CapitalInfoHelperSerializer()
-
-    class Meta:
-        model = Country
-        fields = ['id', 'name', 'capital', 'city_set']
-
-
 #
 # City
 #
-class CitySerializer(GeoFeatureModelSerializer):
+class CitySerializer(serializers.ModelSerializer):
+    # read_only
+    country = CountryHelperSerializer(read_only=True)
+    images = ImageHelperSerializer(source='image_set', read_only=True,
+                                   many=True)
+
+    # write_only
+    country_ = serializers.PrimaryKeyRelatedField(
+        source='country', write_only=True, queryset=Country.objects.all())
+    image_set = serializers.PrimaryKeyRelatedField(
+        write_only=True, many=True, required=False,
+        queryset=Image.objects.all())
+    geometry = GeometryField(write_only=True)
+
     class Meta:
         model = City
-        geo_field = 'geometry'
-        fields = ['id', 'url', 'name', 'country', 'description', 'image_set']
+        fields = ['id', 'url', 'name', 'country', 'description', 'images',
+                  'country_', 'image_set', 'geometry']
 
 
 class CityGeoSerializer(GeoFeatureModelSerializer):
@@ -75,35 +102,6 @@ class CityGeoSerializer(GeoFeatureModelSerializer):
         model = City
         geo_field = 'geometry'
         fields = ['id']
-
-
-# Helpers
-class CountryInfoHelperSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Country
-        fields = ['id', 'name']
-
-
-class ImageInfoHelperSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ['id', 'name', 'image']
-# /Helpers
-
-
-class CityInfoSerializer(serializers.ModelSerializer):
-    country = CountryInfoHelperSerializer()
-    images = ImageInfoHelperSerializer(source='image_set', many=True)
-
-    class Meta:
-        model = City
-        fields = ['name', 'country', 'description', 'images']
-
-
-class CityPUTSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = City
-        fields = ['name', 'country', 'description']
 
 
 #
