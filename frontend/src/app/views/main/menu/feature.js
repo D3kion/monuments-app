@@ -40,17 +40,12 @@ export default View.extend({
     this.triggerMethod('open:feature:id', this, e.target.dataset)
   },
 
-
-  // TODO
-  // editFeature() {
-  //   // const type = this.model.get('type')
-  //   const id = this.model.get('id')
-
-  //   // if (type === 'country')
-  //   //   this.triggerMethod('edit:feature:country', this, id)
-  //   // else
-  //   this.triggerMethod('edit:feature:city', this, this.featureId)
-  // },
+  editFeature() {
+    // if (this.featureType === 'country')
+    //   this.triggerMethod('edit:feature:country', this, this.feature)
+    // else
+    this.triggerMethod('edit:feature:city', this, this.feature)
+  },
 
   deleteFeature() {
     this.feature.destroy({
