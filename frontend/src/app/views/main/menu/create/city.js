@@ -28,7 +28,7 @@ export default View.extend({
   },
 
   onPlace() {
-    this.drawPoint((coords) => this.city.set({geometry: {type: 'Point', coordinates: coords }}))
+    this.drawPoint((coords) => this.city.set({geometry: {type: 'Point', coordinates: coords}}))
   },
 
   onSubmit() {
