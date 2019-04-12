@@ -1,3 +1,4 @@
+import Bb from 'backbone'
 import { View } from 'backbone.marionette'
 import template from './capital.hbs'
 import CapitalModel from 'Models/capital'
@@ -6,6 +7,8 @@ import CountriesCollection from 'Collections/countries'
 export default View.extend({
   template: template,
 
+  model: new Bb.Model(),
+
   events: {
     'change #country': 'onChangeCountry',
     'click #submit': 'onSubmit',
@@ -13,16 +16,19 @@ export default View.extend({
 
   initialize() {
     this.countries = new CountriesCollection()
+
     this.countries.on('add', this.render, this)
+    this.model.on('change', this.render, this)
+
     this.countries.fetch({
-      success: collection => this.cities = collection.models[0].get('city_set')
+      success: collection => this.model.set({cities: collection.models[0].get('cities')})
     })
   },
 
   serializeData() {
     return {
       countries: this.countries.toJSON().filter(x => x.capital == null),
-      cities: this.cities,
+      cities: this.model.get('cities'),
     }
   },
 
@@ -33,9 +39,9 @@ export default View.extend({
 
   onChangeCountry(e) {
     const countryId = e.target.value
-    this.cities = this.countries.get(countryId).get('city_set')
+
     this.activeCountry = countryId
-    this.render()
+    this.model.set({cities: this.countries.get(countryId).get('cities')})
   },
 
   onSubmit() {
