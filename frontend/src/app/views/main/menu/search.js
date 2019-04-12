@@ -19,14 +19,14 @@ export default View.extend({
 
   search(q) {
     let res = []
-    fetch('GET', 'api/search/country/?search=' + q)
+    fetch('GET', 'api/country/?search=' + q)
     .then(res => res.json())
     .then(data => {
       if (data.length > 0)
         res.push({countries: data})
     })
     .then(() => 
-      fetch('GET', 'api/search/city/?search=' + q)
+      fetch('GET', 'api/city/?search=' + q)
       .then(res => res.json())
       .then(data => {
         if (data.length > 0)

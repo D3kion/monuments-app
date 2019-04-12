@@ -38,9 +38,8 @@ export default View.extend({
 
     this.city.save({
       name: data.name,
-      country: data.country,
+      country_: data.country,
       description: data.description,
-      image_set: [],
     }, {
       success: () => {
         this.triggerMethod('refresh:map', this)
