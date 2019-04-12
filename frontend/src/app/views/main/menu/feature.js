@@ -1,13 +1,11 @@
-import Bb from 'backbone'
 import { View } from 'backbone.marionette'
-// TODO
-import fetch from '../../../utils'
-import template from './feature.hbs'
+import countryTemplate from './featureCountry.hbs'
+import cityTemplate from './featureCity.hbs'
+import CountryModel from 'Models/country'
+import CityModel from 'Models/city'
 
 export default View.extend({
-  template: template,
-
-  model: new Bb.Model(),
+  template: false,
 
   events: {
     'click .clickable': 'openFeature',
@@ -16,55 +14,49 @@ export default View.extend({
   },
 
   initialize(type, id) {
-    this.model.on('change', this.render, this)
-    this.loadFeatureInfo(type, id)
+    this.featureType = type
+    this.featureId = id
+
+    if (type =='country') {
+      this.feature = new CountryModel()
+      this.template = countryTemplate
+    } else { // city
+      this.feature = new CityModel()
+      this.template = cityTemplate
+    }
+
+    this.feature.on('change', this.render, this)
+    
+    this.feature.set({id}).fetch()
+  },
+
+  serializeData() {
+    return {
+      feature: this.feature.toJSON(),
+    }
   },
 
   openFeature(e) {
     this.triggerMethod('open:feature:id', this, e.target.dataset)
   },
 
-  editFeature() {
-    // const type = this.model.get('type')
-    const id = this.model.get('id')
 
-    // if (type === 'country')
-    //   this.triggerMethod('edit:feature:country', this, id)
-    // else
-    this.triggerMethod('edit:feature:city', this, id)
-  },
+  // TODO
+  // editFeature() {
+  //   // const type = this.model.get('type')
+  //   const id = this.model.get('id')
+
+  //   // if (type === 'country')
+  //   //   this.triggerMethod('edit:feature:country', this, id)
+  //   // else
+  //   this.triggerMethod('edit:feature:city', this, this.featureId)
+  // },
 
   deleteFeature() {
-    // TODO
-    const type = this.model.get('type')
-    const id = this.model.get('id')
-    const url = 'api/' + type + '/' + id + '/'
-    fetch('DELETE', url)
-    .then(() => {
-      this.triggerMethod('refresh:map', this)
-      this.triggerMethod('close:menu', this)
-    })
-      
-  },
-
-  loadFeatureInfo(type, id) {
-    // TODO
-    const url = 'api/info/' + type + '/' + id + '/'
-    fetch('GET', url)
-    .then(res => res.json())
-    .then(data => {
-      this.model.set('isCountry', type === 'country')
-      this.model.set('id', id)
-      this.model.set('type', type)
-      this.model.set('name', data.name)
-
-      if (type === 'country') {
-        this.model.set('capital', data.capital)
-        this.model.set('city_set', data.city_set)
-      } else { // city
-        this.model.set('country', data.country)
-        this.model.set('description', data.description)
-        this.model.set('images', data.images)
+    this.feature.destroy({
+      success: () => {
+        this.triggerMethod('refresh:map', this)
+        this.triggerMethod('close:menu', this)
       }
     })
   },
