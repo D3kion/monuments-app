@@ -19,11 +19,11 @@
 
     <div class="custom-file">
         <input type="file" id="images" class="custom-file-input" accept="image/*" multiple>
-        <label class="custom-file-label" for="images" data-browse="Открыть">Выберите изображения</label>
+        <label class="custom-file-label" for="images" data-browse="Открыть">Выберите фотографии</label>
     </div>
     <br><br>
     {{#if feature.images}}
-    <small class="form-text text-muted">Click to remove image.</small>
+    <small class="form-text text-muted">Для удаления фотографии, нажмите по ней.</small>
     {{#each feature.images}}
     <img class="remove img-thumbnail" src="{{image}}" alt="{{name}}" data-id="{{id}}">
     {{/each}}
