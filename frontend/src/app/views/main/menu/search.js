@@ -1,7 +1,7 @@
-import Bb from 'backbone'
-import { View } from 'backbone.marionette'
-import fetch from '../../../utils'
-import template from './search.hbs'
+import Bb from "backbone";
+import { View } from "backbone.marionette";
+import fetch from "../../../utils";
+import template from "./search.hbs";
 
 export default View.extend({
   template: template,
@@ -9,33 +9,33 @@ export default View.extend({
   model: new Bb.Model(),
 
   events: {
-    'click .clickable': 'openFeature'
+    "click .clickable": "openFeature"
   },
 
   initialize(q) {
-    this.model.on('change', this.render, this)
-    this.search(q)
+    this.model.on("change", this.render, this);
+    this.search(q);
   },
 
   search(q) {
-    let res = []
-    fetch('GET', 'api/country/?search=' + q)
+    let res = [];
+    fetch("GET", "api/country/?search=" + q)
     .then(res => res.json())
     .then(data => {
       if (data.length > 0)
-        res.push({countries: data})
+        res.push({countries: data});
     })
     .then(() => 
-      fetch('GET', 'api/city/?search=' + q)
+      fetch("GET", "api/city/?search=" + q)
       .then(res => res.json())
       .then(data => {
         if (data.length > 0)
-          res.push({cities: data})
-        this.model.set({list: res})
-      }))
+          res.push({cities: data});
+        this.model.set({list: res});
+      }));
   },
 
   openFeature(e) {
-    this.triggerMethod('open:feature:id', this, e.target.dataset)
+    this.triggerMethod("open:feature:id", this, e.target.dataset);
   },
-})
+});

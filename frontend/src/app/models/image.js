@@ -1,5 +1,5 @@
-import Bb from 'backbone'
+import Bb from "backbone";
 
 export default Bb.Model.extend({
-  urlRoot: 'http://' + location.hostname + ':8000/api/image/',
-})
+  urlRoot: "http://" + location.hostname + ":8000/api/image/",
+});

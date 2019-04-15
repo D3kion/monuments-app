@@ -1,47 +1,47 @@
-import { View } from 'backbone.marionette'
-import template from './template.hbs'
+import { View } from "backbone.marionette";
+import template from "./template.hbs";
 
 export default View.extend({
   template: template,
 
   regions: {
-    content: '#content'
+    content: "#content"
   },
 
   ui: {
-    close: '#close',
+    close: "#close",
   },
 
   events: {
-    'click @ui.close': 'onClose',
+    "click @ui.close": "onClose",
   },
 
   onRender() {
-    this.showChildView('content', this.contentView)
+    this.showChildView("content", this.contentView);
   },
 
   initialize(obj) {
-    this.contentView = obj.contentView
+    this.contentView = obj.contentView;
 
-    this.contentView.on('open:feature:id', this.openFeatureById, this)
-    this.contentView.on('edit:feature:city', this.editCity, this)
-    this.contentView.on('refresh:map', this.refreshMap, this)
-    this.contentView.on('close:menu', this.onClose, this)
+    this.contentView.on("open:feature:id", this.openFeatureById, this);
+    this.contentView.on("edit:feature:city", this.editCity, this);
+    this.contentView.on("refresh:map", this.refreshMap, this);
+    this.contentView.on("close:menu", this.onClose, this);
   },
 
   openFeatureById(view, feature) {
-    this.triggerMethod('open:feature:id', this, feature)
+    this.triggerMethod("open:feature:id", this, feature);
   },
 
   editCity(view, id) {
-    this.triggerMethod('edit:feature:city', this, id)
+    this.triggerMethod("edit:feature:city", this, id);
   },
 
   refreshMap() {
-    this.triggerMethod('refresh:map', this)
+    this.triggerMethod("refresh:map", this);
   },
 
   onClose() {
-    this.triggerMethod('close:menu', this)
+    this.triggerMethod("close:menu", this);
   },
-})
+});
