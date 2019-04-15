@@ -4,8 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --port 8080",
-    "build": "webpack"
+    "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "author": "",
   "dependencies": {
@@ -15,7 +15,8 @@
     "handlebars": "^4.1.1",
     "jquery": "^3.3.1",
     "ol": "^5.3.1",
-    "underscore": "^1.9.1"
+    "underscore": "^1.9.1",
+    "webpack-merge": "^4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
