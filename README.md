@@ -10,12 +10,12 @@ Deployment instructions:
     $ psql -U postgres -d django_db -c "CREATE EXTENSION postgis"
     ```
 
-2. *Create venv and install dependecies*
+2. *Create env and install dependecies*
     ```
     $ cd backend
-    $ python -m venv venv
-    $ source venv/bin/activate
-    $ pip install -r requirements.txt
+    $ pipenv --three
+    $ pipenv shell
+    $ pipenv install
     ```
     
 3. *Configure and run*
