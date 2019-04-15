@@ -1,27 +1,30 @@
 /* eslint-disable no-undef */
+import _ from "underscore";
 import { View } from "backbone.marionette";
 import template from "./country.hbs";
-import CountryModel from "Models/country";
-import CountryHelpersCollection from "Collections/countryHelpers";
+import { CountryModel } from "Models/country";
+import { CountryHelpersCollection } from "Collections/countryHelpers";
 
-export default View.extend({
-  template: template,
+export class CountryView extends View {
+  constructor(options={}) {
+    _.defaults(options, {
+      template,
+      events: {
+        "click #submit": "onSubmit",
+      },
+    });
+    super(options);
 
-  events: {
-    "click #submit": "onSubmit",
-  },
-
-  initialize() {
     this.countries = new CountryHelpersCollection();
     this.countries.on("add", this.render, this);
     this.countries.fetch();
-  },
+  }
 
-  serializeData: function() {
+  serializeData() {
     return {
       countries: this.countries.toJSON(),
     };
-  },
+  }
 
   onSubmit() {
     const $form = this.$el.find("form");
@@ -43,5 +46,5 @@ export default View.extend({
 
       error: (_model, res) => console.log(res),
     });
-  },
-});
+  }
+}

@@ -1,5 +1,7 @@
-import Bb from "backbone";
+import { Model } from "backbone";
 
-export default Bb.Model.extend({
-  urlRoot: "http://" + location.hostname + ":8000/api/image/",
-});
+export class ImageModel extends Model {
+  initialize() {
+    this.urlRoot = "http://" + location.hostname + ":8000/api/image/";
+  }
+}

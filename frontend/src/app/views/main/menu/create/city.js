@@ -1,42 +1,43 @@
 /* eslint-disable no-undef */
+import _ from "underscore";
 import { View } from "backbone.marionette";
 import template from "./city.hbs";
 import fetch from "../../../../utils";
-import CityModel from "Models/city";
-import CountriesCollection from "Collections/countries";
+import { CityModel } from "Models/city";
+import { CountriesCollection } from "Collections/countries";
 
-export default View.extend({
-  template: template,
+export class CityView extends View {
+  constructor(drawPoint, options={}) {
+    _.defaults(options, {
+      template,
+      events: {
+        "change #images": "onChangeImages",
+        "click #place": "onPlace",
+        "click #submit": "onSubmit",
+      },
+    });
+    super(options);
 
-  events: {
-    "change #images": "onChangeImages",
-    "click #place": "onPlace",
-    "click #submit": "onSubmit",
-  },
-
-  initialize(drawPoint) {
     this.drawPoint = drawPoint;
     this.city = new CityModel();
     this.countries = new CountriesCollection();
-
     this.countries.on("add", this.render, this);
-    
     this.countries.fetch();
-  },
+  }
 
   serializeData() {
     return {
       countries: this.countries.toJSON()
     };
-  },
+  }
 
   onChangeImages(e) {
     this.images = e.target.files;
-  },
+  }
 
   onPlace() {
     this.drawPoint(coords => this.city.set({geometry: {type: "Point", coordinates: coords}}));
-  },
+  }
 
   onSubmit() {
     const $form = this.$el.find("form");
@@ -68,5 +69,5 @@ export default View.extend({
 
       error: (_model, res) => console.error(res),
     });
-  },
-});
+  }
+}

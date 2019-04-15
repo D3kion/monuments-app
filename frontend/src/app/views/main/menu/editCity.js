@@ -1,21 +1,24 @@
 /* eslint-disable no-undef */
+import _ from "underscore";
 import { View } from "backbone.marionette";
 import template from "./editCity.hbs";
 import fetch from "../../../utils";
-import ImageModel from "Models/image";
-import CountriesCollection from "Collections/countries";
+import { ImageModel } from "Models/image";
+import { CountriesCollection } from "Collections/countries";
 
-export default View.extend({
-  template: template,
+export class EditCityView extends View {
+  constructor(feature, drawPoint, options={}) {
+    _.defaults(options, {
+      template,
+      events: {
+        "change #images": "uploadImages",
+        "click .remove": "removeImage",
+        "click #place": "onPlace",
+        "click #submit": "onSubmit",
+      },
+    });
+    super(options);
 
-  events: {
-    "change #images": "uploadImages",
-    "click .remove": "removeImage",
-    "click #place": "onPlace",
-    "click #submit": "onSubmit",
-  },
-
-  initialize(feature, drawPoint) {
     this.drawPoint = drawPoint;
     this.feature = feature.clone();
     this.countries = new CountriesCollection();
@@ -25,14 +28,14 @@ export default View.extend({
 
     this.feature.fetch();
     this.countries.fetch();
-  },
+  }
 
   serializeData() {
     return {
       feature: this.feature.toJSON(),
       countries: this.countries.toJSON().filter(x => x.id != this.feature.get("country").id)
     };
-  },
+  }
 
   uploadImages(e) {
     const files = e.target.files;
@@ -47,18 +50,18 @@ export default View.extend({
           this.feature.fetch();
       });
     }
-  },
+  }
 
   removeImage(e) {
     (new ImageModel()).set({id: e.target.dataset.id}).destroy({
       success: () => this.feature.fetch(),
       error: (_model, res) => console.log(res),
     });
-  },
+  }
 
   onPlace() {
     this.drawPoint((coords) => this.feature.set({geometry: {type: "Point", coordinates: coords}}));
-  },
+  }
 
   onSubmit() {
     const $form = this.$el.find("form");
@@ -77,5 +80,5 @@ export default View.extend({
 
       error: (_model, res) => console.error(res),
     });
-  },
-});
+  }
+}

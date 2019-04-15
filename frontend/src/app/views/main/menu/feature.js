@@ -1,51 +1,47 @@
+import _ from "underscore";
 import { View } from "backbone.marionette";
 import countryTemplate from "./featureCountry.hbs";
 import cityTemplate from "./featureCity.hbs";
-import CountryModel from "Models/country";
-import CityModel from "Models/city";
+import { CountryModel } from "Models/country";
+import { CityModel } from "Models/city";
 
-export default View.extend({
-  template: false,
+export class FeatureView extends View {
+  constructor(type, id, options={}) {
+    _.defaults(options, {
+      template: type === "country" ? countryTemplate : cityTemplate,
+      events: {
+        "click .clickable": "openFeature",
+        "click #edit": "editFeature",
+        "click #delete": "deleteFeature",
+      },
+    });
+    super(options);
 
-  events: {
-    "click .clickable": "openFeature",
-    "click #edit": "editFeature",
-    "click #delete": "deleteFeature",
-  },
-
-  initialize(type, id) {
-    this.featureType = type;
-    this.featureId = id;
-
-    if (type =="country") {
+    if (type === "country") 
       this.feature = new CountryModel();
-      this.template = countryTemplate;
-    } else { // city
+    else // city
       this.feature = new CityModel();
-      this.template = cityTemplate;
-    }
 
     this.feature.on("change", this.render, this);
-    
     this.feature.set({id}).fetch();
-  },
+  }
 
   serializeData() {
     return {
       feature: this.feature.toJSON(),
     };
-  },
+  }
 
   openFeature(e) {
     this.triggerMethod("open:feature:id", this, e.target.dataset);
-  },
+  }
 
   editFeature() {
     // if (this.featureType === 'country')
     //   this.triggerMethod('edit:feature:country', this, this.feature)
     // else
     this.triggerMethod("edit:feature:city", this, this.feature);
-  },
+  }
 
   deleteFeature() {
     this.feature.destroy({
@@ -54,5 +50,5 @@ export default View.extend({
         this.triggerMethod("close:menu", this);
       }
     });
-  },
-});
+  }
+}

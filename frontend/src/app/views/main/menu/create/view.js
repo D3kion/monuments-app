@@ -1,28 +1,29 @@
+import _ from "underscore";
 import { View } from "backbone.marionette";
 import template from "./template.hbs";
-import CountryView from "./country";
-import CityView from "./city";
-import CapitalView from "./capital";
+import { CountryView } from "./country";
+import { CityView } from "./city";
+import { CapitalView } from "./capital";
 
-export default View.extend({
-  template: template,
-  
-  regions: {
-    content: "#create-content"
-  },
+export class CreateView extends View {
+  constructor(drawPoint, options={}) {
+    _.defaults(options, {
+      template,
+      regions: {
+        content: "#create-content"
+      },
+      events: {
+        "click .choose": "onChoose",
+      },
+      childViewEvents: {
+        "refresh:map": "refreshMap",
+        "close:menu": "closeMenu",
+      },
+    });
+    super(options);
 
-  events: {
-    "click .choose": "onChoose",
-  },
-
-  childViewEvents: {
-    "refresh:map": "refreshMap",
-    "close:menu": "closeMenu",
-  },
-
-  initialize(drawPoint) {
     this.drawPoint = drawPoint;
-  },
+  }
 
   onChoose(e) {
     let childView;
@@ -38,13 +39,13 @@ export default View.extend({
         break;
     }
     this.showChildView("content", childView);
-  },
+  }
 
   refreshMap() {
     this.triggerMethod("refresh:map", this);
-  },
+  }
 
   closeMenu() {
     this.triggerMethod("close:menu", this);
-  },
-});
+  }
+}

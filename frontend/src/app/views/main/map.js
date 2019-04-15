@@ -11,14 +11,18 @@ import { defaults } from "ol/interaction";
 import Select from "ol/interaction/Select.js";
 import Draw from "ol/interaction/Draw.js";
 import { never } from "ol/events/condition";
+import _ from "underscore";
 import { View as MnView } from "backbone.marionette";
 import fetch from "../../utils";
 import template from "./map.hbs";
 
-export default MnView.extend({
-  template: template,
-  
-  initialize() {
+export class MapView extends MnView {
+  constructor(options={}) {
+    _.defaults(options, {
+      template,
+    });
+    super(options);
+
     this.map = new Map({
       layers: [],
       view: new View({
@@ -39,23 +43,23 @@ export default MnView.extend({
     this.map.addInteraction(this.select);
 
     this.loadLayers();
-  },
+  }
 
   onDomRefresh() {
     this.map.setTarget("map");
-  },
+  }
 
   onSelect(e) {
     const feature = e.target.getFeatures().getArray()[0];
     this.triggerMethod("open:feature", this, feature);
-  },
+  }
 
   homeExtent() {
     this.map.setView(new View({
       center: proj.transform([65, 45], "EPSG:4326", "EPSG:3857"),
       zoom: 4,
     }));
-  },
+  }
 
   drawPoint(setCoords) {
     let source = new Vector();
@@ -78,7 +82,7 @@ export default MnView.extend({
 
     this.map.removeInteraction(this.select);
     this.map.addInteraction(draw);
-  },
+  }
 
   loadLayers() {
     let countrySource = new Vector({
@@ -113,5 +117,5 @@ export default MnView.extend({
     this.map.addLayer(this.mainLayer);
     this.map.addLayer(this.countryLayer);
     this.map.addLayer(this.cityLayer);
-  },
-});
+  }
+}

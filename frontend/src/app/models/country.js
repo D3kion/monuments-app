@@ -1,5 +1,7 @@
-import Bb from "backbone";
+import { Model } from "backbone";
 
-export default Bb.Model.extend({
-  urlRoot: "http://" + location.hostname + ":8000/api/country/",
-});
+export class CountryModel extends Model {
+  initialize() {
+    this.urlRoot = "http://" + location.hostname + ":8000/api/country/";
+  }
+}

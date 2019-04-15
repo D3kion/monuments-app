@@ -1,14 +1,19 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/main.css";
-import { Application } from "backbone.marionette";
 import _ from "underscore";
+import { Application } from "backbone.marionette";
 import fetch from "./utils";
-import LoginView from "./views/login/view";
-import MainView from "./views/main/view";
+import { LoginView } from "./views/login/view";
+import { MainView } from "./views/main/view";
 
-export default Application.extend({
-  region: "#root",
-
+export class App extends Application {
+  constructor(options={}) {
+    _.defaults(options, {
+      region: "#root",
+    });
+    super(options);
+  }
+  
   onStart() {
     if (typeof localStorage.token !== "undefined")
       fetch("GET", "api/token-info/")
@@ -43,5 +48,5 @@ export default Application.extend({
   
       return _sync.call(this, method, model, options);
     };
-  },
-});
+  }
+}

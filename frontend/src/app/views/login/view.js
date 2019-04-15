@@ -1,15 +1,20 @@
 /* eslint-disable no-undef */
 import "../../../styles/login.css";
+import _ from "underscore";
 import { View } from "backbone.marionette";
 import fetch from "../../utils";
 import template from "./template.hbs";
 
-export default View.extend({
-  template: template,
-  
-  events: {
-    "click #submit": "onSubmit",
-  },
+export class LoginView extends View {
+  constructor(options={}) {
+    _.defaults(options, {
+      template,
+      events: {
+        "click #submit": "onSubmit",
+      }
+    });
+    super(options);
+  }
 
   onSubmit(e) {
     e.preventDefault();
@@ -31,5 +36,5 @@ export default View.extend({
         location.reload();
       }
     });
-  },
-});
+  }
+}

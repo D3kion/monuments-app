@@ -1,7 +1,9 @@
-import Bb from "backbone";
-import CountryHelperModel from "Models/countryHelper";
+import { Collection } from "backbone";
+import { CountryHelperModel } from "Models/countryHelper";
 
-export default Bb.Collection.extend({
-  url: "http://" + location.hostname + ":8000/api/countries/",
-  model: CountryHelperModel,
-});
+export class CountryHelpersCollection extends Collection {
+  initialize() {
+    this.url = "http://" + location.hostname + ":8000/api/countries/";
+    this.model = CountryHelperModel;
+  }
+}
