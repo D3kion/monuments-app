@@ -9,6 +9,7 @@ import { FeatureView } from "./menu/feature";
 import { CreateView } from "./menu/create/view";
 import { EditCityView } from "./menu/editCity";
 import { SearchView } from "./menu/search";
+import { LayersView } from "./menu/layers";
 
 export class MainView extends View {
   constructor(options={}) {
@@ -26,7 +27,7 @@ export class MainView extends View {
         },
       },
       events: {
-        // 'click #layers': 'openLayers',
+        "click #layers": "openLayers",
         "click #create": "openCreate",
         "click #home-extent": "onHomeExtent",
         "click #logout": "onLogout",
@@ -55,10 +56,10 @@ export class MainView extends View {
     this.showChildView("menu", new MenuView({contentView: view}));
   }
   
-  // openLayers() {
-  //   this.map.select.getFeatures().clear()
-  //   this.showMenu()
-  // },
+  openLayers() {
+    this.map.select.getFeatures().clear();
+    this.showMenu(new LayersView(this.map.map.getLayers().getArray()));
+  }
 
   openCreate() {
     this.map.select.getFeatures().clear();

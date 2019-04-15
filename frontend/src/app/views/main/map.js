@@ -109,9 +109,18 @@ export class MapView extends MnView {
         .then(data => citySource.addFeatures(citySource.getFormat().readFeatures(data)))
     });
 
-    this.mainLayer = new TileLayer({source: new OSM()});
-    this.countryLayer = new VectorLayer({source: countrySource});
-    this.cityLayer = new VectorLayer({source: citySource});
+    this.mainLayer = new TileLayer({
+      name: "OSM",
+      source: new OSM(),
+    });
+    this.countryLayer = new VectorLayer({
+      name: "Страны",
+      source: countrySource,
+    });
+    this.cityLayer = new VectorLayer({
+      name: "Города",
+      source: citySource,
+    });
 
     this.map.getLayers().clear();
     this.map.addLayer(this.mainLayer);
