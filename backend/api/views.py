@@ -1,14 +1,9 @@
 from django.contrib.auth import authenticate
-from rest_framework import viewsets, generics, filters
+from rest_framework import viewsets, generics, filters, status
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.status import (
-    HTTP_400_BAD_REQUEST,
-    HTTP_404_NOT_FOUND,
-    HTTP_200_OK,
-)
 
 from .authentication import token_expire_handler, expires_in
 from .models import Country, Image, City, Capital, CountriesHelper
@@ -28,7 +23,7 @@ def user_info(request):
     return Response({
         'user': request.user.username,
         'expires_in': expires_in(Token.objects.get(user=request.user))
-    }, status=HTTP_200_OK)
+    }, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -36,7 +31,8 @@ def user_info(request):
 def signin(request):
     signin_serializer = UserSigninSerializer(data=request.data)
     if not signin_serializer.is_valid():
-        return Response(signin_serializer.errors, status=HTTP_400_BAD_REQUEST)
+        return Response(signin_serializer.errors,
+                        status=status.HTTP_400_BAD_REQUEST)
 
     user = authenticate(
         username=signin_serializer.data['username'],
@@ -44,7 +40,7 @@ def signin(request):
     )
     if not user:
         return Response({'detail': 'Invalid credentials'},
-                        status=HTTP_404_NOT_FOUND)
+                        status=status.HTTP_400_BAD_REQUEST)
 
     token, _ = Token.objects.get_or_create(user=user)
 
@@ -53,7 +49,7 @@ def signin(request):
     return Response({
         'token': token.key,
         'expires_in': expires_in(token),
-    }, status=HTTP_200_OK)
+    }, status=status.HTTP_200_OK)
 
 
 #
