@@ -19,35 +19,31 @@ def create_country(name='test_country', geometry=Polygon()):
     return c
 
 
-# test authorized only method with token auth
 class TokenAuthTestCase(TestCase):
     def setUp(self):
         self.u = create_test_user()
 
     def test_token_auth(self):
-        data = {
+        res = self.client.post(reverse('token-auth'), data={
             'username': 'test_user',
             'password': 'qwerty12+',
-        }
-        res = self.client.post(reverse('token-auth'), data)
+        })
 
         self.assertEqual(res.status_code, 200)
 
     def test_token_auth_with_bad_parametrs(self):
-        data = {
+        res = self.client.post(reverse('token-auth'), data={
             'user': 'test_user',
             'password': 'qwerty12+',
-        }
-        res = self.client.post(reverse('token-auth'), data)
+        })
 
         self.assertEqual(res.status_code, 400)
 
     def test_token_auth_with_invalid_credentials(self):
-        data = {
+        res = self.client.post(reverse('token-auth'), data={
             'username': 'test_user',
             'password': 'qwerty12-',
-        }
-        res = self.client.post(reverse('token-auth'), data)
+        })
 
         self.assertEqual(res.status_code, 400)
 
