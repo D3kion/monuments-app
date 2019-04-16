@@ -24,13 +24,18 @@ export class CapitalView extends View {
     this.model.on("change", this.render, this);
 
     this.countries.fetch({
-      success: collection => this.model.set({cities: collection.models[0].get("cities")})
+      success: collection => {
+        if (collection.models.length != 0) {
+          collection.models = collection.models.filter((x) => x.get("capital") === null);
+          this.model.set({cities: collection.models[0].get("cities")});
+        }
+      }
     });
   }
 
   serializeData() {
     return {
-      countries: this.countries.toJSON().filter(x => x.capital == null),
+      countries: this.countries.toJSON(),
       cities: this.model.get("cities"),
     };
   }
