@@ -5,6 +5,8 @@ Deployment instructions:
     ```
     $ psql -U postgres
     =# CREATE USER django_user WITH PASSWORD 'supersecret';
+    =# ALTER USER django_user CREATEDB;
+    =# ALTER ROLE django_user SUPERUSER;
     =# CREATE DATABASE django_db WITH OWNER django_user;
     =# \q
     $ psql -U postgres -d django_db -c "CREATE EXTENSION postgis"
