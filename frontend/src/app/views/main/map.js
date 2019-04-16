@@ -11,6 +11,7 @@ import { defaults } from "ol/interaction";
 import Select from "ol/interaction/Select.js";
 import Draw from "ol/interaction/Draw.js";
 import { never } from "ol/events/condition";
+import { saveAs } from "file-saver";
 import _ from "underscore";
 import { View as MnView } from "backbone.marionette";
 import fetch from "../../utils";
@@ -59,6 +60,18 @@ export class MapView extends MnView {
       center: proj.transform([65, 45], "EPSG:4326", "EPSG:3857"),
       zoom: 4,
     }));
+  }
+
+  takeScreenshot() {
+    this.map.once("rendercomplete", e => {
+      const canvas = e.context.canvas;
+      if (navigator.msSaveBlob)
+        navigator.msSaveBlob(canvas.msToBlob(), "map.png");
+      else
+        canvas.toBlob(blob => saveAs(blob, "map.png"));
+    });
+
+    this.map.renderSync();
   }
 
   drawPoint(setCoords) {

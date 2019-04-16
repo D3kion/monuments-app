@@ -27,9 +27,10 @@ export class MainView extends View {
         },
       },
       events: {
+        "click #home-extent": "onHomeExtent",
         "click #layers": "openLayers",
         "click #create": "openCreate",
-        "click #home-extent": "onHomeExtent",
+        "click #screenshot": "takeScreenshot",
         "click #logout": "onLogout",
         "keyup #search": "onSearch",
       },
@@ -56,6 +57,10 @@ export class MainView extends View {
     this.showChildView("menu", new MenuView({contentView: view}));
   }
   
+    onHomeExtent() {
+      this.map.homeExtent();
+    }
+  
   openLayers() {
     this.map.select.getFeatures().clear();
     this.showMenu(new LayersView(this.map.map.getLayers().getArray()));
@@ -66,8 +71,8 @@ export class MainView extends View {
     this.showMenu(new CreateView(this.map.drawPoint.bind(this.map)));
   }
 
-  onHomeExtent() {
-    this.map.homeExtent();
+  takeScreenshot() {
+    this.map.takeScreenshot();
   }
 
   onLogout() {
