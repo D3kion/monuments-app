@@ -23,7 +23,6 @@ export class EditCityView extends View {
     this.feature = feature.clone();
     this.countries = new CountriesCollection();
 
-    this.feature.on("change", this.render, this);
     this.countries.on("add", this.render, this);
 
     this.feature.fetch();
