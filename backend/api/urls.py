@@ -11,9 +11,9 @@ router.register('capital', views.CapitalViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('auth/', include('rest_framework.urls', namespace='token-auth')),
-    path('token-auth/', views.signin),
-    path('token-info/', views.user_info),
+    path('auth/', include('rest_framework.urls')),
+    path('token-auth/', views.signin, name='token-auth'),
+    path('token-info/', views.user_info, name='token-info'),
     path('geojson/country/', views.CountryGeoView.as_view(),
          name='country-geo'),
     path('geojson/city/', views.CityGeoView.as_view(), name='city-geo'),
