@@ -30,7 +30,7 @@ export class LoginView extends View {
     .then(res => res.json())
     .then(data => {
       if (typeof data.token === "undefined")
-        alert("Ошибка: " + data.detail);
+        console.log("Error", data.detail);
       else {
         localStorage.setItem("token", data.token);
         location.reload();
