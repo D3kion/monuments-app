@@ -15,16 +15,20 @@ export class EditCountryView extends View {
     super(options);
 
     this.feature = feature.clone();
-    this.capital = (new CapitalModel()).set({
-        id: this.feature.get("capital").capital_id,
-        capital_of: this.feature.id,
-    });
+    if (this.feature.get("capital") !== null)
+      this.capital = (new CapitalModel()).set({
+          id: this.feature.get("capital").capital_id,
+          capital_of: this.feature.id,
+      });
   }
 
   serializeData() {
     return {
       feature: this.feature.toJSON(),
-      cities: this.feature.get("cities").filter(x => x.id !== this.feature.get("capital").id),
+      cities: this.feature.get("cities").filter(x => {
+        if (this.feature.get("capital") !== null)
+          x.id !== this.feature.get("capital").id;
+      }),
     };
   }
 
