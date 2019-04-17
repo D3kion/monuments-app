@@ -1,4 +1,5 @@
 import json
+import uuid
 
 from django.test import TestCase
 from django.urls import reverse
@@ -16,7 +17,10 @@ def create_test_user(username='test_user', password='qwerty12+'):
     return u
 
 
-def create_country(name='test_country', geometry=Polygon()):
+def create_country(name=None, geometry=Polygon()):
+    if name is None:
+        name = str(uuid.uuid4())
+
     c = Country(name=name, geometry=geometry)
     c.save()
     return c
@@ -74,17 +78,13 @@ class CountryTestCase(TestCase):
             HTTP_AUTHORIZATION=f'Token {self.u.auth_token}')
 
     def test_get_list(self):
-        c1 = create_country()
-        c2 = create_country(name='test_country2')
+        c = create_country()
 
         res = self.client.get(reverse('country-list'))
 
         self.assertEqual(res.status_code, 200)
-
-        self.assertEqual(res.json()[0]['id'], c1.id)
-        self.assertEqual(res.json()[0]['name'], c1.name)
-        self.assertEqual(res.json()[1]['id'], c2.id)
-        self.assertEqual(res.json()[1]['name'], c2.name)
+        self.assertEqual(res.json()[0]['id'], c.id)
+        self.assertEqual(res.json()[0]['name'], c.name)
 
     def test_get_detail(self):
         c = create_country()
@@ -92,22 +92,17 @@ class CountryTestCase(TestCase):
         res = self.client.get(reverse('country-detail', args=[c.id]))
 
         self.assertEqual(res.status_code, 200)
-
         self.assertEqual(res.json()['id'], c.id)
         self.assertEqual(res.json()['name'], c.name)
 
     def test_get_geo(self):
-        c1 = create_country()
-        c2 = create_country(name='test_country2')
+        c = create_country()
 
         res = self.client.get(reverse('geo-country'))
 
         self.assertEqual(res.status_code, 200)
-
-        self.assertEqual(res.json()['features'][0]['id'], c1.id)
+        self.assertEqual(res.json()['features'][0]['id'], c.id)
         self.assertIsNotNone(res.json()['features'][0]['geometry'])
-        self.assertEqual(res.json()['features'][1]['id'], c2.id)
-        self.assertIsNotNone(res.json()['features'][1]['geometry'])
 
     def test_post(self):
         res = self.client.post(reverse('country-list'), data=json.dumps({
