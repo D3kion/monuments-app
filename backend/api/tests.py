@@ -10,7 +10,11 @@ from django.contrib.gis.geos import Polygon, Point
 from rest_framework.test import APIClient
 
 from core.models import User
-from .models import Country, City, Image as ImageModel, Capital
+from .models import (
+    Country, City, Capital,
+    Image as ImageModel,
+    CountriesHelper
+)
 
 
 def create_test_user(username='test_user', password='qwerty12+'):
@@ -64,6 +68,15 @@ def create_capital(city=None, country=None):
         country = create_country()
 
     c = Capital(city=city, capital_of=country)
+    c.save()
+    return c
+
+
+def create_country_helper(name=None, geometry=Polygon()):
+    if name is None:
+        name = str(uuid.uuid4())
+
+    c = CountriesHelper(name=name, geometry=geometry)
     c.save()
     return c
 
@@ -446,3 +459,30 @@ class CapitalTestCase(TestCase):
         res = self.client.delete(reverse('capital-detail', args=[c.id]))
 
         self.assertEqual(res.status_code, 204)
+
+
+class CountriesHelperTestCase(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.u = create_test_user()
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f'Token {self.u.auth_token}')
+
+    def test_get(self):
+        c = create_country_helper()
+
+        res = self.client.get(reverse('countries-list'))
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.json()[0]['id'], c.id)
+        self.assertEqual(res.json()[0]['name'], c.name)
+
+    def test_get_detail(self):
+        c = create_country_helper()
+
+        res = self.client.get(reverse('countries-detail', args=[c.id]))
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.json()['id'], c.id)
+        self.assertEqual(res.json()['properties']['name'], c.name)
+        self.assertIsNotNone(res.json()['geometry'])
