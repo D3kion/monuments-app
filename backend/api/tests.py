@@ -1,13 +1,16 @@
 import json
 import uuid
 
+from PIL import Image
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.six import BytesIO
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.contrib.gis.geos import Polygon, Point
 from rest_framework.test import APIClient
 
 from core.models import User
-from .models import Country, City
+from .models import Country, City, Image as ImageModel
 
 
 def create_test_user(username='test_user', password='qwerty12+'):
@@ -35,6 +38,23 @@ def create_city(name=None, country=None, geometry=Point(0, 0)):
     c = City(name=name, country=country, geometry=geometry)
     c.save()
     return c
+
+
+def create_image_file(size=(100, 100), image_mode='RGB', image_format='PNG'):
+    data = BytesIO()
+    Image.new(image_mode, size).save(data, image_format)
+    data.seek(0)
+    return SimpleUploadedFile(f'{str(uuid.uuid4())}.png', data.getvalue(),
+                              content_type='image/png')
+
+
+def create_image(city=None):
+    if city is None:
+        city = create_city()
+
+    img = ImageModel(city=city, image=create_image_file())
+    img.save()
+    return img
 
 
 class TokenAuthTestCase(TestCase):
@@ -279,3 +299,58 @@ class CityTestCase(TestCase):
 
         self.assertEqual(res.status_code, 204)
         self.assertFalse(City.objects.all())
+
+
+class ImageTestCase(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.u = create_test_user()
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f'Token {self.u.auth_token}')
+
+    def test_get(self):
+        img = create_image()
+
+        res = self.client.get(reverse('image-list'))
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.json()[0]['id'], img.id)
+        self.assertEqual(res.json()[0]['city'], img.city.id)
+        self.assertIsNotNone(res.json()[0]['image'])
+
+        # Uploads cleaning
+        img.delete()
+
+    def test_post(self):
+        image_file = create_image_file()
+        c = create_city()
+
+        res = self.client.post(reverse('image-list'), data={
+            'city': c.id,
+            'image': image_file,
+        })
+
+        self.assertEqual(res.status_code, 201)
+        self.assertIsNotNone(res.json()['id'])
+        self.assertIsNotNone(res.json()['image'])
+        self.assertEqual(res.json()['city'], c.id)
+
+        # Uploads cleaning
+        ImageModel.objects.all().delete()
+
+    def test_post_invalid(self):
+        c = create_city()
+
+        res = self.client.post(reverse('image-list'), data={
+            'city': c.id,
+            'image': SimpleUploadedFile('image.png', b'not image - just text'),
+        })
+
+        self.assertEqual(res.status_code, 400)
+
+    def test_post_delete(self):
+        img = create_image()
+
+        res = self.client.delete(reverse('image-detail', args=[img.id]))
+
+        self.assertEqual(res.status_code, 204)
