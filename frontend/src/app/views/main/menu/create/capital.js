@@ -20,13 +20,15 @@ export class CapitalView extends View {
 
     this.countries = new CountriesCollection();
 
-    this.countries.on("add", this.render, this);
+    this.countries.on("all", this.render, this);
     this.model.on("change", this.render, this);
 
     this.countries.fetch({
       success: collection => {
-        if (collection.models.length != 0) {
-          collection.models = collection.models.filter((x) => x.get("capital") === null);
+        if (collection.models.length !== 0) {
+          collection.models = collection.models.filter(x => x.get("capital") === null);
+          if (collection.models.length === 0)
+            return;
           this.model.set({cities: collection.models[0].get("cities")});
         }
       }
