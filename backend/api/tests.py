@@ -1,3 +1,5 @@
+import json
+
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.gis.geos import Polygon
@@ -31,7 +33,7 @@ class TokenAuthTestCase(TestCase):
 
         self.assertEqual(res.status_code, 200)
 
-    def test_token_auth_with_bad_parametrs(self):
+    def test_token_auth_with_bad_params(self):
         res = self.client.post(reverse('token-auth'), data={
             'user': 'test_user',
             'password': 'qwerty12+',
@@ -69,12 +71,12 @@ class CountryTestCase(TestCase):
     def test_get_detail(self):
         c = create_country()
 
-        res = self.client.get(reverse('country-list'))
+        res = self.client.get(reverse('country-detail', args=[c.id]))
 
         self.assertEqual(res.status_code, 200)
 
-        self.assertEqual(res.json()[0]['id'], c.id)
-        self.assertEqual(res.json()[0]['name'], c.name)
+        self.assertEqual(res.json()['id'], c.id)
+        self.assertEqual(res.json()['name'], c.name)
 
     def test_get_geo(self):
         c1 = create_country()
@@ -88,3 +90,63 @@ class CountryTestCase(TestCase):
         self.assertIsNotNone(res.json()['features'][0]['geometry'])
         self.assertEqual(res.json()['features'][1]['id'], c2.id)
         self.assertIsNotNone(res.json()['features'][1]['geometry'])
+
+    def test_post(self):
+        res = self.client.post(reverse('country-list'), data=json.dumps({
+            'name': 'test_country',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [
+                    [
+                        [0, 0],
+                        [0, 1],
+                        [1, 1],
+                        [1, 0],
+                        [0, 0],
+                    ],
+                    [
+                        [0.4, 0.4],
+                        [0.4, 0.6],
+                        [0.6, 0.6],
+                        [0.6, 0.4],
+                        [0.4, 0.4],
+                    ],
+                ],
+            }
+        }), content_type='application/json')
+
+        self.assertEqual(res.status_code, 201)
+
+    def test_post_with_bad_params(self):
+        res = self.client.post(reverse('country-list'), data=json.dumps({
+            'name': 'test_country',
+            'geometry': {
+                'type': 'Poligon',
+                'coordinates': [
+                    [
+                        [0, 0],
+                        [0, 1],
+                        [1, 1],
+                        [1, 0],
+                        [0, 0],
+                    ],
+                    [
+                        [0.4, 0.4],
+                        [0.4, 0.6],
+                        [0.6, 0.6],
+                        [0.6, 0.4],
+                        [0.4, 0.4],
+                    ],
+                ],
+            }
+        }), content_type='application/json')
+
+        self.assertEqual(res.status_code, 400)
+
+    def test_delete(self):
+        c = create_country()
+
+        res = self.client.delete(reverse('country-detail', args=[c.id]))
+
+        self.assertEqual(res.status_code, 204)
+        self.assertFalse(Country.objects.all())
