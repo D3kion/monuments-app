@@ -18,7 +18,7 @@ urlpatterns = [
          name='geo-country'),
     path('geojson/city/', views.CityGeoView.as_view(), name='geo-city'),
     path('countries/', views.CountriesHelperView.as_view(),
-         name='countires-list'),
+         name='countries-list'),
     path('countries/<int:pk>/', views.CountriesHelperDetailView.as_view(),
-         name='countires-detail'),
+         name='countries-detail'),
 ]
