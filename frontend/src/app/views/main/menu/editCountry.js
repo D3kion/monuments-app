@@ -27,7 +27,7 @@ export class EditCountryView extends View {
       feature: this.feature.toJSON(),
       cities: this.feature.get("cities").filter(x => {
         if (this.feature.get("capital") !== null)
-          x.id !== this.feature.get("capital").id;
+          return x.id !== this.feature.get("capital").id;
       }),
     };
   }
