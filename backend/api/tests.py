@@ -3,6 +3,7 @@ import json
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.gis.geos import Polygon
+from rest_framework.test import APIClient
 
 from core.models import User
 from .models import Country
@@ -23,6 +24,7 @@ def create_country(name='test_country', geometry=Polygon()):
 
 class TokenAuthTestCase(TestCase):
     def setUp(self):
+        self.client = APIClient()
         self.u = create_test_user()
 
     def test_token_auth(self):
@@ -49,11 +51,27 @@ class TokenAuthTestCase(TestCase):
 
         self.assertEqual(res.status_code, 400)
 
+    def test_auth_with_token_header(self):
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f'Token {self.u.auth_token}')
+        res = self.client.get(reverse('token-info'))
+
+        self.assertEqual(res.status_code, 200)
+
+    def test_auth_with_bad_token(self):
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f'Token test{self.u.auth_token}')
+        res = self.client.get(reverse('token-info'))
+
+        self.assertEqual(res.status_code, 401)
+
 
 class CountryTestCase(TestCase):
     def setUp(self):
+        self.client = APIClient()
         self.u = create_test_user()
-        self.client.login(username='test_user', password='qwerty12+')
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f'Token {self.u.auth_token}')
 
     def test_get_list(self):
         c1 = create_country()
