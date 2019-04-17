@@ -5,9 +5,9 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('country', views.CountryViewSet, base_name='country')
-router.register('image', views.ImageViewSet)
-router.register('city', views.CityViewSet)
-router.register('capital', views.CapitalViewSet)
+router.register('city', views.CityViewSet, base_name='city')
+router.register('image', views.ImageViewSet, base_name='image')
+router.register('capital', views.CapitalViewSet, base_name='capital')
 
 urlpatterns = [
     path('', include(router.urls)),
