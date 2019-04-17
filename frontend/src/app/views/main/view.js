@@ -7,6 +7,7 @@ import { MapView } from "./map";
 import { MenuView } from "./menu/view";
 import { FeatureView } from "./menu/feature";
 import { CreateView } from "./menu/create/view";
+import { EditCountryView } from "./menu/editCountry";
 import { EditCityView } from "./menu/editCity";
 import { SearchView } from "./menu/search";
 import { LayersView } from "./menu/layers";
@@ -38,6 +39,7 @@ export class MainView extends View {
         "close:menu": "closeMenu",
         "open:feature": "openFeature",
         "open:feature:id": "openFeatureById",
+        "edit:feature:country": "editCountry",
         "edit:feature:city": "editCity",
         "refresh:map": "refreshMap",
       },
@@ -57,9 +59,9 @@ export class MainView extends View {
     this.showChildView("menu", new MenuView({contentView: view}));
   }
   
-    onHomeExtent() {
-      this.map.homeExtent();
-    }
+  onHomeExtent() {
+    this.map.homeExtent();
+  }
   
   openLayers() {
     this.map.select.getFeatures().clear();
@@ -108,6 +110,10 @@ export class MainView extends View {
     
     this.map.select.getFeatures().clear();
     this.map.select.getFeatures().push(this.getFeature(type, id));
+  }
+
+  editCountry(view, id) {
+    this.showMenu(new EditCountryView(id));
   }
 
   editCity(view, id) {

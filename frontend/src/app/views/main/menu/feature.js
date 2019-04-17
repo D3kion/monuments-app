@@ -17,6 +17,8 @@ export class FeatureView extends View {
     });
     super(options);
 
+    this.featureType = type;
+
     if (type === "country") 
       this.feature = new CountryModel();
     else // city
@@ -37,10 +39,10 @@ export class FeatureView extends View {
   }
 
   editFeature() {
-    // if (this.featureType === 'country')
-    //   this.triggerMethod('edit:feature:country', this, this.feature)
-    // else
-    this.triggerMethod("edit:feature:city", this, this.feature);
+    if (this.featureType === "country")
+      this.triggerMethod("edit:feature:country", this, this.feature);
+    else
+      this.triggerMethod("edit:feature:city", this, this.feature);
   }
 
   deleteFeature() {

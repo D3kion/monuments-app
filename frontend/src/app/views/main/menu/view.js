@@ -27,6 +27,7 @@ export class MenuView extends View {
     this.contentView = obj.contentView;
 
     this.contentView.on("open:feature:id", this.openFeatureById, this);
+    this.contentView.on("edit:feature:country", this.editCountry, this);
     this.contentView.on("edit:feature:city", this.editCity, this);
     this.contentView.on("refresh:map", this.refreshMap, this);
     this.contentView.on("close:menu", this.onClose, this);
@@ -34,6 +35,10 @@ export class MenuView extends View {
 
   openFeatureById(view, feature) {
     this.triggerMethod("open:feature:id", this, feature);
+  }
+
+  editCountry(view, id) {
+    this.triggerMethod("edit:feature:country", this, id);
   }
 
   editCity(view, id) {
