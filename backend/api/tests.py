@@ -10,7 +10,7 @@ from django.contrib.gis.geos import Polygon, Point
 from rest_framework.test import APIClient
 
 from core.models import User
-from .models import Country, City, Image as ImageModel
+from .models import Country, City, Image as ImageModel, Capital
 
 
 def create_test_user(username='test_user', password='qwerty12+'):
@@ -55,6 +55,17 @@ def create_image(city=None):
     img = ImageModel(city=city, image=create_image_file())
     img.save()
     return img
+
+
+def create_capital(city=None, country=None):
+    if city is None:
+        city = create_city()
+    if country is None:
+        country = create_country()
+
+    c = Capital(city=city, capital_of=country)
+    c.save()
+    return c
 
 
 class TokenAuthTestCase(TestCase):
@@ -352,5 +363,86 @@ class ImageTestCase(TestCase):
         img = create_image()
 
         res = self.client.delete(reverse('image-detail', args=[img.id]))
+
+        self.assertEqual(res.status_code, 204)
+
+
+class CapitalTestCase(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.u = create_test_user()
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f'Token {self.u.auth_token}')
+
+    def test_get(self):
+        c = create_capital()
+
+        res = self.client.get(reverse('capital-list'))
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.json()[0]['city'], c.city.id)
+        self.assertEqual(res.json()[0]['capital_of'], c.capital_of.id)
+
+    def test_get_detail(self):
+        c = create_capital()
+
+        res = self.client.get(reverse('capital-detail', args=[c.id]))
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.json()['city'], c.city.id)
+        self.assertEqual(res.json()['capital_of'], c.capital_of.id)
+
+    def test_post(self):
+        country = create_country()
+        city = create_city(country=country)
+
+        res = self.client.post(reverse('capital-list'), data={
+            'city': city.id,
+            'capital_of': country.id,
+        })
+
+        self.assertEqual(res.status_code, 201)
+        self.assertEqual(res.json()['city'], city.id)
+        self.assertEqual(res.json()['capital_of'], country.id)
+
+    def test_post_invalid(self):
+        country = create_country()
+        city = create_city(country=country)
+
+        res = self.client.post(reverse('capital-list'), data={
+            'city': city.id,
+            'country': country.id,
+        })
+
+        self.assertEqual(res.status_code, 400)
+
+    def test_put(self):
+        c = create_capital()
+        city = create_city(country=c.capital_of)
+
+        res = self.client.put(reverse('capital-detail', args=[c.id]), data={
+            'city': city.id,
+            'capital_of': c.capital_of.id,
+        })
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.json()['city'], city.id)
+        self.assertEqual(res.json()['capital_of'], c.capital_of.id)
+
+    def test_put_invalid(self):
+        c = create_capital()
+        city = create_city(country=c.capital_of)
+
+        res = self.client.put(reverse('capital-detail', args=[c.id]), data={
+            'city': city.id,
+            'country': c.capital_of.id,
+        })
+
+        self.assertEqual(res.status_code, 400)
+
+    def test_delete(self):
+        c = create_capital()
+
+        res = self.client.delete(reverse('capital-detail', args=[c.id]))
 
         self.assertEqual(res.status_code, 204)
