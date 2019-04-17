@@ -36,12 +36,14 @@ class ImageHelperSerializer(serializers.ModelSerializer):
 
 
 class CapitalHelperSerializer(serializers.ModelSerializer):
+    capital_id = serializers.PrimaryKeyRelatedField(source='id',
+                                                    read_only=True)
     id = serializers.PrimaryKeyRelatedField(source='city', read_only=True)
     name = serializers.StringRelatedField(source='city')
 
     class Meta:
         model = Capital
-        fields = ['id', 'name']
+        fields = ['capital_id', 'id', 'name']
 
 
 #
@@ -118,7 +120,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class CapitalSerializer(serializers.ModelSerializer):
     class Meta:
         model = Capital
-        fields = ['url', 'city', 'capital_of']
+        fields = ['id', 'url', 'city', 'capital_of']
 
 
 #
