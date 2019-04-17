@@ -17,12 +17,9 @@ class UserSigninSerializer(serializers.Serializer):
 #
 # Helpers
 #
-class CapitalHelperSerializer(serializers.ModelSerializer):
-    id = serializers.PrimaryKeyRelatedField(source='city', read_only=True)
-    name = serializers.StringRelatedField(source='city')
-
+class CountryHelperSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Capital
+        model = Country
         fields = ['id', 'name']
 
 
@@ -32,9 +29,18 @@ class CityHelperSerializer(serializers.ModelSerializer):
         fields = ['id', 'name']
 
 
-class CountryHelperSerializer(serializers.ModelSerializer):
+class ImageHelperSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Country
+        model = Image
+        fields = ['id', 'image']
+
+
+class CapitalHelperSerializer(serializers.ModelSerializer):
+    id = serializers.PrimaryKeyRelatedField(source='city', read_only=True)
+    name = serializers.StringRelatedField(source='city')
+
+    class Meta:
+        model = Capital
         fields = ['id', 'name']
 
 
@@ -69,21 +75,13 @@ class CountryGeoSerializer(GeoFeatureModelSerializer):
 
 
 #
-# Image
-#
-class ImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Image
-        fields = ['id', 'url', 'image', 'city']
-
-
-#
 # City
 #
 class CitySerializer(serializers.ModelSerializer):
     # read_only
     country = CountryHelperSerializer(read_only=True)
-    images = ImageSerializer(source='image_set', read_only=True, many=True)
+    images = ImageHelperSerializer(source='image_set', read_only=True,
+                                   many=True)
 
     # write_only
     country_ = serializers.PrimaryKeyRelatedField(
@@ -103,6 +101,15 @@ class CityGeoSerializer(GeoFeatureModelSerializer):
         model = City
         geo_field = 'geometry'
         fields = ['id']
+
+
+#
+# Image
+#
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = ['id', 'url', 'image', 'city']
 
 
 #
