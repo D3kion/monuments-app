@@ -23,6 +23,7 @@ export class CreateView extends View {
     super(options);
 
     this.drawPoint = drawPoint;
+    this.showChildView("content", new CountryView());
   }
 
   onChoose(e) {
