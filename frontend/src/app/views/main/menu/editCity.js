@@ -26,7 +26,6 @@ export class EditCityView extends View {
 
     this.countries.on("add", this.render, this);
 
-    this.feature.fetch();
     this.countries.fetch();
   }
 
@@ -46,9 +45,11 @@ export class EditCityView extends View {
 
       fetch("POST", "api/image/", formData)
       .then(res => {
-        if (res.ok)
-          this.feature.fetch();
-        else
+        if (res.ok) {
+          this.feature.fetch({
+            success: () => this.render()
+          });
+        } else
           res.json().then(data => {
             this.triggerMethod("show:toast", this, "Ошибка", data.image);
           });
@@ -59,8 +60,9 @@ export class EditCityView extends View {
   removeImage(e) {
     (new ImageModel()).set({id: e.target.dataset.id}).destroy({
       success: () => {
-        this.feature.fetch();
-        this.render();
+        this.feature.fetch({
+          success: () => this.render()
+        });
       }
     });
   }
