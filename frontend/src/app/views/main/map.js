@@ -3,6 +3,8 @@ import "ol/ol.css";
 import * as proj from "ol/proj";
 import { Map, View } from "ol";
 import OSM from "ol/source/OSM";
+import XYZ from "ol/source/XYZ";
+import BingMaps from "ol/source/BingMaps";
 import Vector from "ol/source/Vector";
 import GeoJSON from "ol/format/GeoJSON";
 import TileLayer from "ol/layer/Tile";
@@ -122,21 +124,71 @@ export class MapView extends MnView {
         .then(data => citySource.addFeatures(citySource.getFormat().readFeatures(data)))
     });
 
-    this.mainLayer = new TileLayer({
+    this.osmLayer = new TileLayer({
       name: "OSM",
+      switchType: "radio",
       source: new OSM(),
     });
+
+    this.yandexLayer = new TileLayer({
+      name: "Яндекс Карты",
+      switchType: "radio",
+      projection: "EPSG:3395",
+      source: new XYZ({
+        url: "http://vec0{1-4}.maps.yandex.net/tiles?l=map&z={z}&x={x}&y={y}"
+      }),
+      visible: false,
+    });
+
+    this.yandexSatelliteLayer = new TileLayer({
+      name: "Яндекс Карты (Спутник)",
+      switchType: "radio",
+      projection: "EPSG:3395",
+      source: new XYZ({
+        url: "https://sat0{1-4}.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}"
+      }),
+      visible: false,
+    });
+
+    this.googleLayer = new TileLayer({
+      name: "Google Карты",
+      switchType: "radio",
+      projection: "EPSG:3857",
+      source: new XYZ({
+        url: "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+      }),
+      visible: false,
+    });
+
+    this.bingLayer = new TileLayer({
+      name: "Bing Карты",
+      switchType: "radio",
+      source: new BingMaps({
+        culture: "ru-ru",
+        key: "AtvW5gEKmgVe7bQwBo-Ndg1iEK7k73kbu8c8SBzVJpkPOnGvyMIDGcT4DJcPnMMG",
+        imagerySet: "RoadOnDemand",
+      }),
+      visible: false,
+    });
+
     this.countryLayer = new VectorLayer({
       name: "Страны",
+      switchType: "checkbox",
       source: countrySource,
     });
+
     this.cityLayer = new VectorLayer({
       name: "Города",
+      switchType: "checkbox",
       source: citySource,
     });
 
     this.map.getLayers().clear();
-    this.map.addLayer(this.mainLayer);
+    this.map.addLayer(this.osmLayer);
+    this.map.addLayer(this.yandexLayer);
+    this.map.addLayer(this.yandexSatelliteLayer);
+    this.map.addLayer(this.googleLayer);
+    this.map.addLayer(this.bingLayer);
     this.map.addLayer(this.countryLayer);
     this.map.addLayer(this.cityLayer);
   }

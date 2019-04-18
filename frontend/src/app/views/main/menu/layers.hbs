@@ -2,7 +2,7 @@
 <br><br>
 {{#each layers}}
 <div class="form-check">
-    <input class="layer form-check-input" type="checkbox" value="{{@index}}"
+    <input class="layer form-check-input" type="{{this.values_.switchType}}" value="{{@index}}"
     {{#if this.getVisible}}
         checked
     {{/if}}

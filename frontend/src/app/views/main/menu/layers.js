@@ -17,12 +17,19 @@ export class LayersView extends View {
 
   serializeData() {
     return {
-      layers: this.layers
+      layers: this.layers,
     };
   }
 
   onClickLayer(e) {
     let layer = this.layers[e.target.value];
+    if (layer.get("switchType") == "radio")
+      this.layers.map(x => {
+        if (x.get("switchType") == "radio")
+          x.setVisible(false);
+      });
+
     layer.setVisible(!layer.getVisible());
+    this.render();
   }
 }
