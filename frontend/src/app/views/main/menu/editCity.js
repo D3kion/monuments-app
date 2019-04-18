@@ -58,7 +58,10 @@ export class EditCityView extends View {
 
   removeImage(e) {
     (new ImageModel()).set({id: e.target.dataset.id}).destroy({
-      success: () => this.feature.fetch()
+      success: () => {
+        this.feature.fetch();
+        this.render();
+      }
     });
   }
 
