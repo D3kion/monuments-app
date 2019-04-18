@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import "../../../styles/login.css";
+import "../../../styles/login.scss";
 import _ from "underscore";
 import { View } from "backbone.marionette";
 import fetch from "../../utils";

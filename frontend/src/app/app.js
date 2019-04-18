@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/main.css";
+import "../styles/main.scss";
 import _ from "underscore";
 import { Application } from "backbone.marionette";
 import fetch from "./utils";

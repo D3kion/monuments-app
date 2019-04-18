@@ -12,12 +12,12 @@
   position: fixed;
   top: 5em;
   right: 1.5em;
-}
 
-#controls>* {
-  display: block;
-  margin-bottom: .5em;
-  width: 3em;
+  >* {
+    display: block;
+    margin-bottom: .5em;
+    width: 3em;
+  }
 }
 
 #menu {
@@ -27,28 +27,28 @@
   width: 22em;
   top: 10%;
   bottom: 15%;
-}
 
-#menu .menu-header {
-  height: 1.5em;
-  padding-right: .5em;
-  background-color: cornflowerblue;
-  text-align: end;
-  border-radius: 10px 10px 0 0;
-}
+  .menu-header {
+    height: 1.5em;
+    padding-right: .5em;
+    background-color: cornflowerblue;
+    text-align: end;
+    border-radius: 10px 10px 0 0;
 
-#menu .menu-header a {
-  color: #fff;
-  font-style: oblique;
-}
+    a {
+      color: #fff;
+      font-style: oblique;
+    }
+  }
 
-#menu>#content {
-  position: relative;
-  height: 100%;
-  padding: .75em .9em;
-  background-color: azure;
-  border-radius: 0 0 10px 10px;
-  overflow-y: auto;
+  #content {
+    position: relative;
+    height: 100%;
+    padding: .75em .9em;
+    background-color: azure;
+    border-radius: 0 0 10px 10px;
+    overflow-y: auto;
+  }
 }
 
 .feature-header-buttons {
@@ -62,10 +62,10 @@
   position: absolute;
   bottom: 2em;
   right: 3em;
-}
 
-.toast-body:first-letter {
-  text-transform:capitalize;
+  .toast-body:first-letter {
+    text-transform:capitalize;
+  }
 }
 
 /*
@@ -78,10 +78,10 @@
   font-size: 1.1rem;
   background-color: rgba(0, 0, 0, .25);
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
-}
 
-.navbar-brand>button {
-  margin-left: .75em;
+  button {
+    margin-left: .75em;
+  }
 }
 
 .navbar .form-control {
@@ -96,9 +96,9 @@
   color: #fff;
   background-color: rgba(255, 255, 255, .1);
   border-color: rgba(255, 255, 255, .1);
-}
 
-.form-control-dark:focus {
-  border-color: transparent;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+  :focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+  }
 }
