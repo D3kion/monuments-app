@@ -1,5 +1,13 @@
+<strong class="h4">Создать столицу</strong>
+<hr>
+{{#if loading}}
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+{{else}}
 {{#if countries}}
-<strong class="h5">Создать столицу</strong><br><br>
 <form>
     <strong>Страна:</strong>
     <select id="country" name="country" class="form-control">
@@ -31,4 +39,5 @@
 </form>
 {{else}}
 <strong>Нет стран для создания столиц.</strong>
+{{/if}}
 {{/if}}

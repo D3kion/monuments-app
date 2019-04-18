@@ -18,16 +18,22 @@ export class CityView extends View {
     });
     super(options);
 
+    this.loading = true;
     this.drawPoint = drawPoint;
     this.city = new CityModel();
     this.countries = new CountriesCollection();
-    this.countries.on("add", this.render, this);
-    this.countries.fetch();
+    this.countries.fetch({
+      success: () => {
+        this.loading = false;
+        this.render();
+      }
+    });
   }
 
   serializeData() {
     return {
-      countries: this.countries.toJSON()
+      loading: this.loading,
+      countries: this.countries.toJSON(),
     };
   }
 

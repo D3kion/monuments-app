@@ -1,5 +1,13 @@
+<strong class="h4">Создать город</strong>
+<hr>
+{{#if loading}}
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+{{else}}
 {{#if countries}}
-<strong class="h5">Создать город</strong><br><br>
 <form>
     <strong>Название:</strong>
     <input name="name" class="form-control">
@@ -27,4 +35,5 @@
 <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
 {{else}}
 <strong>Создайте страну.</strong>
+{{/if}}
 {{/if}}

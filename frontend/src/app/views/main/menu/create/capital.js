@@ -18,25 +18,27 @@ export class CapitalView extends View {
     });
     super(options);
 
+    this.loading = true;
     this.countries = new CountriesCollection();
 
-    this.countries.on("all", this.render, this);
     this.model.on("change", this.render, this);
 
     this.countries.fetch({
       success: collection => {
         if (collection.models.length !== 0) {
           collection.models = collection.models.filter(x => x.get("capital") === null);
-          if (collection.models.length === 0)
-            return;
-          this.model.set({cities: collection.models[0].get("cities")});
+          if (collection.models.length !== 0)
+            this.model.set({cities: collection.models[0].get("cities")});
         }
+        this.loading = false;
+        this.render();
       }
     });
   }
 
   serializeData() {
     return {
+      loading: this.loading,
       countries: this.countries.toJSON(),
       cities: this.model.get("cities"),
     };

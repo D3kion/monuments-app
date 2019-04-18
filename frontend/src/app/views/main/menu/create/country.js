@@ -15,13 +15,19 @@ export class CountryView extends View {
     });
     super(options);
 
+    this.loading = true;
     this.countries = new CountryHelpersCollection();
-    this.countries.on("add", this.render, this);
-    this.countries.fetch();
+    this.countries.fetch({
+      success: () => {
+        this.loading = false;
+        this.render();
+      }
+    });
   }
 
   serializeData() {
     return {
+      loading: this.loading,
       countries: this.countries.toJSON(),
     };
   }

@@ -1,3 +1,10 @@
+{{#if loading}}
+<div class="d-flex justify-content-center">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+{{else}}
 <span class="h3">{{feature.name}}</span>
 <div class="feature-header-buttons">
     <button id="edit" type="button" class="btn btn-success btn-sm" title="Редактировать"><i class="far fa-edit"></i></button>
@@ -19,4 +26,5 @@
 {{/each}}
 {{else}}
 Фотографий не найдено.
+{{/if}}
 {{/if}}

@@ -8,14 +8,15 @@ export class SearchView extends View {
   constructor(q, options={}) {
     _.defaults(options, {
       template,
-      model: new Model(),
+      model: new Model({
+        loading: true,
+      }),
       events: {
         "click .clickable": "openFeature"
       }
     });
     super(options);
 
-    this.model.on("change", this.render, this);
     this.search(q);
   }
 
@@ -33,7 +34,11 @@ export class SearchView extends View {
       .then(data => {
         if (data.length > 0)
           res.push({cities: data});
-        this.model.set({list: res});
+        this.model.set({
+          loading: false,
+          list: res,
+        });
+        this.render();
       }));
   }
 

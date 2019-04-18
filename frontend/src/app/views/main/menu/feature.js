@@ -17,6 +17,7 @@ export class FeatureView extends View {
     });
     super(options);
 
+    this.loading = true;
     this.featureType = type;
 
     if (type === "country") 
@@ -24,12 +25,17 @@ export class FeatureView extends View {
     else // city
       this.feature = new CityModel();
 
-    this.feature.on("change", this.render, this);
-    this.feature.set({id}).fetch();
+    this.feature.set({id}).fetch({
+      success: () => {
+        this.loading = false;
+        this.render();
+      }
+    });
   }
 
   serializeData() {
     return {
+      loading: this.loading,
       feature: this.feature.toJSON(),
     };
   }
