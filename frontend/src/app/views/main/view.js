@@ -3,6 +3,7 @@ import { Model } from "backbone";
 import { View } from "backbone.marionette";
 import fetch from "../../utils";
 import template from "./template.hbs";
+import { ToastView } from "Views/toast/view";
 import { MapView } from "./map";
 import { MenuView } from "./menu/view";
 import { FeatureView } from "./menu/feature";
@@ -24,6 +25,10 @@ export class MainView extends View {
         },
         map: {
           el: "#map-placeholder",
+          replaceElement: true,
+        },
+        toast: {
+          el: "#toast-placeholder",
           replaceElement: true,
         },
       },
