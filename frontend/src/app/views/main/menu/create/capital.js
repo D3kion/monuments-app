@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import _ from "underscore";
 import { Model } from "backbone";
 import { View } from "backbone.marionette";

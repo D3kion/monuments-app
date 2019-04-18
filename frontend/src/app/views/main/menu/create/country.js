@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import _ from "underscore";
 import { View } from "backbone.marionette";
 import template from "./country.hbs";

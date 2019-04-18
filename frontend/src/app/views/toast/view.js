@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import "bootstrap/js/dist/util";
 import "bootstrap/js/dist/toast";
 import _ from "underscore";
@@ -25,7 +24,6 @@ export class ToastView extends View {
   }
 
   show() {
-    console.log($(".toast"));
     $(".toast").toast({autohide: false});
     $(".toast").toast("show");
   }

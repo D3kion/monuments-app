@@ -65,8 +65,6 @@ export class CityView extends View {
             fetch("POST", "api/image/", formData)
             .then(res => {
               if (!res.ok)
-                console.log(res);
-              else
                 res.json().then(data => {
                   this.triggerMethod("show:toast", this, "Ошибка", data.image);
                 });
