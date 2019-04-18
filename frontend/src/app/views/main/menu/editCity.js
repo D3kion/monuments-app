@@ -87,8 +87,8 @@ export class EditCityView extends View {
         this.triggerMethod("close:menu", this);
       },
 
-      error: (_model, res) => {
-        this.triggerMethod("show:toast", this, "Ошибка", res.responseJSON.name);
+      error: () => {
+        this.triggerMethod("show:toast", this, "Ошибка", "Название города не может быть пустым или город с таким званием уже существуем");
       }
     });
   }

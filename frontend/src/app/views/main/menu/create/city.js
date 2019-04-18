@@ -81,7 +81,7 @@ export class CityView extends View {
         if (res.responseJSON.geometry)
           this.triggerMethod("show:toast", this, "Ошибка", "Выберите место на карте");
         else
-          this.triggerMethod("show:toast", this, "Ошибка", res.responseJSON.name);
+          this.triggerMethod("show:toast", this, "Ошибка", "Название города не может быть пустым или город с таким званием уже существуем");
       },
     });
   }
