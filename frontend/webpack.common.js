@@ -55,7 +55,7 @@ module.exports = {
     alias: {
       Models: path.resolve(__dirname, "src/app/models"),
       Collections: path.resolve(__dirname, "src/app/collections"),
-      Views: path.resolve(__dirname, "src/app/Views"),
+      Views: path.resolve(__dirname, "src/app/views"),
     }
   },
 
