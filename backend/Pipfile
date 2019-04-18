@@ -13,6 +13,7 @@ postgis = "==1.0.4"
 djangorestframework = "==3.9.2"
 djangorestframework-gis = "==0.14"
 Pillow = "==6.0.0"
+coverage = "*"
 
 [requires]
 python_version = "3.7"

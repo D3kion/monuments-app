@@ -28,6 +28,12 @@ Deployment instructions:
     $ python manage.py runserver
     ```
 
+4. *Test (optional)*
+    ```
+    $ coverage run --branch --source=api,core ./manage.py test
+    $ coverage report
+    ```
+
 And go to [Admin panel](http://127.0.0.1:8000/admin) | [API](http://127.0.0.1:8000/api)
 
 #### Frontend:
