@@ -15,6 +15,7 @@ export class EditCityView extends View {
         "click .remove": "removeImage",
         "click #place": "onPlace",
         "click #submit": "onSubmit",
+        "submit form": "onSubmit",
       },
     });
     super(options);

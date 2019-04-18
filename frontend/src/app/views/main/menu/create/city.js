@@ -14,6 +14,7 @@ export class CityView extends View {
         "change #images": "onChangeImages",
         "click #place": "onPlace",
         "click #submit": "onSubmit",
+        "submit form": "onSubmit",
       },
     });
     super(options);
@@ -45,7 +46,8 @@ export class CityView extends View {
     this.drawPoint(coords => this.city.set({geometry: {type: "Point", coordinates: coords}}));
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     const $form = this.$el.find("form");
     let data = {};
     $form.serializeArray().map(x => data[x.name] = x.value);
