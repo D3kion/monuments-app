@@ -4,11 +4,18 @@ import _ from "underscore";
 import { View } from "backbone.marionette";
 import fetch from "../../utils";
 import template from "./template.hbs";
+import { ToastView } from "Views/toast/view";
 
 export class LoginView extends View {
   constructor(options={}) {
     _.defaults(options, {
       template,
+      regions: {
+        toast: {
+          el: "#toast-placeholder",
+          replaceElement: true,
+        },
+      },
       events: {
         "click #submit": "onSubmit",
       }
@@ -29,9 +36,11 @@ export class LoginView extends View {
     }), false, new Headers({"Content-Type": "application/json"}))
     .then(res => res.json())
     .then(data => {
-      if (typeof data.token === "undefined")
-        console.log("Error", data.detail);
-      else {
+      if (typeof data.token === "undefined") {
+        const toast = new ToastView("Ошибка", "Неверные учетные данные.");
+        this.showChildView("toast", toast);
+        toast.show();
+      } else {
         localStorage.setItem("token", data.token);
         location.reload();
       }

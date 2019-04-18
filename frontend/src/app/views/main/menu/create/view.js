@@ -16,6 +16,7 @@ export class CreateView extends View {
         "click .choose": "onChoose",
       },
       childViewEvents: {
+        "show:toast": "showToast",
         "refresh:map": "refreshMap",
         "close:menu": "closeMenu",
       },
@@ -40,6 +41,10 @@ export class CreateView extends View {
         break;
     }
     this.showChildView("content", childView);
+  }
+
+  showToast(view, type, text) {
+    this.triggerMethod("show:toast", this, type, text);
   }
 
   refreshMap() {

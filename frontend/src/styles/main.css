@@ -64,6 +64,10 @@
   right: 3em;
 }
 
+.toast-body:first-letter {
+  text-transform:capitalize;
+}
+
 /*
  * Navbar
  */

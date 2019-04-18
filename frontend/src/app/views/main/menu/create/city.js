@@ -66,6 +66,10 @@ export class CityView extends View {
             .then(res => {
               if (!res.ok)
                 console.log(res);
+              else
+                res.json().then(data => {
+                  this.triggerMethod("show:toast", this, "Ошибка", data.image);
+                });
             });
           }
 
@@ -73,7 +77,12 @@ export class CityView extends View {
         this.triggerMethod("close:menu", this);
       },
 
-      error: (_model, res) => console.error(res),
+      error: (_model, res) => {
+        if (res.responseJSON.geometry)
+          this.triggerMethod("show:toast", this, "Ошибка", "Выберите место на карте");
+        else
+          this.triggerMethod("show:toast", this, "Ошибка", res.responseJSON.name);
+      },
     });
   }
 }

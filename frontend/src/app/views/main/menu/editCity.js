@@ -47,14 +47,17 @@ export class EditCityView extends View {
       .then(res => {
         if (res.ok)
           this.feature.fetch();
+        else
+          res.json().then(data => {
+            this.triggerMethod("show:toast", this, "Ошибка", data.image);
+          });
       });
     }
   }
 
   removeImage(e) {
     (new ImageModel()).set({id: e.target.dataset.id}).destroy({
-      success: () => this.feature.fetch(),
-      error: (_model, res) => console.log(res),
+      success: () => this.feature.fetch()
     });
   }
 
@@ -62,7 +65,8 @@ export class EditCityView extends View {
     this.drawPoint((coords) => this.feature.set({geometry: {type: "Point", coordinates: coords}}));
   }
 
-  onSubmit() {
+  onSubmit(e) {
+    e.preventDefault();
     const $form = this.$el.find("form");
     let data = {};
     $form.serializeArray().map(x => data[x.name] = x.value);
@@ -77,7 +81,9 @@ export class EditCityView extends View {
         this.triggerMethod("close:menu", this);
       },
 
-      error: (_model, res) => console.error(res),
+      error: (_model, res) => {
+        this.triggerMethod("show:toast", this, "Ошибка", res.responseJSON.name);
+      }
     });
   }
 }

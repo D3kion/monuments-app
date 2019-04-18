@@ -26,11 +26,16 @@ export class MenuView extends View {
   initialize(obj) {
     this.contentView = obj.contentView;
 
+    this.contentView.on("show:toast", this.showToast, this);
     this.contentView.on("open:feature:id", this.openFeatureById, this);
     this.contentView.on("edit:feature:country", this.editCountry, this);
     this.contentView.on("edit:feature:city", this.editCity, this);
     this.contentView.on("refresh:map", this.refreshMap, this);
     this.contentView.on("close:menu", this.onClose, this);
+  }
+
+  showToast(view, type, text) {
+    this.triggerMethod("show:toast", this, type, text);
   }
 
   openFeatureById(view, feature) {

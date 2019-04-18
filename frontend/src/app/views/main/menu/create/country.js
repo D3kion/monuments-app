@@ -44,13 +44,9 @@ export class CountryView extends View {
           success: () => {
             this.triggerMethod("refresh:map", this);
             this.triggerMethod("close:menu", this);
-          },
-  
-          error: (_model, res) => console.error(res),
+          }
         });
-      },
-
-      error: (_model, res) => console.log(res),
+      }
     });
   }
 }

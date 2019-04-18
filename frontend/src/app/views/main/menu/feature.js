@@ -22,7 +22,7 @@ export class FeatureView extends View {
 
     if (type === "country") 
       this.feature = new CountryModel();
-    else // city
+    else
       this.feature = new CityModel();
 
     this.feature.set({id}).fetch({

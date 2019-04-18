@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import _ from "underscore";
 import { View } from "backbone.marionette";
 import template from "./editCountry.hbs";
@@ -43,9 +42,7 @@ export class EditCountryView extends View {
       success: () => {
         this.triggerMethod("refresh:map", this);
         this.triggerMethod("close:menu", this);
-      },
-
-      error: (_model, res) => console.error(res),
+      }
     });
   }
 }

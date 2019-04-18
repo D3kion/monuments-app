@@ -68,9 +68,7 @@ export class CapitalView extends View {
       success: () => {
         this.triggerMethod("refresh:map", this);
         this.triggerMethod("close:menu", this);
-      },
-
-      error: (_model, res) => console.error(res),
+      }
     });
   }
 }

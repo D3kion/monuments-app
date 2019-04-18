@@ -41,6 +41,7 @@ export class MainView extends View {
         "keyup #search": "onSearch",
       },
       childViewEvents: {
+        "show:toast": "showToast",
         "close:menu": "closeMenu",
         "open:feature": "openFeature",
         "open:feature:id": "openFeatureById",
@@ -91,6 +92,12 @@ export class MainView extends View {
     this.map.select.getFeatures().clear();
     if (e.keyCode == 13)
       this.showMenu(new SearchView(e.target.value));
+  }
+
+  showToast(view, type, text) {
+    const toast = new ToastView(type, text);
+    this.showChildView("toast", toast);
+    toast.show();
   }
 
   closeMenu() {
