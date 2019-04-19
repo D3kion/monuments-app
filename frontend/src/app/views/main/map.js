@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import "ol/ol.css";
 import * as proj from "ol/proj";
+import { register } from "ol/proj/proj4";
 import { Map, View } from "ol";
 import OSM from "ol/source/OSM";
 import XYZ from "ol/source/XYZ";
@@ -13,11 +14,18 @@ import { defaults } from "ol/interaction";
 import Select from "ol/interaction/Select.js";
 import Draw from "ol/interaction/Draw.js";
 import { never } from "ol/events/condition";
+import proj4 from "proj4";
 import { saveAs } from "file-saver";
 import _ from "underscore";
 import { View as MnView } from "backbone.marionette";
 import fetch from "../../utils";
 import template from "./map.hbs";
+
+proj4.defs("EPSG:3395", "+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs");
+register(proj4);
+proj.get("EPSG:3395").setExtent(
+  [-20037508.342789244, -20037508.342789244, 20037508.342789244, 20037508.342789244]
+);
 
 export class MapView extends MnView {
   constructor(options={}) {
@@ -133,9 +141,9 @@ export class MapView extends MnView {
     this.yandexLayer = new TileLayer({
       name: "Яндекс Карты",
       switchType: "radio",
-      projection: "EPSG:3395",
       source: new XYZ({
-        url: "http://vec0{1-4}.maps.yandex.net/tiles?l=map&z={z}&x={x}&y={y}"
+        url: "https://vec0{1-4}.maps.yandex.net/tiles?l=map&v=4.55.2&x={x}&y={y}&z={z}",
+        projection: "EPSG:3395",
       }),
       visible: false,
     });
@@ -143,9 +151,9 @@ export class MapView extends MnView {
     this.yandexSatelliteLayer = new TileLayer({
       name: "Яндекс Карты (Спутник)",
       switchType: "radio",
-      projection: "EPSG:3395",
       source: new XYZ({
-        url: "https://sat0{1-4}.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}"
+        url: "https://sat0{1-4}.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}",
+        projection: "EPSG:3395",
       }),
       visible: false,
     });
@@ -153,9 +161,9 @@ export class MapView extends MnView {
     this.googleLayer = new TileLayer({
       name: "Google Карты",
       switchType: "radio",
-      projection: "EPSG:3857",
       source: new XYZ({
-        url: "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+        url: "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+        projection: "EPSG:3857",
       }),
       visible: false,
     });
