@@ -88,7 +88,7 @@ export class EditCityView extends View {
       },
 
       error: () => {
-        this.triggerMethod("show:toast", this, "Ошибка", "Название города не может быть пустым или город с таким званием уже существуем");
+        this.triggerMethod("show:toast", this, "Ошибка", "Название города не может быть пустым или город с таким званием уже существует.");
       }
     });
   }
