@@ -12,6 +12,7 @@ router.register('capital', views.CapitalViewSet, base_name='capital')
 urlpatterns = [
     path('', include(router.urls)),
     path('auth/', include('rest_framework.urls')),
+    path('register/', views.UserCreate.as_view(), name='register'),
     path('token-auth/', views.signin, name='token-auth'),
     path('token-info/', views.user_info, name='token-info'),
     path('geojson/country/', views.CountryGeoView.as_view(),

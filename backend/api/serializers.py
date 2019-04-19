@@ -1,4 +1,6 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 from rest_framework_gis.serializers import (
     GeoFeatureModelSerializer, GeometryField
 )
@@ -12,6 +14,27 @@ from .models import City, Capital, Country, Image, CountriesHelper
 class UserSigninSerializer(serializers.Serializer):
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)
+
+
+class UserRegisterSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        required=True,
+        validators=[UniqueValidator(queryset=get_user_model().objects.all())])
+    username = serializers.CharField(
+        max_length=32,
+        validators=[UniqueValidator(queryset=get_user_model().objects.all())])
+    password = serializers.CharField(min_length=8)
+
+    def create(self, validated_data):
+        user = get_user_model().objects.create_user(
+            validated_data['username'],
+            validated_data['email'],
+            validated_data['password'])
+        return user
+
+    class Meta:
+        model = get_user_model()
+        fields = ['id', 'username', 'email', 'password']
 
 
 #
