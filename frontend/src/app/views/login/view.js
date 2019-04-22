@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import "../../../styles/login.scss";
+import "Styles/login.scss";
 import "bootstrap/js/dist/modal";
 import _ from "underscore";
 import $ from "jquery";
