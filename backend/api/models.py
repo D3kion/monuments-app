@@ -50,7 +50,7 @@ class Image(models.Model):
                               verbose_name=_('image'))
 
     def __str__(self):
-        return self.name
+        return self.city.name
 
     class Meta:
         verbose_name = _('image')
