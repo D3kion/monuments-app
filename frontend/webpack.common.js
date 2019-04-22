@@ -47,6 +47,11 @@ module.exports = {
       {
         test: /\.hbs$/,
         loader: "handlebars-loader",
+        options: {
+          precompileOptions: {
+            knownHelpersOnly: false,
+          },
+        }
       },
       {
         test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,

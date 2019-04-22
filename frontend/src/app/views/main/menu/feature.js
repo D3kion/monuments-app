@@ -1,9 +1,21 @@
+import "bootstrap/js/dist/modal";
+import "bootstrap/js/dist/carousel";
 import _ from "underscore";
+import $ from "jquery";
 import { View } from "backbone.marionette";
 import countryTemplate from "./featureCountry.hbs";
 import cityTemplate from "./featureCity.hbs";
 import { CountryModel } from "Models/country";
 import { CityModel } from "Models/city";
+
+// eslint-disable-next-line no-undef
+var Handlebars = require("handlebars/runtime");
+
+Handlebars.registerHelper({
+  eq: function (v1, v2) {
+    return v1 == v2;
+  }
+});
 
 export class FeatureView extends View {
   constructor(type, id, options={}) {
@@ -13,12 +25,15 @@ export class FeatureView extends View {
         "click .clickable": "openFeature",
         "click #edit": "editFeature",
         "click #delete": "deleteFeature",
+        // city
+        "click img": "openCarousel",
       },
     });
     super(options);
 
     this.loading = true;
     this.featureType = type;
+    this.modalImage = null;
 
     if (type === "country") 
       this.feature = new CountryModel();
@@ -37,6 +52,7 @@ export class FeatureView extends View {
     return {
       loading: this.loading,
       feature: this.feature.toJSON(),
+      modalImage: this.modalImage,
     };
   }
 
@@ -58,5 +74,14 @@ export class FeatureView extends View {
         this.triggerMethod("close:menu", this);
       }
     });
+  }
+
+  openCarousel(e) {
+    this.modalImage = e.target.dataset.id;
+    this.render();
+
+    $("#imgModal").modal({
+      backdrop: false,
+    }).modal("show");
   }
 }
