@@ -22,6 +22,7 @@ export class LoginView extends View {
         "click #register": "onRegister",
         "click #recover": "onRecover",
         "click #submit": "onSubmit",
+        "submit .form-signin": "onSubmit",
       }
     });
     super(options);
@@ -79,7 +80,9 @@ export class LoginView extends View {
   onSubmit(e) {
     e.preventDefault();
 
-    const $form = this.$el.find("form");
+    const $form = this.$el.find(".form-signin");
+    // eslint-disable-next-line no-unused-vars
+    let temp = $form.serializeArray();
     let data = {};
     $form.serializeArray().map(x => data[x.name] = x.value);
 
