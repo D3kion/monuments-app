@@ -37,7 +37,8 @@ export class LoginView extends View {
 
     modal.modal("show");
 
-    form.one("submit", (e) => {
+    form.off("submit");
+    form.on("submit", (e) => {
       e.preventDefault();
       let data = {};
       $(e.target).serializeArray().map(x => data[x.name] = x.value);
@@ -70,7 +71,8 @@ export class LoginView extends View {
       });
     });
 
-    submit.one("click", () => form.submit());
+    submit.off("click");
+    submit.on("click", () => form.submit());
   }
 
   onReset(e) {
@@ -82,7 +84,8 @@ export class LoginView extends View {
 
     modal.modal("show");
 
-    form.one("submit", (e) => {
+    form.off("submit");
+    form.on("submit", (e) => {
       e.preventDefault();
       let data = {};
       $(e.target).serializeArray().map(x => data[x.name] = x.value);
@@ -111,7 +114,8 @@ export class LoginView extends View {
       });
     });
 
-    submit.one("click", () => form.submit());
+    form.off("click");
+    submit.on("click", () => form.submit());
   }
 
   onResetSuccess() {
@@ -121,7 +125,8 @@ export class LoginView extends View {
 
     modal.modal("show");
 
-    form.one("submit", (e) => {
+    form.off("submit");
+    form.on("submit", (e) => {
       e.preventDefault();
       let data = {};
       $(e.target).serializeArray().map(x => data[x.name] = x.value);
@@ -151,7 +156,8 @@ export class LoginView extends View {
       });
     });
 
-    submit.one("click", () => form.submit());
+    form.off("click");
+    submit.on("click", () => form.submit());
   }
 
   onSubmit(e) {
