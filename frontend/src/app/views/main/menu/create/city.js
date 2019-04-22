@@ -68,7 +68,7 @@ export class CityView extends View {
             .then(res => {
               if (!res.ok)
                 res.json().then(data => {
-                  this.triggerMethod("show:toast", this, "Ошибка", data.image);
+                  this.triggerMethod("show:toast", this, "Ошибка: Изображение", data.image);
                 });
             });
           }
@@ -79,9 +79,9 @@ export class CityView extends View {
 
       error: (_model, res) => {
         if (res.responseJSON.geometry)
-          this.triggerMethod("show:toast", this, "Ошибка", "Выберите место на карте");
+          this.triggerMethod("show:toast", this, "Ошибка: Место", "Выберите место на карте");
         else
-          this.triggerMethod("show:toast", this, "Ошибка", "Название города не может быть пустым или город с таким званием уже существуем");
+          this.triggerMethod("show:toast", this, "Ошибка: Название", res.responseJSON.name);
       },
     });
   }

@@ -51,7 +51,7 @@ export class EditCityView extends View {
           });
         } else
           res.json().then(data => {
-            this.triggerMethod("show:toast", this, "Ошибка", data.image);
+            this.triggerMethod("show:toast", this, "Ошибка: Изображение", data.image);
           });
       });
     }
@@ -87,8 +87,8 @@ export class EditCityView extends View {
         this.triggerMethod("close:menu", this);
       },
 
-      error: () => {
-        this.triggerMethod("show:toast", this, "Ошибка", "Название города не может быть пустым или город с таким званием уже существует.");
+      error: (_model, res) => {
+        this.triggerMethod("show:toast", this, "Ошибка: Название", res.responseJSON.name);
       }
     });
   }

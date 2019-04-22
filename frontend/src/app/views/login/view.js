@@ -58,11 +58,11 @@ export class LoginView extends View {
           res.json().then(data => {
             let toast;
             if (data.username)
-              toast = new ToastView("Ошибка", "Имя пользователя некорректно или такой пользователь уже существует.");
+              toast = new ToastView("Ошибка: Имя пользователя", data.username);
             else if (data.email)
-              toast = new ToastView("Ошибка", "Электронная почта некорректна или уже используется.");
+              toast = new ToastView("Ошибка: Электронная почта", data.email);
             else if (data.password)
-              toast = new ToastView("Ошибка", "Пароль должен быть не меньше 8 символов.");
+              toast = new ToastView("Ошибка: Пароль", data.password);
 
             this.showChildView("toast", toast);
             toast.show();
@@ -105,7 +105,7 @@ export class LoginView extends View {
           res.json().then(data => {
             let toast;
             if (data.email)
-              toast = new ToastView("Ошибка", data.email);
+              toast = new ToastView("Ошибка: Электронная почта", data.email);
 
             this.showChildView("toast", toast);
             toast.show();
@@ -145,9 +145,11 @@ export class LoginView extends View {
           res.json().then(data => {
             let toast;
             if (data.password)
-              toast = new ToastView("Ошибка", "Пароль должен быть не меньше 8 символов.");
-            if (data.token)
-              toast = new ToastView("Ошибка", "Неверный токен");
+              toast = new ToastView("Ошибка: Пароль", data.password);
+            else if (data.token)
+              toast = new ToastView("Ошибка: Токен", data.token);
+            else
+              toast = new ToastView("Ошибка: Токен", "Неверный токен");
 
             this.showChildView("toast", toast);
             toast.show();
