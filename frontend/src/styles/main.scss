@@ -48,6 +48,10 @@
     background-color: azure;
     border-radius: 0 0 10px 10px;
     overflow-y: auto;
+
+    img {
+      cursor: pointer;
+    }
   }
 }
 
