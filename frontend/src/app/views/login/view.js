@@ -20,7 +20,7 @@ export class LoginView extends View {
       },
       events: {
         "click #register": "onRegister",
-        "click #recover": "onRecover",
+        "click #reset": "onReset",
         "click #submit": "onSubmit",
         "submit .form-signin": "onSubmit",
       }
@@ -73,8 +73,85 @@ export class LoginView extends View {
     submit.one("click", () => form.submit());
   }
 
-  onRecover(e) {
+  onReset(e) {
     e.preventDefault();
+
+    const modal = $("#resetModal");
+    const form = modal.find("form");
+    const submit = modal.find("#resetSubmit");
+
+    modal.modal("show");
+
+    form.one("submit", (e) => {
+      e.preventDefault();
+      let data = {};
+      $(e.target).serializeArray().map(x => data[x.name] = x.value);
+
+      fetch("POST", "api/password_reset/", JSON.stringify({
+        email: data.email,
+      }), false, new Headers({"Content-Type": "application/json"}))
+      .then(res => {
+        if (res.ok) {
+          const toast = new ToastView("Успешно", "Токен отправлен на указанный email!");
+          this.showChildView("toast", toast);
+          toast.show();
+          modal.modal("hide");
+
+          this.onResetSuccess();
+        } else {
+          res.json().then(data => {
+            let toast;
+            if (data.email)
+              toast = new ToastView("Ошибка", data.email);
+
+            this.showChildView("toast", toast);
+            toast.show();
+          });
+        }
+      });
+    });
+
+    submit.one("click", () => form.submit());
+  }
+
+  onResetSuccess() {
+    const modal = $("#resetSuccessModal");
+    const form = modal.find("form");
+    const submit = modal.find("#resetSuccessSubmit");
+
+    modal.modal("show");
+
+    form.one("submit", (e) => {
+      e.preventDefault();
+      let data = {};
+      $(e.target).serializeArray().map(x => data[x.name] = x.value);
+
+      fetch("POST", "api/password_reset/confirm/", JSON.stringify({
+        password: data.password,
+        token: data.token,
+      }), false, new Headers({"Content-Type": "application/json"}))
+      .then(res => {
+        if (res.ok) {
+          const toast = new ToastView("Успешно", "Пароль успешно изменен!");
+          this.showChildView("toast", toast);
+          toast.show();
+          modal.modal("hide");
+        } else {
+          res.json().then(data => {
+            let toast;
+            if (data.password)
+              toast = new ToastView("Ошибка", "Пароль должен быть не меньше 8 символов.");
+            if (data.token)
+              toast = new ToastView("Ошибка", "Неверный токен");
+
+            this.showChildView("toast", toast);
+            toast.show();
+          });
+        }
+      });
+    });
+
+    submit.one("click", () => form.submit());
   }
 
   onSubmit(e) {

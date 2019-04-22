@@ -1,10 +1,14 @@
+from django.dispatch import receiver
 from django.contrib.auth import authenticate
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from rest_framework import viewsets, generics, filters, status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from django_rest_passwordreset.signals import reset_password_token_created
 
 from .authentication import token_expire_handler, expires_in
 from .models import Country, Image, City, Capital, CountriesHelper
@@ -65,6 +69,30 @@ class UserCreate(APIView):
                                 status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args,
+                                 **kwargs):
+    context = {
+        'username': reset_password_token.user.username,
+        'token': reset_password_token.key,
+    }
+
+    email_plaintext_message = render_to_string('email/user_reset_password.txt',
+                                               context)
+
+    msg = EmailMultiAlternatives(
+        # title:
+        "Восстановление пароля",
+        # message:
+        email_plaintext_message,
+        # from:
+        "noreply@local",
+        # to:
+        [reset_password_token.user.email]
+    )
+    msg.send()
 
 
 #
