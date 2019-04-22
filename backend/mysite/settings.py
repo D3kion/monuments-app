@@ -18,13 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jstdyvlpcssdo4#2=atx!d=n+qfg#4k=96&yq_%(kay3flwczq'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
 ALLOWED_HOSTS = ['*']
 
 
@@ -158,8 +151,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_METADATA_CLASS': None,
 }
-
-CORS_ORIGIN_ALLOW_ALL = True
 
 try:
     from .local_settings import *  # noqa: F401, F403
