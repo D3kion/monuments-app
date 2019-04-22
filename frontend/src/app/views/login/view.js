@@ -37,7 +37,7 @@ export class LoginView extends View {
 
     modal.modal("show");
 
-    form.submit((e) => {
+    form.one("submit", (e) => {
       e.preventDefault();
       let data = {};
       $(e.target).serializeArray().map(x => data[x.name] = x.value);
@@ -57,9 +57,9 @@ export class LoginView extends View {
           res.json().then(data => {
             let toast;
             if (data.username)
-              toast = new ToastView("Ошибка", "Имя пользователя не заполнено или такой пользователь уже существует.");
+              toast = new ToastView("Ошибка", "Имя пользователя некорректно или такой пользователь уже существует.");
             else if (data.email)
-              toast = new ToastView("Ошибка", "Электронная почта не заполнена или уже существует.");
+              toast = new ToastView("Ошибка", "Электронная почта некорректна или уже используется.");
             else if (data.password)
               toast = new ToastView("Ошибка", "Пароль должен быть не меньше 8 символов.");
 
@@ -70,7 +70,7 @@ export class LoginView extends View {
       });
     });
 
-    submit.click(() => form.submit());
+    submit.one("click", () => form.submit());
   }
 
   onRecover(e) {
