@@ -7,8 +7,8 @@
 {{else}}
 <span class="h3">{{feature.name}}</span>
 <div class="feature-header-buttons">
-    <button id="edit" type="button" class="btn btn-success btn-sm" title="Редактировать"><i class="far fa-edit"></i></button>
-    <button id="delete" type="button" class="btn btn-danger btn-sm" title="Удалить"><i class="fas fa-trash-alt"></i></button>
+  <button id="edit" type="button" class="btn btn-success btn-sm" title="Редактировать"><i class="far fa-edit"></i></button>
+  <button id="delete" type="button" class="btn btn-danger btn-sm" title="Удалить"><i class="fas fa-trash-alt"></i></button>
 </div>
 <hr>
 <strong>Столица:</strong> <a class="clickable" data-city={{feature.capital.id}} href="#">{{feature.capital.name}}</a>
@@ -16,7 +16,7 @@
 <strong>Города:</strong>
 <ul>
 {{#each feature.cities}}
-    <li><a class="clickable" data-city={{id}} href="#">{{name}}</a></li>
+  <li><a class="clickable" data-city={{id}} href="#">{{name}}</a></li>
 {{/each}}
 </ul>
 {{/if}}

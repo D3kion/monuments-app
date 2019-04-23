@@ -24,7 +24,7 @@ export class ToastView extends View {
   }
 
   show() {
-    $(".toast").toast({autohide: false});
+    $(".toast").toast({delay: 5000});
     $(".toast").toast("show");
   }
 }

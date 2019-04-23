@@ -2,13 +2,11 @@
 <br><br>
 {{#each layers}}
 <div class="form-check">
-    <input class="layer form-check-input" type="{{this.values_.switchType}}" value="{{@index}}"
-    {{#if this.getVisible}}
-        checked
-    {{/if}}
-    >
-    <label class="form-check-label" for="layer">
-        {{this.values_.name}}
-    </label>
+  <input class="layer form-check-input" type="{{this.values_.switchType}}" value="{{@index}}"
+  {{#if this.getVisible}}
+    checked
+  {{/if}}
+  >
+  <label class="form-check-label" for="layer">{{this.values_.name}}</label>
 </div>
 {{/each}}

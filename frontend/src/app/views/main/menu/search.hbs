@@ -9,20 +9,20 @@
 {{else}}
 {{#if list}}
 {{#each list}}
-    {{#if countries}}
-    <span class="h5">Страны:</span><br>
-    {{#each countries}}
-    <a class="clickable" data-country={{id}} href="#">{{name}}</a><br>
-    {{/each}}
-    <br>
-    {{/if}}
+  {{#if countries}}
+  <span class="h5">Страны:</span><br>
+  {{#each countries}}
+  <a class="clickable" data-country={{id}} href="#">{{name}}</a><br>
+  {{/each}}
+  <br>
+  {{/if}}
 
-    {{#if cities}}
-    <span class="h5">Города:</span><br>
-    {{#each cities}}
-    <a class="clickable" data-city={{id}} href="#">{{name}}</a><br>
-    {{/each}}
-    {{/if}}
+  {{#if cities}}
+  <span class="h5">Города:</span><br>
+  {{#each cities}}
+  <a class="clickable" data-city={{id}} href="#">{{name}}</a><br>
+  {{/each}}
+  {{/if}}
 {{/each}}
 {{else}}
 <strong>Ничего не найдено.</strong>

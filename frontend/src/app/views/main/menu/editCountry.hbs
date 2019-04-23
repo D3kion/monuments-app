@@ -2,16 +2,16 @@
 <hr>
 {{#if feature.capital}}
 <form>
-    <strong>Столица:</strong>
-    <select name="capital" class="form-control">
-        <option value={{feature.capital.id}} selected>{{feature.capital.name}}</option>
-        {{#each cities}}
-        <option value={{id}}>{{name}}</option>
-        {{/each}}
-    </select>
-    <small class="form-text text-muted">Вы можете начать печатать название страны, чтобы быстрее найти её.</small>
-    <br><br>
-    <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Сохранить</button>
+  <strong>Столица:</strong>
+  <select name="capital" class="form-control">
+    <option value={{feature.capital.id}} selected>{{feature.capital.name}}</option>
+    {{#each cities}}
+    <option value={{id}}>{{name}}</option>
+    {{/each}}
+  </select>
+  <small class="form-text text-muted">Вы можете начать печатать название страны, чтобы быстрее найти её.</small>
+  <br><br>
+  <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Сохранить</button>
 </form>
 {{else}}
 <strong>Создайте столицу для этой страны.</strong>
