@@ -22,6 +22,7 @@ Deployment instructions:
     
 3. *Configure and run*
     ```
+    $ cp mysite/local_settings.example.py mysite/local_settings.py (and configure this)
     $ python manage.py migrate
     $ python manage.py compilemessages -l ru
     $ python manage.py createsuperuser
