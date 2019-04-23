@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext as _
+from django_rest_passwordreset.admin import ResetPasswordToken
 
 
 class MyUserAdmin(UserAdmin):
@@ -20,3 +21,4 @@ class MyUserAdmin(UserAdmin):
 
 User = get_user_model()
 admin.site.register(User, MyUserAdmin)
+admin.site.unregister(ResetPasswordToken)
