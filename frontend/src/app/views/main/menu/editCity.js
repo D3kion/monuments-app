@@ -47,7 +47,10 @@ export class EditCityView extends View {
       .then(res => {
         if (res.ok) {
           this.feature.fetch({
-            success: () => this.render()
+            success: () => {
+              this.triggerMethod("show:toast", this, "Успешно", "Изображения успешно загружены");
+              this.render();
+            }
           });
         } else
           res.json().then(data => {
