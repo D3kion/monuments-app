@@ -26,7 +26,7 @@ export class FeatureView extends View {
         "click #edit": "editFeature",
         "click #delete": "deleteFeature",
         // city
-        "click img": "openCarousel",
+        "click .cimg": "openCarousel",
       },
     });
     super(options);
