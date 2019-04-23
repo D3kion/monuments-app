@@ -45,7 +45,7 @@ And go to [Admin panel](http://127.0.0.1:8000/admin) | [API](http://127.0.0.1:80
     ```
 2. *Build*
     ```
-    $ npm run dev (or *prod*)
+    $ npm run prod (or dev)
     ```
 
 And go to [Frontend](http://127.0.0.1:8000/)
