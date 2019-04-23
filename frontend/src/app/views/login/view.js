@@ -2,7 +2,6 @@
 import "Styles/login.scss";
 import "bootstrap/js/dist/modal";
 import _ from "underscore";
-import $ from "jquery";
 import { View } from "backbone.marionette";
 import { fetch } from "../../utils";
 import template from "./template.hbs";
@@ -31,7 +30,7 @@ export class LoginView extends View {
   onRegister(e) {
     e.preventDefault();
 
-    const modal = $("#registerModal");
+    const modal = this.$el.find("#registerModal");
     const form = modal.find("form");
     const submit = modal.find("#registerSubmit");
 
@@ -41,7 +40,7 @@ export class LoginView extends View {
     form.on("submit", (e) => {
       e.preventDefault();
       let data = {};
-      $(e.target).serializeArray().map(x => data[x.name] = x.value);
+      modal.find(e.target).serializeArray().map(x => data[x.name] = x.value);
 
       fetch("POST", "api/register/", JSON.stringify({
         username: data.username,
@@ -78,7 +77,7 @@ export class LoginView extends View {
   onReset(e) {
     e.preventDefault();
 
-    const modal = $("#resetModal");
+    const modal = this.$el.find("#resetModal");
     const form = modal.find("form");
     const submit = modal.find("#resetSubmit");
 
@@ -88,7 +87,7 @@ export class LoginView extends View {
     form.on("submit", (e) => {
       e.preventDefault();
       let data = {};
-      $(e.target).serializeArray().map(x => data[x.name] = x.value);
+      modal.find(e.target).serializeArray().map(x => data[x.name] = x.value);
 
       fetch("POST", "api/password_reset/", JSON.stringify({
         email: data.email,
@@ -119,7 +118,7 @@ export class LoginView extends View {
   }
 
   onResetSuccess() {
-    const modal = $("#resetSuccessModal");
+    const modal = this.$el.find("#resetSuccessModal");
     const form = modal.find("form");
     const submit = modal.find("#resetSuccessSubmit");
 
@@ -129,7 +128,7 @@ export class LoginView extends View {
     form.on("submit", (e) => {
       e.preventDefault();
       let data = {};
-      $(e.target).serializeArray().map(x => data[x.name] = x.value);
+      modal.find(e.target).serializeArray().map(x => data[x.name] = x.value);
 
       fetch("POST", "api/password_reset/confirm/", JSON.stringify({
         password: data.password,

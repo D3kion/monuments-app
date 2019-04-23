@@ -1,7 +1,6 @@
 import "bootstrap/js/dist/modal";
 import "bootstrap/js/dist/carousel";
 import _ from "underscore";
-import $ from "jquery";
 import { View } from "backbone.marionette";
 import countryTemplate from "./featureCountry.hbs";
 import cityTemplate from "./featureCity.hbs";
@@ -80,7 +79,7 @@ export class FeatureView extends View {
     this.modalImage = e.target.dataset.id;
     this.render();
 
-    $("#imgModal").modal({
+    this.$el.find("#imgModal").modal({
       backdrop: false,
     }).modal("show");
   }

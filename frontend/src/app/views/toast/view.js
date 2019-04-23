@@ -1,7 +1,6 @@
 import "bootstrap/js/dist/util";
 import "bootstrap/js/dist/toast";
 import _ from "underscore";
-import $ from "jquery";
 import { View } from "backbone.marionette";
 import template from "./template.hbs";
 
@@ -24,7 +23,8 @@ export class ToastView extends View {
   }
 
   show() {
-    $(".toast").toast({delay: 5000});
-    $(".toast").toast("show");
+    const toast = this.$el.find(".toast");
+    toast.toast({delay: 5000});
+    toast.toast("show");
   }
 }
