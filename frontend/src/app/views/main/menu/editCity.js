@@ -2,7 +2,7 @@
 import _ from "underscore";
 import { View } from "backbone.marionette";
 import template from "./editCity.hbs";
-import fetch from "../../../utils";
+import { fetch } from "../../../utils";
 import { ImageModel } from "Models/image";
 import { CountriesCollection } from "Collections/countries";
 

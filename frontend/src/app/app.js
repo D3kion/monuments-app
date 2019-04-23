@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "Styles/main.scss";
 import _ from "underscore";
 import { Application } from "backbone.marionette";
-import fetch from "./utils";
+import { fetch, getCookie } from "./utils";
 import { LoginView } from "./views/login/view";
 import { MainView } from "./views/main/view";
 
@@ -28,7 +28,10 @@ export class App extends Application {
 
     let _sync = Backbone.sync;
     Backbone.sync = function(method, model, options) {
-      options.beforeSend = xhr => xhr.setRequestHeader("Authorization", "Token " + localStorage.token);
+      options.beforeSend = xhr => {
+        xhr.setRequestHeader("Authorization", "Token " + localStorage.token);
+        xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+      };
 
       if (model && (method === "create" || method === "update" || method === "patch")) {
         options.contentType = "application/json";

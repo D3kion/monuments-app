@@ -1,15 +1,42 @@
 /* eslint-disable no-undef */
-export default function fetch_(method, url, body=null, withToken=true, headers_=null) {
+export function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+      var cookies = document.cookie.split(";");
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + "=")) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+  // these HTTP methods do not require CSRF protection
+  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+const fetch_ = global.fetch;
+export function fetch(method, url, body=null, withToken=true, headers_=null) {
   let headers = headers_ || new Headers();
-  if (withToken)
+  if (withToken) {
     headers.append("Authorization", "Token " + localStorage.token);
+  }
+
+  if (!csrfSafeMethod(method)) {
+    headers.append("X-CSRFToken", getCookie("csrftoken"));
+  }
 
   let href = "http://" + location.hostname + ":8000/" + url;
   let request = new Request(href, {
     method,
-    headers,
     body,
+    headers,
   });
 
-  return fetch(request);
+  return fetch_(request);
 }

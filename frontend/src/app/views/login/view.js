@@ -4,7 +4,7 @@ import "bootstrap/js/dist/modal";
 import _ from "underscore";
 import $ from "jquery";
 import { View } from "backbone.marionette";
-import fetch from "../../utils";
+import { fetch } from "../../utils";
 import template from "./template.hbs";
 import { ToastView } from "Views/toast/view";
 
