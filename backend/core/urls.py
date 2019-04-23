@@ -8,5 +8,5 @@ urlpatterns = [
     re_path(r'^(?:index.html)?$', serve, {
         'path': 'index.html',
         'document_root': settings.STATIC_ROOT}),
-    re_path(r'^(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
+    re_path(r'^(?P<path>.+)$', serve, {'document_root': settings.STATIC_ROOT}),
 ]
