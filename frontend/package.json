@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "prebuild": "rm -rf ./dist/* ../backend/public/static/*",
-    "dev": "npm run prebuild && webpack --config webpack.dev.js && cp ./dist/* ../backend/public/static/",
-    "prod": "npm run prebuild && webpack --config webpack.prod.js && cp ./dist/* ../backend/public/static/"
+    "dev": "npm run prebuild && webpack --config webpack.dev.js && cp ./dist/* ../backend/public/static/ && cp ./src/favicon.ico ../backend/public/static/",
+    "prod": "npm run prebuild && webpack --config webpack.prod.js && cp ./dist/* ../backend/public/static/ && cp ./src/favicon.ico ../backend/public/static/"
   },
   "author": "",
   "dependencies": {
