@@ -142,7 +142,7 @@ export class MainView extends View {
   }
 
   getUsername() {
-    fetch("GET", "api/token-info/")
+    fetch("GET", "api/token-info/?token=" + localStorage.token)
     .then(res => res.json())
     .then(data => this.model.set("name", data.user));
   }

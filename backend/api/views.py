@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.contrib.auth import authenticate
 from django.core.mail import EmailMultiAlternatives
@@ -25,9 +26,10 @@ from .serializers import (
 #
 @api_view(['GET'])
 def user_info(request):
+    token = request.GET.get('token')
     return Response({
-        'user': request.user.username,
-        'expires_in': expires_in(Token.objects.get(user=request.user))
+        'user': get_user_model().objects.get(auth_token=token).username,
+        'expires_in': expires_in(Token.objects.get(key=token))
     }, status=status.HTTP_200_OK)
 
 
