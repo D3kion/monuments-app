@@ -107,7 +107,12 @@ export class MainView extends View {
 
   openFeature(view, feature) {
     if (typeof feature !== "undefined") {
-      const type = feature.getGeometry().constructor.name === "Point" ? "city" : "country";    
+      let type;
+      if (feature.getGeometry().flatCoordinates.length == 2)
+        type = "city";
+      else
+        type = "country";
+
       this.showMenu(new FeatureView(type, feature.getId()));
     } else {
       this.closeMenu();
