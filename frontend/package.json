@@ -4,8 +4,9 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --port 8080 --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "prebuild": "rm -rf ./dist/* ../backend/public/static/*",
+    "dev": "npm run prebuild && webpack --config webpack.dev.js && cp ./dist/* ../backend/public/static/",
+    "prod": "npm run prebuild && webpack --config webpack.prod.js && cp ./dist/* ../backend/public/static/"
   },
   "author": "",
   "dependencies": {
@@ -39,7 +40,6 @@
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-cli": "^3.3.0"
   }
 }

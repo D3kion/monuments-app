@@ -42,13 +42,9 @@ And go to [Admin panel](http://127.0.0.1:8000/admin) | [API](http://127.0.0.1:80
     $ cd frontend
     $ npm install
     ```
-2. *Run*
+2. *Build*
     ```
-    $ npm start
-    ```
-3. *Build (optional)*
-    ```
-    $ npm run build
+    $ npm run dev (or *prod*)
     ```
 
-And go to [Frontend](http://127.0.0.1:8080/)
+And go to [Frontend](http://127.0.0.1:8000/)
