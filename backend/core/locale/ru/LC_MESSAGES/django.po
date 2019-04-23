@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-23 10:16+0300\n"
+"POT-Creation-Date: 2019-04-23 17:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,15 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: core/admin.py:10
+#: core/admin.py:11
 msgid "Personal info"
 msgstr "Персональная информация"
 
-#: core/admin.py:12
+#: core/admin.py:13
 msgid "Permissions"
 msgstr "Права доступа"
 
-#: core/admin.py:14
+#: core/admin.py:15
 msgid "Important dates"
 msgstr "Важные даты"
 

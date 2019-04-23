@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-23 10:16+0300\n"
+"POT-Creation-Date: 2019-04-23 17:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: api/models.py:18 api/models.py:31 api/models.py:78
+#: api/models.py:18 api/models.py:31 api/models.py:80
 msgid "name"
 msgstr "название"
 
-#: api/models.py:19 api/models.py:36 api/models.py:79
+#: api/models.py:19 api/models.py:36 api/models.py:81
 msgid "geometry"
 msgstr "геометрия"
 
@@ -40,7 +40,7 @@ msgstr "страны"
 msgid "description"
 msgstr "описание"
 
-#: api/models.py:42 api/models.py:48
+#: api/models.py:42 api/models.py:48 api/models.py:67
 msgid "city"
 msgstr "город"
 
@@ -56,10 +56,14 @@ msgstr "изображение"
 msgid "images"
 msgstr "изображения"
 
-#: api/models.py:73
+#: api/models.py:69
+msgid "capital_of"
+msgstr "столица страны"
+
+#: api/models.py:75
 msgid "capital"
 msgstr "столица"
 
-#: api/models.py:74
+#: api/models.py:76
 msgid "capitals"
 msgstr "столицы"

@@ -63,8 +63,10 @@ def submission_delete(sender, instance, **kwargs):
 
 
 class Capital(models.Model):
-    city = models.OneToOneField(City, on_delete=models.CASCADE)
-    capital_of = models.OneToOneField(Country, on_delete=models.CASCADE)
+    city = models.OneToOneField(City, on_delete=models.CASCADE,
+                                verbose_name=_('city'))
+    capital_of = models.OneToOneField(Country, on_delete=models.CASCADE,
+                                      verbose_name=_('capital_of'))
 
     def __str__(self):
         return self.city.name
