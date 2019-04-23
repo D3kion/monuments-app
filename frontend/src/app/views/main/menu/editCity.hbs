@@ -1,35 +1,41 @@
-<span class="h3">{{feature.name}}</span>
-<hr>
-<form>
-    <strong>Название:</strong>
-  <input name="name" class="form-control" type="text" value="{{feature.name}}">
-  <br>
-  <strong>Страна:</strong>
-  <select name="country" class="form-control">
-    <option value={{feature.country.id}} selected>{{feature.country.name}}</option>
-    {{#each countries}}
-    <option value={{id}}>{{name}}</option>
+<div class="content-header">
+  <span class="h3">{{feature.name}}</span>
+  <hr>
+</div>
+<div class="content-scrollable">
+  <form>
+      <strong>Название:</strong>
+    <input name="name" class="form-control" type="text" value="{{feature.name}}">
+    <br>
+    <strong>Страна:</strong>
+    <select name="country" class="form-control">
+      <option value={{feature.country.id}} selected>{{feature.country.name}}</option>
+      {{#each countries}}
+      <option value={{id}}>{{name}}</option>
+      {{/each}}
+    </select>
+    <small class="form-text text-muted">Вы можете начать печатать название страны, чтобы быстрее найти её.</small>
+    <br>
+    <strong>Описание:</strong>
+    <textarea name="description" class="form-control" cols="30" rows="4">{{feature.description}}</textarea>
+    <br>
+
+    <div class="custom-file">
+      <input type="file" id="images" class="custom-file-input" accept="image/*" multiple>
+      <label class="custom-file-label" for="images" data-browse="Открыть">Выберите фотографии</label>
+    </div>
+    <br><br>
+    {{#if feature.images}}
+    <small class="form-text text-muted">Для удаления фотографии, нажмите по ней.</small>
+    {{#each feature.images}}
+    <img class="remove img-thumbnail" src="{{image}}" alt="{{name}}" data-id="{{id}}">
     {{/each}}
-  </select>
-  <small class="form-text text-muted">Вы можете начать печатать название страны, чтобы быстрее найти её.</small>
-  <br>
-  <strong>Описание:</strong>
-  <textarea name="description" class="form-control" cols="30" rows="4">{{feature.description}}</textarea>
-  <br>
+    <br><br>
+    {{/if}}
 
-  <div class="custom-file">
-    <input type="file" id="images" class="custom-file-input" accept="image/*" multiple>
-    <label class="custom-file-label" for="images" data-browse="Открыть">Выберите фотографии</label>
-  </div>
-  <br><br>
-  {{#if feature.images}}
-  <small class="form-text text-muted">Для удаления фотографии, нажмите по ней.</small>
-  {{#each feature.images}}
-  <img class="remove img-thumbnail" src="{{image}}" alt="{{name}}" data-id="{{id}}">
-  {{/each}}
-  <br><br>
-  {{/if}}
-
+  </form>
+</div>
+<div class="content-footer">
   <button id="place" type="button" class="btn btn-warning btn-block">Выбрать место</button>
   <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Сохранить</button>
-</form>
+</div>

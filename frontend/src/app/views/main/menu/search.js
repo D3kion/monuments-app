@@ -7,6 +7,7 @@ import template from "./search.hbs";
 export class SearchView extends View {
   constructor(q, options={}) {
     _.defaults(options, {
+      className: "content-inner",
       template,
       model: new Model({
         loading: true,

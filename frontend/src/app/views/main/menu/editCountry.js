@@ -6,6 +6,7 @@ import { CapitalModel } from "Models/capital";
 export class EditCountryView extends View {
   constructor(feature, options={}) {
     _.defaults(options, {
+      className: "content-inner",
       template,
       events: {
         "click #submit": "onSubmit",

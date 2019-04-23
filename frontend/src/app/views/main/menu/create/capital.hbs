@@ -1,43 +1,49 @@
-<strong class="h4">Создать столицу</strong>
-<hr>
-{{#if loading}}
-<div class="d-flex justify-content-center">
-  <div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
+<div class="content-header">
+  <strong class="h4">Создать столицу</strong>
+  <hr>
 </div>
-{{else}}
-{{#if countries}}
-<form>
+<div class="content-scrollable">
+  {{#if loading}}
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  {{else}}
+  {{#if countries}}
+  <form>
     <strong>Страна:</strong>
     <select id="country" name="country" class="form-control">
-        {{#each countries}}
-        <option value="{{id}}">{{name}}</option>
-        {{/each}}
+      {{#each countries}}
+      <option value="{{id}}">{{name}}</option>
+      {{/each}}
     </select>
     <small class="form-text text-muted">
-        Вы можете начать печатать название страны, чтобы быстрее найти её.
+      Вы можете начать печатать название страны, чтобы быстрее найти её.
     </small>
     <br>
     <strong>Город:</strong>
     {{#if cities}}
     <select name="city" class="form-control">
-        {{#each cities}}
-        <option value="{{id}}">{{name}}</option>
-        {{/each}}
+      {{#each cities}}
+      <option value="{{id}}">{{name}}</option>
+      {{/each}}
     </select>
     {{else}}
     <select name="city" class="form-control">
-        <option value="-1">Создайте город в этой стране</option>
+      <option value="-1">Создайте город в этой стране</option>
     </select>
     {{/if}}
     <small class="form-text text-muted">
-        Вы можете начать печатать название города, чтобы быстрее найти его.
+      Вы можете начать печатать название города, чтобы быстрее найти его.
     </small>
     <br>
-    <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
-</form>
-{{else}}
-<strong>Нет стран для создания столиц.</strong>
-{{/if}}
-{{/if}}
+  </form>
+  {{else}}
+  <strong>Нет стран для создания столиц.</strong>
+  {{/if}}
+  {{/if}}
+</div>
+<div class="content-footer">
+  <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
+</div>

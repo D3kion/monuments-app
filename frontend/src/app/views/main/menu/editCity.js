@@ -9,6 +9,7 @@ import { CountriesCollection } from "Collections/countries";
 export class EditCityView extends View {
   constructor(feature, drawPoint, options={}) {
     _.defaults(options, {
+      className: "content-inner",
       template,
       events: {
         "change #images": "uploadImages",

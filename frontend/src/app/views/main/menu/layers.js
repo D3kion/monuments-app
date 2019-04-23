@@ -5,6 +5,7 @@ import template from "./layers.hbs";
 export class LayersView extends View {
   constructor(layers, options={}) {
     _.defaults(options, {
+      className: "content-inner",
       template,
       events: {
         "click .layer": "onClickLayer",

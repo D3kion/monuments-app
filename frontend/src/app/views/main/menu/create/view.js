@@ -8,9 +8,10 @@ import { CapitalView } from "./capital";
 export class CreateView extends View {
   constructor(drawPoint, options={}) {
     _.defaults(options, {
+      className: "content-inner",
       template,
       regions: {
-        content: "#create-content"
+        content: "#create-content",
       },
       events: {
         "click .choose": "onChoose",

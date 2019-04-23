@@ -19,6 +19,7 @@ Handlebars.registerHelper({
 export class FeatureView extends View {
   constructor(type, id, options={}) {
     _.defaults(options, {
+      className: "content-inner",
       template: type === "country" ? countryTemplate : cityTemplate,
       events: {
         "click .clickable": "openFeature",

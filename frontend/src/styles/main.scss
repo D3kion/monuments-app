@@ -47,9 +47,36 @@
     padding: .75em .9em;
     background-color: azure;
     border-radius: 0 0 10px 10px;
-    overflow-y: auto;
 
-    img {
+    #create-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .content-inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      
+      .content-scrollable {
+        overflow-y: auto;
+        margin-bottom: 1em;
+        padding-right: 0.75em;
+  
+        .images {
+          padding: 0;
+        }
+      }
+
+      .content-footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+      }
+    }
+
+    >img {
       cursor: pointer;
     }
   }

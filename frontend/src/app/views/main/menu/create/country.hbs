@@ -1,27 +1,33 @@
-<strong class="h4">Создать страну</strong>
-<hr>
-{{#if loading}}
-<div class="d-flex justify-content-center">
-  <div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
+<div class="content-header">
+  <strong class="h4">Создать страну</strong>
+  <hr>
 </div>
-{{else}}
-{{#if countries}}
-<form>
-  <strong>Страна:</strong>
-  <select name="country" class="form-control">
-    {{#each countries}}
-    <option value="{{id}}">{{name}}</option>
-    {{/each}}
-  </select>
-  <small class="form-text text-muted">
-    Вы можете начать печатать название страны, чтобы быстрее найти её.
-  </small>
-  <br>
+<div class="content-scrollable">
+  {{#if loading}}
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  {{else}}
+  {{#if countries}}
+  <form>
+    <strong>Страна:</strong>
+    <select name="country" class="form-control">
+      {{#each countries}}
+      <option value="{{id}}">{{name}}</option>
+      {{/each}}
+    </select>
+    <small class="form-text text-muted">
+      Вы можете начать печатать название страны, чтобы быстрее найти её.
+    </small>
+    <br>
+  </form>
+  {{else}}
+  <strong>Нет стран для создания.</strong>
+  {{/if}}
+  {{/if}}
+</div>
+<div class="content-footer">
   <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
-</form>
-{{else}}
-<strong>Нет стран для создания.</strong>
-{{/if}}
-{{/if}}
+</div>

@@ -1,39 +1,45 @@
-<strong class="h4">Создать город</strong>
-<hr>
-{{#if loading}}
-<div class="d-flex justify-content-center">
-  <div class="spinner-border" role="status">
-    <span class="sr-only">Loading...</span>
-  </div>
+<div class="content-header">
+  <strong class="h4">Создать город</strong>
+  <hr>
 </div>
-{{else}}
-{{#if countries}}
-<form>
+<div class="content-scrollable">
+  {{#if loading}}
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  {{else}}
+  {{#if countries}}
+  <form>
     <strong>Название:</strong>
     <input name="name" class="form-control">
     <br>
     <strong>Страна:</strong>
     <select name="country" class="form-control">
-        {{#each countries}}
-        <option value="{{id}}">{{name}}</option>
-        {{/each}}
+      {{#each countries}}
+      <option value="{{id}}">{{name}}</option>
+      {{/each}}
     </select>
     <small class="form-text text-muted">
-        Вы можете начать печатать название страны, чтобы быстрее найти её.
+      Вы можете начать печатать название страны, чтобы быстрее найти её.
     </small>
     <br>
     <strong>Описание:</strong>
     <textarea name="description" class="form-control" cols="30" rows="4"></textarea>
-</form>
-<br>
-<div class="custom-file">
+  </form>
+  <br>
+  <div class="custom-file">
     <input type="file" id="images" class="custom-file-input" accept="image/*" multiple>
     <label class="custom-file-label" for="images" data-browse="Открыть">Выберите фотографии</label>
+  </div>
+  <br><br>
+  {{else}}
+  <strong>Создайте страну.</strong>
+  {{/if}}
+  {{/if}}
 </div>
-<br><br>
-<button id="place" type="button" class="btn btn-warning btn-block">Выбрать место</button>
-<button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
-{{else}}
-<strong>Создайте страну.</strong>
-{{/if}}
-{{/if}}
+<div class="content-footer">
+  <button id="place" type="button" class="btn btn-warning btn-block">Выбрать место</button>
+  <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
+</div>

@@ -9,6 +9,7 @@ import { CountriesCollection } from "Collections/countries";
 export class CityView extends View {
   constructor(drawPoint, options={}) {
     _.defaults(options, {
+      className: "content-inner",
       template,
       events: {
         "change #images": "onChangeImages",

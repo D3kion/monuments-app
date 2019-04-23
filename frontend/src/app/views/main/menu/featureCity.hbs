@@ -5,25 +5,35 @@
   </div>
 </div>
 {{else}}
-<span class="h3">{{feature.name}}</span>
-<div class="feature-header-buttons">
-  <button id="edit" type="button" class="btn btn-success btn-sm" title="Редактировать"><i class="far fa-edit"></i></button>
-  <button id="delete" type="button" class="btn btn-danger btn-sm" title="Удалить"><i class="fas fa-trash-alt"></i></button>
+<div class="content-header">
+  <span class="h3">{{feature.name}}</span>
+  <div class="feature-header-buttons">
+    <button id="edit" type="button" class="btn btn-success btn-sm" title="Редактировать"><i class="far fa-edit"></i></button>
+    <button id="delete" type="button" class="btn btn-danger btn-sm" title="Удалить"><i class="fas fa-trash-alt"></i></button>
+  </div>
+  <hr>
 </div>
-<hr>
-<strong>Страна:</strong> <a class="clickable" data-country={{feature.country.id}} href="#">{{feature.country.name}}</a>
-<br>
-{{#if feature.description}}
-<strong>Описание:</strong>
-<p>{{feature.description}}</p>
-{{else}}
-<br>
-{{/if}}
-<strong>Фото достопримечательностей:</strong><br>
-{{#if feature.images}}
-{{#each feature.images}}
-<img class="cimg img-thumbnail" src="{{image}}" data-id="{{id}}">
-{{/each}}
+<div class="content-scrollable">
+  <strong>Страна:</strong> <a class="clickable" data-country={{feature.country.id}} href="#">{{feature.country.name}}</a>
+  <br>
+  {{#if feature.description}}
+  <strong>Описание:</strong>
+  <p>{{feature.description}}</p>
+  {{else}}
+  <br>
+  {{/if}}
+  <strong>Фото достопримечательностей:</strong><br>
+  <dir class="images">
+    {{#if feature.images}}
+    {{#each feature.images}}
+    <img class="cimg img-thumbnail" src="{{image}}" data-id="{{id}}">
+    {{/each}}
+    {{else}}
+    Фотографий не найдено.
+    {{/if}}
+  </dir>
+</div>
+
 <div id="imgModal" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -53,7 +63,4 @@
     </div>
   </div>
 </div>
-{{else}}
-Фотографий не найдено.
-{{/if}}
 {{/if}}
