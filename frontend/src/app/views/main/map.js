@@ -75,8 +75,8 @@ export class MapView extends MnView {
   takeScreenshot() {
     this.map.once("rendercomplete", e => {
       const canvas = e.context.canvas;
-      if (navigator.msSaveBlob)
-        navigator.msSaveBlob(canvas.msToBlob(), "map.png");
+      if (window.navigator && window.navigator.msSaveOrOpenBlob)
+        window.navigator.msSaveOrOpenBlob(canvas.msToBlob(), "map.png");
       else
         canvas.toBlob(blob => saveAs(blob, "map.png"));
     });
