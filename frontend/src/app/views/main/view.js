@@ -37,6 +37,7 @@ export class MainView extends View {
         "click #layers": "openLayers",
         "click #create": "openCreate",
         "click #screenshot": "takeScreenshot",
+        "click #admin": "onAdmin",
         "click #logout": "onLogout",
         "keyup #search": "onSearch",
       },
@@ -53,7 +54,7 @@ export class MainView extends View {
     super(options);
 
     this.model.on("change", this.render, this);
-    this.getUsername();
+    this.getUserInfo();
   }
   
   onRender() {
@@ -81,6 +82,10 @@ export class MainView extends View {
 
   takeScreenshot() {
     this.map.takeScreenshot();
+  }
+
+  onAdmin() {
+    location.replace("admin");
   }
 
   onLogout() {
@@ -141,10 +146,13 @@ export class MainView extends View {
     this.map.loadLayers();
   }
 
-  getUsername() {
+  getUserInfo() {
     fetch("GET", "api/token-info/?token=" + localStorage.token)
     .then(res => res.json())
-    .then(data => this.model.set("name", data.user));
+    .then(data => {
+      this.model.set("name", data.user);
+      this.model.set("isAdmin", data.isAdmin);
+    });
   }
 
   getFeature(type, id) {

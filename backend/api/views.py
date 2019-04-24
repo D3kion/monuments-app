@@ -27,8 +27,10 @@ from .serializers import (
 @api_view(['GET'])
 def user_info(request):
     token = request.GET.get('token')
+    user = get_user_model().objects.get(auth_token=token)
     return Response({
-        'user': get_user_model().objects.get(auth_token=token).username,
+        'user': user.username,
+        'isAdmin': user.is_superuser,
         'expires_in': expires_in(Token.objects.get(key=token))
     }, status=status.HTTP_200_OK)
 
