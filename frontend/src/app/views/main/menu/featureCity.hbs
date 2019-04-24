@@ -52,12 +52,15 @@
             </div>
           {{/each}}
           </div>
+          {{#if (eq feature.images.length 1)}}
+          {{else}}
           <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           </a>
           <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
           </a>
+          {{/if}}
         </div>
       </div>
     </div>
