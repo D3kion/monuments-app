@@ -3,13 +3,15 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: {
-    "bundle.js": "./src/app/index.js"
-  },
+  entry: [
+    "core-js",
+    "whatwg-fetch",
+    "./src/app/index.js"
+  ],
 
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name]",
+    filename: "bundle.js",
   },
 
   module: {
@@ -27,6 +29,18 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: "babel-loader",
+        options: {
+          presets: [
+            [
+              "@babel/preset-env",
+              {
+                "corejs": "3",
+                "useBuiltIns": "entry",
+                "modules": false,
+              }
+            ]
+          ]
+        }
       },
       {
         test: /\.html$/,
