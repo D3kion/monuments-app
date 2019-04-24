@@ -31,7 +31,7 @@ export function fetch(method, url, body=null, withToken=true, headers_=null) {
     headers.append("X-CSRFToken", getCookie("csrftoken"));
   }
 
-  let href = "http://" + location.hostname + ":8000/" + url;
+  let href = "http://" + location.host + "/" + url;
   let request = new Request(href, {
     method,
     body,
