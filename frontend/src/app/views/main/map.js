@@ -99,12 +99,15 @@ export class MapView extends MnView {
       setCoords(proj.transform(rawCoords, "EPSG:3857", "EPSG:4326"));
 
       this.map.removeInteraction(draw);
-      this.map.removeLayer(vector);
-      setTimeout(() => this.map.addInteraction(this.select), 1000);
     });
 
     this.map.removeInteraction(this.select);
     this.map.addInteraction(draw);
+
+    return () => {
+      this.map.removeLayer(vector);
+      this.map.addInteraction(this.select);
+    };
   }
 
   loadLayers() {

@@ -37,6 +37,11 @@ export class EditCityView extends View {
     };
   }
 
+  onBeforeDestroy() {
+    if (typeof this.onEndCb !== "undefined")
+      this.onEndCb();
+  }
+
   uploadImages(e) {
     const files = e.target.files;
     for (let i = 0; i < files.length; i++) {
@@ -72,7 +77,11 @@ export class EditCityView extends View {
   }
 
   onPlace() {
-    this.drawPoint((coords) => this.feature.set({geometry: {type: "Point", coordinates: coords}}));
+    if (typeof this.onEndCb !== "undefined")
+      this.onEndCb();
+
+    this.onEndCb = this.drawPoint((coords) => 
+      this.feature.set({geometry: {type: "Point", coordinates: coords}}));
   }
 
   onSubmit(e) {

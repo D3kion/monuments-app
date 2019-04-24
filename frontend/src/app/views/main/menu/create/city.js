@@ -39,12 +39,21 @@ export class CityView extends View {
     };
   }
 
+  onBeforeDestroy() {
+    if (typeof this.onEndCb !== "undefined")
+      this.onEndCb();
+  }
+
   onChangeImages(e) {
     this.images = e.target.files;
   }
 
   onPlace() {
-    this.drawPoint(coords => this.city.set({geometry: {type: "Point", coordinates: coords}}));
+    if (typeof this.onEndCb !== "undefined")
+      this.onEndCb();
+
+    this.onEndCb = this.drawPoint(coords => 
+      this.city.set({geometry: {type: "Point", coordinates: coords}}));
   }
 
   onSubmit(e) {
@@ -74,6 +83,7 @@ export class CityView extends View {
             });
           }
 
+        this.onEndCb();
         this.triggerMethod("refresh:map", this);
         this.triggerMethod("close:menu", this);
       },
