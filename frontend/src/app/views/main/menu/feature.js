@@ -80,7 +80,8 @@ export class FeatureView extends View {
     this.modalImage = e.target.dataset.id;
     this.render();
 
-    this.$el.find("#imgModal").modal({
+    const modal = this.$el.find("#imgModal");
+    modal.modal({
       backdrop: false,
     }).modal("show");
   }
