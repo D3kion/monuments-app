@@ -5,12 +5,12 @@
 <div class="content-srollable">
   {{#each layers}}
   <div class="form-check">
-    <input class="layer form-check-input" type="{{this.values_.switchType}}" value="{{@index}}"
+    <input class="layer form-check-input" type="{{this.values_.switchType}}" data-value="{{@index}}"
     {{#if this.getVisible}}
       checked
     {{/if}}
     >
-    <label class="form-check-label" for="layer">{{this.values_.name}}</label>
+    <label class="layer form-check-label" for="layer" data-value="{{@index}}">{{this.values_.name}}</label>
   </div>
   {{/each}}
 </div>
