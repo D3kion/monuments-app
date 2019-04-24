@@ -8,6 +8,7 @@ import { CountriesCollection } from "Collections/countries";
 export class CapitalView extends View {
   constructor(options={}) {
     _.defaults(options, {
+      className: "content-inner",
       template,
       model: new Model(),
       events: {

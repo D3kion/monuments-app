@@ -7,6 +7,7 @@ import { CountryHelpersCollection } from "Collections/countryHelpers";
 export class CountryView extends View {
   constructor(options={}) {
     _.defaults(options, {
+      className: "content-inner",
       template,
       events: {
         "click #submit": "onSubmit",
