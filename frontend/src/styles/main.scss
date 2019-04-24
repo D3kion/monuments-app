@@ -32,10 +32,11 @@
     height: 1.5em;
     padding-right: .5em;
     background-color: cornflowerblue;
-    text-align: end;
     border-radius: 10px 10px 0 0;
 
     a {
+      position: absolute;
+      right: .5em;
       color: #fff;
       font-style: oblique;
     }
