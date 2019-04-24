@@ -3,6 +3,10 @@ import "ol/ol.css";
 import * as proj from "ol/proj";
 import { register } from "ol/proj/proj4";
 import { Map, View } from "ol";
+import Style from "ol/style/Style";
+import Fill from "ol/style/Fill";
+import Stroke from "ol/style/Stroke";
+import CircleStyle from "ol/style/Circle";
 import OSM from "ol/source/OSM";
 import XYZ from "ol/source/XYZ";
 import BingMaps from "ol/source/BingMaps";
@@ -85,8 +89,24 @@ export class MapView extends MnView {
   }
 
   drawPoint(setCoords) {
+    const style = new Style({
+      image: new CircleStyle({
+        radius: 6,
+        stroke: new Stroke({
+          color: "rgba(0, 0, 0, 0.6)",
+          width: 2,
+        }),
+        fill: new Fill({
+          color: "rgba(255, 204, 51, 0.7)"
+        })
+      })
+    });
+
     let source = new Vector();
-    let vector = new VectorLayer({source});
+    let vector = new VectorLayer({
+      source,
+      style,
+    });
     this.map.addLayer(vector);
 
     let draw = new Draw({
