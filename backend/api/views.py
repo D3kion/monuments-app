@@ -88,7 +88,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args,
 
     msg = EmailMultiAlternatives(
         # title:
-        "Восстановление пароля",
+        "<ГИС Достопримечательностей> Восстановление пароля",
         # message:
         email_plaintext_message,
         # from:
