@@ -50,7 +50,7 @@ export class MapView extends MnView {
     this.select = new Select({toggleCondition: never});
     
     this.select.on("select", this.onSelect.bind(this));
-    this.map.on("pointermove", e => {
+    this.map.on("pointermove", function(e) {
       let hit = this.forEachFeatureAtPixel(e.pixel, () => true);
       this.getTargetElement().style.cursor = hit ? "pointer" : "";
     });
