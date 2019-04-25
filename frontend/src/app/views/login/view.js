@@ -37,7 +37,7 @@ export class LoginView extends View {
     modal.modal("show");
 
     form.off("submit");
-    form.on("submit", (e) => {
+    form.on("submit", e => {
       e.preventDefault();
       let data = {};
       modal.find(e.target).serializeArray().map(x => data[x.name] = x.value);
@@ -84,7 +84,7 @@ export class LoginView extends View {
     modal.modal("show");
 
     form.off("submit");
-    form.on("submit", (e) => {
+    form.on("submit", e => {
       e.preventDefault();
       let data = {};
       modal.find(e.target).serializeArray().map(x => data[x.name] = x.value);
@@ -125,7 +125,7 @@ export class LoginView extends View {
     modal.modal("show");
 
     form.off("submit");
-    form.on("submit", (e) => {
+    form.on("submit", e => {
       e.preventDefault();
       let data = {};
       modal.find(e.target).serializeArray().map(x => data[x.name] = x.value);

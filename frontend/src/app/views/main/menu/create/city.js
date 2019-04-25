@@ -67,7 +67,7 @@ export class CityView extends View {
       country_: data.country,
       description: data.description,
     }, {
-      success: (model) => {
+      success: model => {
         if (typeof this.images !== "undefined")
           for (let i = 0; i < this.images.length; i++) {
             let formData = new FormData();
