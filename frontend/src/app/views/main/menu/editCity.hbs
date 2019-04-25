@@ -26,7 +26,7 @@
     </div>
     <br><br>
     {{#if feature.images}}
-    <small class="form-text text-muted">Для удаления фотографии, нажмите по ней.</small>
+    <small class="form-text text-danger">Для удаления фотографии, нажмите по ней.</small>
     {{#each feature.images}}
     <img class="remove img-thumbnail" src="{{image}}" alt="{{name}}" data-id="{{id}}">
     {{/each}}
