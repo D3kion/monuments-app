@@ -191,6 +191,16 @@ export class MapView extends MnView {
       visible: false,
     });
 
+    this.googleSatelliteLayer = new TileLayer({
+      name: "Google Карты (Спутник)",
+      switchType: "radio",
+      source: new XYZ({
+        url: "http://mt.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+        projection: "EPSG:3857",
+      }),
+      visible: false,
+    });
+
     this.bingLayer = new TileLayer({
       name: "Bing Карты",
       switchType: "radio",
@@ -219,6 +229,7 @@ export class MapView extends MnView {
     this.map.addLayer(this.yandexLayer);
     this.map.addLayer(this.yandexSatelliteLayer);
     this.map.addLayer(this.googleLayer);
+    this.map.addLayer(this.googleSatelliteLayer);
     this.map.addLayer(this.bingLayer);
     this.map.addLayer(this.countryLayer);
     this.map.addLayer(this.cityLayer);
