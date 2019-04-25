@@ -53,12 +53,11 @@ export class MapView extends MnView {
       let hit = this.forEachFeatureAtPixel(e.pixel, () => true);
       this.getTargetElement().style.cursor = hit ? "pointer" : "";
     });
-
-    const mousePositionControl = new MousePosition({
+    this.mousePositionControl = new MousePosition({
       coordinateFormat: createStringXY(6),
       projection: "EPSG:4326",
     });
-    this.map.addControl(mousePositionControl);
+    this.map.addControl(this.mousePositionControl);
 
     this.select = new Select({toggleCondition: never});    
     this.select.on("select", this.onSelect.bind(this));
