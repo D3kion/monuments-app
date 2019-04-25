@@ -113,14 +113,16 @@ class TokenAuthTestCase(TestCase):
     def test_auth_with_token_header(self):
         self.client.credentials(
             HTTP_AUTHORIZATION=f'Token {self.u.auth_token}')
-        res = self.client.get(reverse('token-info'))
+        res = self.client.get(reverse('token-info'), {
+            'token': self.u.auth_token})
 
         self.assertEqual(res.status_code, 200)
 
     def test_auth_with_bad_token(self):
         self.client.credentials(
             HTTP_AUTHORIZATION=f'Token test{self.u.auth_token}')
-        res = self.client.get(reverse('token-info'))
+        res = self.client.get(reverse('token-info'), {
+            'token': self.u.auth_token})
 
         self.assertEqual(res.status_code, 401)
 
