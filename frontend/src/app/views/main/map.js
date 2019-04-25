@@ -3,6 +3,7 @@ import "ol/ol.css";
 import * as proj from "ol/proj";
 import { register } from "ol/proj/proj4";
 import { Map, View } from "ol";
+import { createStringXY } from "ol/coordinate";
 import Style from "ol/style/Style";
 import Fill from "ol/style/Fill";
 import Stroke from "ol/style/Stroke";
@@ -15,8 +16,9 @@ import GeoJSON from "ol/format/GeoJSON";
 import TileLayer from "ol/layer/Tile";
 import VectorLayer from "ol/layer/Vector";
 import { defaults } from "ol/interaction";
-import Select from "ol/interaction/Select.js";
-import Draw from "ol/interaction/Draw.js";
+import Select from "ol/interaction/Select";
+import Draw from "ol/interaction/Draw";
+import MousePosition from "ol/control/MousePosition";
 import { never } from "ol/events/condition";
 import proj4 from "proj4";
 import { saveAs } from "file-saver";
@@ -47,14 +49,19 @@ export class MapView extends MnView {
       controls: [],
       interactions: defaults({doubleClickZoom: false})
     });
-    this.select = new Select({toggleCondition: never});
-    
-    this.select.on("select", this.onSelect.bind(this));
     this.map.on("pointermove", function(e) {
       let hit = this.forEachFeatureAtPixel(e.pixel, () => true);
       this.getTargetElement().style.cursor = hit ? "pointer" : "";
     });
-    
+
+    const mousePositionControl = new MousePosition({
+      coordinateFormat: createStringXY(6),
+      projection: "EPSG:4326",
+    });
+    this.map.addControl(mousePositionControl);
+
+    this.select = new Select({toggleCondition: never});    
+    this.select.on("select", this.onSelect.bind(this));
     this.map.addInteraction(this.select);
 
     this.loadLayers();
