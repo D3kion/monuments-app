@@ -18,7 +18,7 @@ export class App extends Application {
     if (typeof localStorage.token !== "undefined")
       fetch("GET", "api/token-info/?token=" + localStorage.token)
       .then(res => {
-        if (res.status == 401)
+        if (!res.ok)
           this.showView(new LoginView());
         else
           this.showView(new MainView());

@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, get_user_model
 from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
+from django.core.exceptions import ObjectDoesNotExist
 from django.template.loader import render_to_string
 from django_rest_passwordreset.signals import reset_password_token_created
 from rest_framework import filters, generics, status, viewsets
@@ -25,7 +26,14 @@ from .serializers import (CapitalSerializer, CityGeoSerializer, CitySerializer,
 @api_view(['GET'])
 def user_info(request):
     token = request.GET.get('token')
-    user = get_user_model().objects.get(auth_token=token)
+
+    try:
+        user = get_user_model().objects.get(auth_token=token)
+    except ObjectDoesNotExist:
+        return Response({
+            'detail': 'Token is undefined',
+        }, status=status.HTTP_400_BAD_REQUEST)
+
     return Response({
         'user': user.username,
         'isAdmin': user.is_superuser,
