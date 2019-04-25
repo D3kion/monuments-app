@@ -1,8 +1,7 @@
 /* eslint-disable no-undef */
 import _ from "underscore";
 import { View } from "backbone.marionette";
-import template from "./city.hbs";
-import { fetch } from "../../../../utils";
+import { fetch } from "App/utils";
 import { CityModel } from "Models/city";
 import { CountriesCollection } from "Collections/countries";
 

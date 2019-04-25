@@ -3,7 +3,7 @@ import "Styles/login.scss";
 import "bootstrap/js/dist/modal";
 import _ from "underscore";
 import { View } from "backbone.marionette";
-import { fetch } from "../../utils";
+import { fetch } from "App/utils";
 import template from "./template.hbs";
 import { ToastView } from "Views/toast/view";
 

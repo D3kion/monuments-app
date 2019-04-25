@@ -1,7 +1,7 @@
 import _ from "underscore";
 import { Model } from "backbone";
 import { View } from "backbone.marionette";
-import { fetch } from "../../../utils";
+import { fetch } from "App/utils";
 import template from "./search.hbs";
 
 export class SearchView extends View {

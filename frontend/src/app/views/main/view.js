@@ -1,8 +1,7 @@
 import _ from "underscore";
 import { Model } from "backbone";
 import { View } from "backbone.marionette";
-import { fetch } from "../../utils";
-import template from "./template.hbs";
+import { fetch } from "App/utils";
 import { ToastView } from "Views/toast/view";
 import { MapView } from "./map";
 import { MenuView } from "./menu/view";
