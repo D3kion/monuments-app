@@ -2,10 +2,10 @@ import "bootstrap/js/dist/modal";
 import "bootstrap/js/dist/carousel";
 import _ from "underscore";
 import { View } from "backbone.marionette";
-import countryTemplate from "./featureCountry.hbs";
-import cityTemplate from "./featureCity.hbs";
 import { CountryModel } from "Models/country";
 import { CityModel } from "Models/city";
+import countryTemplate from "./featureCountry.hbs";
+import cityTemplate from "./featureCity.hbs";
 
 // eslint-disable-next-line no-undef
 var Handlebars = require("handlebars/runtime");

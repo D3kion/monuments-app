@@ -4,6 +4,7 @@ import { View } from "backbone.marionette";
 import { fetch } from "App/utils";
 import { CityModel } from "Models/city";
 import { CountriesCollection } from "Collections/countries";
+import template from "./city.hbs";
 
 export class CityView extends View {
   constructor(drawPoint, options={}) {

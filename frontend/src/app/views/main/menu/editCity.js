@@ -4,6 +4,7 @@ import { View } from "backbone.marionette";
 import { fetch } from "App/utils";
 import { ImageModel } from "Models/image";
 import { CountriesCollection } from "Collections/countries";
+import template from "./editCity.hbs";
 
 export class EditCityView extends View {
   constructor(feature, drawPoint, options={}) {
@@ -79,7 +80,7 @@ export class EditCityView extends View {
     if (typeof this.onEndCb !== "undefined")
       this.onEndCb();
 
-    this.onEndCb = this.drawPoint((coords) => 
+    this.onEndCb = this.drawPoint(coords => 
       this.feature.set({geometry: {type: "Point", coordinates: coords}}));
   }
 

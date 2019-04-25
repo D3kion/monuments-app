@@ -11,6 +11,7 @@ import { EditCountryView } from "./menu/editCountry";
 import { EditCityView } from "./menu/editCity";
 import { SearchView } from "./menu/search";
 import { LayersView } from "./menu/layers";
+import template from "./template.hbs";
 
 export class MainView extends View {
   constructor(options={}) {
@@ -118,9 +119,8 @@ export class MainView extends View {
         type = "country";
 
       this.showMenu(new FeatureView(type, feature.getId()));
-    } else {
+    } else
       this.closeMenu();
-    }
   }
 
   openFeatureById(view, feature) {

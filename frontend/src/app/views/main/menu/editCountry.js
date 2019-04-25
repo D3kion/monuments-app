@@ -1,7 +1,7 @@
 import _ from "underscore";
 import { View } from "backbone.marionette";
-import template from "./editCountry.hbs";
 import { CapitalModel } from "Models/capital";
+import template from "./editCountry.hbs";
 
 export class EditCountryView extends View {
   constructor(feature, options={}) {

@@ -50,7 +50,7 @@ export class MapView extends MnView {
     this.select = new Select({toggleCondition: never});
     
     this.select.on("select", this.onSelect.bind(this));
-    this.map.on("pointermove", function(e) {
+    this.map.on("pointermove", e => {
       let hit = this.forEachFeatureAtPixel(e.pixel, () => true);
       this.getTargetElement().style.cursor = hit ? "pointer" : "";
     });
@@ -114,7 +114,7 @@ export class MapView extends MnView {
       type: "Point",
     });
 
-    draw.on("drawend", (e) => {
+    draw.on("drawend", e => {
       const rawCoords = e.feature.getGeometry().getCoordinates();
       setCoords(proj.transform(rawCoords, "EPSG:3857", "EPSG:4326"));
 

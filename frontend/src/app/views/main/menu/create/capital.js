@@ -1,9 +1,9 @@
 import _ from "underscore";
 import { Model } from "backbone";
 import { View } from "backbone.marionette";
-import template from "./capital.hbs";
 import { CapitalModel } from "Models/capital";
 import { CountriesCollection } from "Collections/countries";
+import template from "./capital.hbs";
 
 export class CapitalView extends View {
   constructor(options={}) {

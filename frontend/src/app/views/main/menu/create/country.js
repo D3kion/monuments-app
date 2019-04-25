@@ -1,8 +1,8 @@
 import _ from "underscore";
 import { View } from "backbone.marionette";
-import template from "./country.hbs";
 import { CountryModel } from "Models/country";
 import { CountryHelpersCollection } from "Collections/countryHelpers";
+import template from "./country.hbs";
 
 export class CountryView extends View {
   constructor(options={}) {

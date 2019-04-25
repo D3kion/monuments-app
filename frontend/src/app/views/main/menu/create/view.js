@@ -1,9 +1,9 @@
 import _ from "underscore";
 import { View } from "backbone.marionette";
-import template from "./template.hbs";
 import { CountryView } from "./country";
 import { CityView } from "./city";
 import { CapitalView } from "./capital";
+import template from "./template.hbs";
 
 export class CreateView extends View {
   constructor(drawPoint, options={}) {
