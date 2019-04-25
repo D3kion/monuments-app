@@ -5,10 +5,22 @@
   top: 3em;
   width: 100%;
   height: 100%;
+}
 
-  .ol-mouse-position {
-    font-size: .9rem;
-  }
+.ol-mouse-position {
+  font-size: 0.9rem;
+  top: unset !important;
+  right: unset !important;
+  bottom: 3.5em;
+  left: 1em;
+  background-color: lightgray;
+}
+
+#mouse-position {
+  position: fixed;
+  bottom: 0.5em;
+  left: 0.5em;
+  font-size: .9rem;
 }
 
 #controls {
