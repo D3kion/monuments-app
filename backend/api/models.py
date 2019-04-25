@@ -1,10 +1,10 @@
-import uuid
 import os
+import uuid
 
-from django.dispatch import receiver
-from django.utils.translation import gettext_lazy as _
 from django.contrib.gis.db import models
 from django.db.models.signals import post_delete
+from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 
 
 def get_image_path(instance, filename):

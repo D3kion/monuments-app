@@ -1,24 +1,22 @@
-from django.contrib.auth import get_user_model
-from django.dispatch import receiver
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 from django.core.mail import EmailMultiAlternatives
+from django.dispatch import receiver
 from django.template.loader import render_to_string
-from rest_framework import viewsets, generics, filters, status
-from rest_framework.views import APIView
+from django_rest_passwordreset.signals import reset_password_token_created
+from rest_framework import filters, generics, status, viewsets
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
-from django_rest_passwordreset.signals import reset_password_token_created
+from rest_framework.views import APIView
 
-from .authentication import token_expire_handler, expires_in
-from .models import Country, Image, City, Capital, CountriesHelper
-from .serializers import (
-    UserSigninSerializer, UserRegisterSerializer,
-    CountrySerializer, ImageSerializer, CitySerializer, CapitalSerializer,
-    CountryGeoSerializer, CityGeoSerializer,
-    CountriesHelperSerializer, CountriesHelperDetailSerializer,
-)
+from .authentication import expires_in, token_expire_handler
+from .models import Capital, City, CountriesHelper, Country, Image
+from .serializers import (CapitalSerializer, CityGeoSerializer, CitySerializer,
+                          CountriesHelperDetailSerializer,
+                          CountriesHelperSerializer, CountryGeoSerializer,
+                          CountrySerializer, ImageSerializer,
+                          UserRegisterSerializer, UserSigninSerializer)
 
 
 #

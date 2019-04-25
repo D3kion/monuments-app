@@ -19,6 +19,7 @@ class MyUserAdmin(UserAdmin):
     readonly_fields = ('last_login', 'date_joined')
 
 
+admin.site.unregister(ResetPasswordToken)
+
 User = get_user_model()
 admin.site.register(User, MyUserAdmin)
-admin.site.unregister(ResetPasswordToken)

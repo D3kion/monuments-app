@@ -1,8 +1,8 @@
 from django.contrib.admin import ModelAdmin
-from django.contrib.gis import admin
 from django.contrib.auth.models import Group
+from django.contrib.gis import admin
 
-from .models import Country, City, Capital, Image
+from .models import Capital, City, Country, Image
 
 
 class CityAdmin(admin.GeoModelAdmin):

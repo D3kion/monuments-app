@@ -1,20 +1,18 @@
 import json
 import uuid
 
-from PIL import Image
+from django.contrib.gis.geos import Point, Polygon
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
 from django.utils.six import BytesIO
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.contrib.gis.geos import Polygon, Point
+from PIL import Image
 from rest_framework.test import APIClient
 
 from core.models import User
-from .models import (
-    Country, City, Capital,
-    Image as ImageModel,
-    CountriesHelper
-)
+
+from .models import Capital, City, CountriesHelper, Country
+from .models import Image as ImageModel
 
 
 def create_test_user(username='test_user', password='qwerty12+'):

@@ -1,11 +1,10 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from rest_framework_gis.serializers import (
-    GeoFeatureModelSerializer, GeometryField
-)
+from rest_framework_gis.serializers import (GeoFeatureModelSerializer,
+                                            GeometryField)
 
-from .models import City, Capital, Country, Image, CountriesHelper
+from .models import Capital, City, CountriesHelper, Country, Image
 
 
 #
