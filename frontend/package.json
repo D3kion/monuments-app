@@ -10,7 +10,6 @@
   },
   "author": "",
   "dependencies": {
-    "@babel/polyfill": "^7.4.3",
     "backbone": "^1.4.0",
     "backbone.marionette": "^4.0.0",
     "bootstrap": "^4.3.1",
