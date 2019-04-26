@@ -2,11 +2,10 @@ import _ from "underscore";
 import { Model } from "backbone";
 import { View } from "backbone.marionette";
 import { CapitalModel } from "Models/capital";
-import { CountriesCollection } from "Collections/countries";
 import template from "./capital.hbs";
 
 export class CapitalView extends View {
-  constructor(options={}) {
+  constructor(countries, options={}) {
     _.defaults(options, {
       className: "content-inner",
       template,
@@ -18,27 +17,18 @@ export class CapitalView extends View {
     });
     super(options);
 
-    this.loading = true;
-    this.countries = new CountriesCollection();
+    this.countries = countries.clone();
+    if (this.countries.models.length !== 0) {
+      this.countries.models = this.countries.models.filter(x => x.get("capital") === null);
+      if (this.countries.models.length !== 0)
+        this.model.set({cities: this.countries.models[0].get("cities")});
+    }
 
     this.model.on("change", this.render, this);
-
-    this.countries.fetch({
-      success: collection => {
-        if (collection.models.length !== 0) {
-          collection.models = collection.models.filter(x => x.get("capital") === null);
-          if (collection.models.length !== 0)
-            this.model.set({cities: collection.models[0].get("cities")});
-        }
-        this.loading = false;
-        this.render();
-      }
-    });
   }
 
   serializeData() {
     return {
-      loading: this.loading,
       countries: this.countries.toJSON(),
       cities: this.model.get("cities"),
     };

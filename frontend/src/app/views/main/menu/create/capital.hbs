@@ -3,13 +3,6 @@
   <hr>
 </div>
 <div class="content-scrollable">
-  {{#if loading}}
-  <div class="d-flex justify-content-center">
-    <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-  </div>
-  {{else}}
   {{#if countries}}
   <form>
     <strong>Страна:</strong>
@@ -42,8 +35,9 @@
   {{else}}
   <strong>Нет стран для создания столиц.</strong>
   {{/if}}
-  {{/if}}
 </div>
+{{#if countries}}
 <div class="content-footer">
   <button id="submit" type="button" class="btn btn-primary btn-lg btn-block">Создать</button>
 </div>
+{{/if}}

@@ -1,11 +1,10 @@
 import _ from "underscore";
 import { View } from "backbone.marionette";
 import { CountryModel } from "Models/country";
-import { CountryHelpersCollection } from "Collections/countryHelpers";
 import template from "./country.hbs";
 
 export class CountryView extends View {
-  constructor(options={}) {
+  constructor(countries, options={}) {
     _.defaults(options, {
       className: "content-inner",
       template,
@@ -15,19 +14,11 @@ export class CountryView extends View {
     });
     super(options);
 
-    this.loading = true;
-    this.countries = new CountryHelpersCollection();
-    this.countries.fetch({
-      success: () => {
-        this.loading = false;
-        this.render();
-      }
-    });
+    this.countries = countries;
   }
 
   serializeData() {
     return {
-      loading: this.loading,
       countries: this.countries.toJSON(),
     };
   }

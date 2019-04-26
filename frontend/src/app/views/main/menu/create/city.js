@@ -3,11 +3,10 @@ import _ from "underscore";
 import { View } from "backbone.marionette";
 import { fetch } from "App/utils";
 import { CityModel } from "Models/city";
-import { CountriesCollection } from "Collections/countries";
 import template from "./city.hbs";
 
 export class CityView extends View {
-  constructor(drawPoint, options={}) {
+  constructor(countries, drawPoint, options={}) {
     _.defaults(options, {
       className: "content-inner",
       template,
@@ -20,21 +19,13 @@ export class CityView extends View {
     });
     super(options);
 
-    this.loading = true;
     this.drawPoint = drawPoint;
+    this.countries = countries;
     this.city = new CityModel();
-    this.countries = new CountriesCollection();
-    this.countries.fetch({
-      success: () => {
-        this.loading = false;
-        this.render();
-      }
-    });
   }
 
   serializeData() {
     return {
-      loading: this.loading,
       countries: this.countries.toJSON(),
     };
   }
