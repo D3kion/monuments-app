@@ -84,9 +84,12 @@ class UserCreate(APIView):
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args,
                                  **kwargs):
+    import socket
+    url = socket.gethostbyname(socket.gethostname())
     context = {
         'username': reset_password_token.user.username,
         'token': reset_password_token.key,
+        'url': f'http://{url}:8000/',
     }
 
     email_plaintext_message = render_to_string('email/user_reset_password.txt',
