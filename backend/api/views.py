@@ -133,7 +133,7 @@ class CityViewSet(viewsets.ModelViewSet):
     serializer_class = CitySerializer
     pagination_class = None
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('name',)
+    search_fields = ('name', 'description', 'country__name',)
 
 
 class CityGeoView(generics.ListAPIView):
@@ -158,6 +158,8 @@ class CapitalViewSet(viewsets.ModelViewSet):
     queryset = Capital.objects.all().order_by('capital_of')
     serializer_class = CapitalSerializer
     pagination_class = None
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('capital_of__name', 'city__name',)
 
 
 #
