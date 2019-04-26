@@ -62,7 +62,10 @@ export class MapView extends MnView {
     this.mapOverview = new OverviewMap();
     this.map.addControl(this.mapOverview);
 
-    this.select = new Select({toggleCondition: never});    
+    this.select = new Select({
+      layers: layer => layer.get("selectable") == true,
+      toggleCondition: never
+    });    
     this.select.on("select", this.onSelect.bind(this));
     this.map.addInteraction(this.select);
 
@@ -225,12 +228,14 @@ export class MapView extends MnView {
       name: "Страны",
       switchType: "checkbox",
       source: countrySource,
+      selectable: true,
     });
 
     this.cityLayer = new VectorLayer({
       name: "Города",
       switchType: "checkbox",
       source: citySource,
+      selectable: true,
     });
 
     this.map.getLayers().clear();
