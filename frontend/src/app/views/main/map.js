@@ -19,6 +19,7 @@ import { defaults } from "ol/interaction";
 import Select from "ol/interaction/Select";
 import Draw from "ol/interaction/Draw";
 import MousePosition from "ol/control/MousePosition";
+import OverviewMap from "ol/control/OverviewMap";
 import { never } from "ol/events/condition";
 import proj4 from "proj4";
 import { saveAs } from "file-saver";
@@ -58,6 +59,8 @@ export class MapView extends MnView {
       projection: "EPSG:4326",
     });
     this.map.addControl(this.mousePositionControl);
+    this.mapOverview = new OverviewMap();
+    this.map.addControl(this.mapOverview);
 
     this.select = new Select({toggleCondition: never});    
     this.select.on("select", this.onSelect.bind(this));

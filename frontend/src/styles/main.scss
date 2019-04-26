@@ -16,6 +16,12 @@
   background-color: lightgray;
 }
 
+.ol-overviewmap {
+  right: 0.5em;
+  left: unset !important;
+  bottom: 3.5em !important;
+}
+
 #mouse-position {
   position: fixed;
   bottom: 0.5em;
