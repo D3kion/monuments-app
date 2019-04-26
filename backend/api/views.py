@@ -1,7 +1,9 @@
+import socket
+
 from django.contrib.auth import authenticate, get_user_model
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import EmailMultiAlternatives
 from django.dispatch import receiver
-from django.core.exceptions import ObjectDoesNotExist
 from django.template.loader import render_to_string
 from django_rest_passwordreset.signals import reset_password_token_created
 from rest_framework import filters, generics, status, viewsets
@@ -84,7 +86,6 @@ class UserCreate(APIView):
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args,
                                  **kwargs):
-    import socket
     url = socket.gethostbyname(socket.gethostname())
     context = {
         'username': reset_password_token.user.username,
