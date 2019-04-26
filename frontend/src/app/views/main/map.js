@@ -3,6 +3,8 @@ import "ol/ol.css";
 import * as proj from "ol/proj";
 import { register } from "ol/proj/proj4";
 import { Map, View } from "ol";
+import Feature from "ol/Feature";
+import Point from "ol/geom/Point";
 import { createStringXY } from "ol/coordinate";
 import Style from "ol/style/Style";
 import Fill from "ol/style/Fill";
@@ -98,6 +100,39 @@ export class MapView extends MnView {
     });
 
     this.map.renderSync();
+  }
+
+  goToCoords(x=39.626, y=47.227) {
+    const style = new Style({
+      image: new CircleStyle({
+        radius: 6,
+        stroke: new Stroke({
+          color: "rgba(0, 0, 0, 0.6)",
+          width: 2,
+        }),
+        fill: new Fill({
+          color: "rgba(200, 0, 0, 0.7)"
+        }),
+      }),
+    });
+
+    const marker = new Feature({
+      geometry: new Point(proj.transform([x, y], "EPSG:4326", "EPSG:3857"),),
+    });
+
+    this.goToSource = new Vector({
+      features: [marker],
+    });
+    let vector = new VectorLayer({
+      source: this.goToSource,
+      style,
+    });
+    this.map.addLayer(vector);
+
+    this.map.setView(new View({
+      center: proj.transform([x, y], "EPSG:4326", "EPSG:3857"),
+      zoom: 9,
+    }));
   }
 
   drawPoint(setCoords) {
