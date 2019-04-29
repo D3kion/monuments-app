@@ -102,7 +102,7 @@ export class MapView extends MnView {
     this.map.renderSync();
   }
 
-  goToCoords(x, y) {
+  goToCoords(x, y, projection) {
     const style = new Style({
       image: new CircleStyle({
         radius: 6,
@@ -117,7 +117,7 @@ export class MapView extends MnView {
     });
 
     const marker = new Feature({
-      geometry: new Point(proj.transform([x, y], "EPSG:4326", "EPSG:3857"),),
+      geometry: new Point(proj.transform([x, y], projection, "EPSG:3857")),
     });
 
     this.goToSource = new Vector({
@@ -130,7 +130,7 @@ export class MapView extends MnView {
     this.map.addLayer(vector);
 
     this.map.setView(new View({
-      center: proj.transform([x, y], "EPSG:4326", "EPSG:3857"),
+      center: proj.transform([x, y], projection, "EPSG:3857"),
       zoom: 9,
     }));
 

@@ -15,6 +15,26 @@ export class GoToCoordsView extends View {
     super(options);
     
     this.goToCoords = goToCoordsFn;
+    this.projections = [
+      {
+        name: "WGS84",
+        value: "EPSG:4326",
+      },
+      {
+        name: "Проекция Меркатора",
+        value: "EPSG:3857",
+      },
+      {
+        name: "Проекция МСК",
+        value: "EPSG:4284",
+      },
+    ];
+  }
+
+  serializeData() {
+    return {
+      projections: this.projections,
+    };
   }
 
   onBeforeDestroy() {
@@ -29,11 +49,13 @@ export class GoToCoordsView extends View {
     e.preventDefault();
     const $form = this.$el.find("form");
     let data = {};
-    $form.serializeArray().map(x => data[x.name] = parseFloat(x.value));
+    $form.serializeArray().map(x => data[x.name] = x.value);
+    data.longitude = parseFloat(data.longitude);
+    data.latitude = parseFloat(data.latitude);
 
     if (isNaN(data.longitude) || isNaN(data.latitude))
       this.triggerMethod("show:toast", this, "Ошибка", "Некорректные координаты.");
     else
-      this.onEndCb = this.goToCoords(data.longitude, data.latitude);
+      this.onEndCb = this.goToCoords(data.longitude, data.latitude, data.projection);
   }
 }

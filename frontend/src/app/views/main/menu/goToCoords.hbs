@@ -10,6 +10,12 @@
     <strong>Долгота:</strong>
     <input name="longitude" class="form-control" type="text" value="39.6273">
     <br>
+    <strong>Проекция:</strong>
+    <select name="projection" class="form-control">
+      {{#each projections}}
+      <option value="{{value}}">{{name}}</option>
+      {{/each}}
+    </select>
     <input type="submit" style="display: none;">
   </form>
 </div>
