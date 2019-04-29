@@ -31,11 +31,9 @@ export class GoToCoordsView extends View {
     let data = {};
     $form.serializeArray().map(x => data[x.name] = parseFloat(x.value));
 
-    if (isNaN(data.longitude) || isNaN(data.latitude)) {
+    if (isNaN(data.longitude) || isNaN(data.latitude))
       this.triggerMethod("show:toast", this, "Ошибка", "Некорректные координаты.");
-      return;
-    }
-
-    this.onEndCb = this.goToCoords(data.longitude, data.latitude);
+    else
+      this.onEndCb = this.goToCoords(data.longitude, data.latitude);
   }
 }
