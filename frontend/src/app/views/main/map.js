@@ -31,6 +31,7 @@ import { fetch } from "App/utils";
 import template from "./map.hbs";
 
 proj4.defs("EPSG:3395", "+proj=merc +lon_0=0 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs");
+proj4.defs("EPSG:4284","+proj=longlat +ellps=krass +towgs84=23.92,-141.27,-80.9,-0,0.35,0.82,-0.12 +no_defs");
 register(proj4);
 proj.get("EPSG:3395").setExtent(
   [-20037508.342789244, -20037508.342789244, 20037508.342789244, 20037508.342789244]
