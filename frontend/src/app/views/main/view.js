@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import _ from "underscore";
 import { Model } from "backbone";
 import { View } from "backbone.marionette";
@@ -38,6 +39,7 @@ export class MainView extends View {
         "click #create": "openCreate",
         "click #goToCoords": "goToCoords",
         "click #layers": "openLayers",
+        "click #print": "onPrint",
         "click #screenshot": "takeScreenshot",
         "click #admin": "onAdmin",
         "click #logout": "onLogout",
@@ -71,7 +73,7 @@ export class MainView extends View {
   onHomeExtent() {
     this.map.homeExtent();
   }
-  
+
   openCreate() {
     this.map.select.getFeatures().clear();
     this.showMenu(new CreateView(this.map.drawPoint.bind(this.map)));
@@ -87,9 +89,9 @@ export class MainView extends View {
     this.showMenu(new LayersView(this.map.map.getLayers().getArray()));
   }
 
-  openCreate() {
-    this.map.select.getFeatures().clear();
-    this.showMenu(new CreateView(this.map.drawPoint.bind(this.map)));
+  onPrint() {
+    this.map.map.once("rendercomplete", () => window.print());
+    this.map.map.renderSync();
   }
 
   takeScreenshot() {

@@ -1,5 +1,20 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
+@media print {
+  @page {
+    size: landscape;
+  }
+
+  #controls, #menu, .ol-overviewmap,
+  .ol-mouse-position {
+    display: none !important;
+  }
+
+  #map {
+    top: 0 !important;
+  }
+}
+
 #map {
   position: fixed;
   top: 3em;
@@ -34,6 +49,7 @@
   position: fixed;
   top: 5em;
   right: 1.5em;
+  
 
   >* {
     display: block;
