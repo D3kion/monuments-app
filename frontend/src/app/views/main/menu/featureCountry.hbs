@@ -14,13 +14,19 @@
   <hr>
 </div>
 <div class="content-scrollable">
+  {{#if feature.capital}}
   <strong>Столица:</strong> <a class="clickable" data-city={{feature.capital.id}} href="#">{{feature.capital.name}}</a>
   <br>
+  {{/if}}
   <strong>Города:</strong>
+  {{#if feature.cities}}
   <ul>
   {{#each feature.cities}}
     <li><a class="clickable" data-city={{id}} href="#">{{name}}</a></li>
   {{/each}}
   </ul>
+  {{else}}
+  В этой стране еще нет городов
   {{/if}}
 </div>
+{{/if}}
