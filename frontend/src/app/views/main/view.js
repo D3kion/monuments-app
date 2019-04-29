@@ -35,10 +35,10 @@ export class MainView extends View {
       },
       events: {
         "click #home-extent": "onHomeExtent",
-        "click #layers": "openLayers",
         "click #create": "openCreate",
-        "click #screenshot": "takeScreenshot",
         "click #goToCoords": "goToCoords",
+        "click #layers": "openLayers",
+        "click #screenshot": "takeScreenshot",
         "click #admin": "onAdmin",
         "click #logout": "onLogout",
         "keyup #search": "onSearch",
@@ -72,6 +72,16 @@ export class MainView extends View {
     this.map.homeExtent();
   }
   
+  openCreate() {
+    this.map.select.getFeatures().clear();
+    this.showMenu(new CreateView(this.map.drawPoint.bind(this.map)));
+  }
+
+  goToCoords() {
+    this.map.select.getFeatures().clear();
+    this.showMenu(new GoToCoordsView(this.map.goToCoords.bind(this.map)));
+  }
+  
   openLayers() {
     this.map.select.getFeatures().clear();
     this.showMenu(new LayersView(this.map.map.getLayers().getArray()));
@@ -84,11 +94,6 @@ export class MainView extends View {
 
   takeScreenshot() {
     this.map.takeScreenshot();
-  }
-
-  goToCoords() {
-    this.map.select.getFeatures().clear();
-    this.showMenu(new GoToCoordsView(this.map.goToCoords.bind(this.map)));
   }
 
   onAdmin() {
