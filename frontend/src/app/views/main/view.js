@@ -11,6 +11,7 @@ import { EditCountryView } from "./menu/editCountry";
 import { EditCityView } from "./menu/editCity";
 import { SearchView } from "./menu/search";
 import { LayersView } from "./menu/layers";
+import { GoToCoordsView } from "./menu/goToCoords";
 import template from "./template.hbs";
 
 export class MainView extends View {
@@ -37,6 +38,7 @@ export class MainView extends View {
         "click #layers": "openLayers",
         "click #create": "openCreate",
         "click #screenshot": "takeScreenshot",
+        "click #goToCoords": "goToCoords",
         "click #admin": "onAdmin",
         "click #logout": "onLogout",
         "keyup #search": "onSearch",
@@ -82,6 +84,11 @@ export class MainView extends View {
 
   takeScreenshot() {
     this.map.takeScreenshot();
+  }
+
+  goToCoords() {
+    this.map.select.getFeatures().clear();
+    this.showMenu(new GoToCoordsView(this.map.goToCoords.bind(this.map)));
   }
 
   onAdmin() {

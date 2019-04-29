@@ -102,7 +102,7 @@ export class MapView extends MnView {
     this.map.renderSync();
   }
 
-  goToCoords(x=39.626, y=47.227) {
+  goToCoords(x, y) {
     const style = new Style({
       image: new CircleStyle({
         radius: 6,
@@ -133,6 +133,10 @@ export class MapView extends MnView {
       center: proj.transform([x, y], "EPSG:4326", "EPSG:3857"),
       zoom: 9,
     }));
+
+    return () => {
+      this.map.removeLayer(vector);
+    };
   }
 
   drawPoint(setCoords) {
