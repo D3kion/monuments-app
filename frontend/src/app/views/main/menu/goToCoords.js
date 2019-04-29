@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable no-undef */
 import _ from "underscore";
 import { View } from "backbone.marionette";
 import template from "./goToCoords.hbs";
@@ -25,8 +23,6 @@ export class GoToCoordsView extends View {
   }
 
   onSubmit(e) {
-    console.log("submit");
-
     if (typeof this.onEndCb !== "undefined")
       this.onEndCb();
 
