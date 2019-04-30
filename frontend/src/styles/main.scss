@@ -5,15 +5,33 @@
     size: landscape;
   }
 
-  #controls, #menu, .ol-overviewmap,
-  .ol-mouse-position {
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: unset !important;
+  }
+
+  #print-comment {
+    display: unset !important;
+    position: relative;
+    width: 100%;
+    z-index: 10;
+  }
+
+  #controls, #menu, #toast,
+  #menu-placeholder, #toast-placeholder,
+  .ol-overviewmap, .ol-mouse-position {
     display: none !important;
   }
 
   #map {
-    top: 0 !important;
+    position: unset !important;
     height: auto !important;
   }
+}
+
+#print-comment {
+  display: none;
 }
 
 #map {

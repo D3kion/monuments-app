@@ -13,6 +13,7 @@ import { EditCityView } from "./menu/editCity";
 import { SearchView } from "./menu/search";
 import { LayersView } from "./menu/layers";
 import { GoToCoordsView } from "./menu/goToCoords";
+import { PrintView } from "./menu/print";
 import template from "./template.hbs";
 
 export class MainView extends View {
@@ -90,8 +91,11 @@ export class MainView extends View {
   }
 
   onPrint() {
-    this.map.map.once("rendercomplete", () => window.print());
-    this.map.map.renderSync();
+    this.showMenu(new PrintView(text => {
+      this.$el.find("#print-text").text(text);
+      this.map.map.once("rendercomplete", () => window.print());
+      this.map.map.renderSync();
+    }));
   }
 
   takeScreenshot() {
