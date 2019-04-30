@@ -25,6 +25,10 @@ export class GoToCoordsView extends View {
         value: "EPSG:3857",
       },
       {
+        name: "Проекция Меркатора (Яндекс)",
+        value: "EPSG:3395",
+      },
+      {
         name: "Проекция МСК",
         value: "EPSG:4284",
       },
