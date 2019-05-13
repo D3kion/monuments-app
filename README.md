@@ -25,6 +25,7 @@ Deployment instructions:
     $ mkdir public/static
     $ cp mysite/local_settings.example.py mysite/local_settings.py (and configure this)
     $ python manage.py migrate
+    $ python manage.py initdb
     $ python manage.py compilemessages -l ru
     $ python manage.py createsuperuser
     $ python manage.py runserver

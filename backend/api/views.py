@@ -166,7 +166,7 @@ class CapitalViewSet(viewsets.ModelViewSet):
 #
 # CountriesHelper
 #
-class CountriesHelperView(generics.ListCreateAPIView):
+class CountriesHelperView(generics.ListAPIView):
     qs1 = Country.objects.values_list('name')
     qs2 = CountriesHelper.objects.values_list('name')
     qs = qs2.difference(qs1)
