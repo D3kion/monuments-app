@@ -39,8 +39,8 @@
 
 .ol-mouse-position {
   font-size: 0.9rem;
-  top: unset !important;
-  right: unset !important;
+  top: auto !important;
+  right: auto !important;
   bottom: 3.5em;
   left: 1em;
   background-color: lightgray;
@@ -48,7 +48,7 @@
 
 .ol-overviewmap {
   right: 0.5em;
-  left: unset !important;
+  left: auto !important;
   bottom: 3.5em !important;
 }
 
@@ -129,7 +129,7 @@
       }
     }
 
-    >img {
+    .images img {
       cursor: pointer;
     }
 
