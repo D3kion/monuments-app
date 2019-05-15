@@ -92,6 +92,20 @@ export class MainView extends View {
 
   onPrint() {
     this.showMenu(new PrintView(text => {
+      const css = "@page { size: auto; }",
+            head = document.head || document.getElementsByTagName("head")[0],
+            style = document.createElement("style");
+
+      style.type = "text/css";
+      style.media = "print";
+
+      if (style.styleSheet)
+        style.styleSheet.cssText = css;
+      else
+        style.appendChild(document.createTextNode(css));
+
+      head.appendChild(style);
+
       this.$el.find("#print-text").text(text);
       this.map.map.once("rendercomplete", () => window.print());
       this.map.map.renderSync();
