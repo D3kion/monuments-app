@@ -87,7 +87,7 @@ export class MainView extends View {
   
   openLayers() {
     this.map.select.getFeatures().clear();
-    this.showMenu(new LayersView(this.map.map.getLayers().getArray()));
+    this.showMenu(new LayersView(this.map.map.getLayers().getArray(), l => this.map.activeLayer = l));
   }
 
   onPrint() {

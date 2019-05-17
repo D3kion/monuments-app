@@ -44,6 +44,8 @@ export class MapView extends MnView {
     });
     super(options);
 
+    this.activeLayer = "OSM";
+
     this.map = new Map({
       layers: [],
       view: new View({
@@ -194,7 +196,7 @@ export class MapView extends MnView {
         .then(res => res.json())
         .then(data => countrySource.addFeatures(countrySource.getFormat().readFeatures(data)))
     });
-    
+
     let citySource = new Vector({
       format: new GeoJSON({
         defaultDataProjection: "EPSG:4326",
@@ -212,6 +214,7 @@ export class MapView extends MnView {
       switchType: "radio",
       source: new OSM(),
     });
+    this.osmLayer.setVisible(this.activeLayer === this.osmLayer.get("name"));
 
     this.yandexLayer = new TileLayer({
       name: "Яндекс Карты",
@@ -220,8 +223,8 @@ export class MapView extends MnView {
         url: "https://vec0{1-4}.maps.yandex.net/tiles?l=map&v=4.55.2&x={x}&y={y}&z={z}",
         projection: "EPSG:3395",
       }),
-      visible: false,
     });
+    this.yandexLayer.setVisible(this.activeLayer === this.yandexLayer.get("name"));
 
     this.yandexSatelliteLayer = new TileLayer({
       name: "Яндекс Карты (Спутник)",
@@ -230,8 +233,8 @@ export class MapView extends MnView {
         url: "https://sat0{1-4}.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}",
         projection: "EPSG:3395",
       }),
-      visible: false,
     });
+    this.yandexSatelliteLayer.setVisible(this.activeLayer === this.yandexSatelliteLayer.get("name"));
 
     this.googleLayer = new TileLayer({
       name: "Google Карты",
@@ -240,8 +243,8 @@ export class MapView extends MnView {
         url: "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
         projection: "EPSG:3857",
       }),
-      visible: false,
     });
+    this.googleLayer.setVisible(this.activeLayer === this.googleLayer.get("name"));
 
     this.googleSatelliteLayer = new TileLayer({
       name: "Google Карты (Спутник)",
@@ -250,8 +253,8 @@ export class MapView extends MnView {
         url: "http://mt.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
         projection: "EPSG:3857",
       }),
-      visible: false,
     });
+    this.googleSatelliteLayer.setVisible(this.activeLayer === this.googleSatelliteLayer.get("name"));
 
     this.bingLayer = new TileLayer({
       name: "Bing Карты",
@@ -261,8 +264,8 @@ export class MapView extends MnView {
         key: "AtvW5gEKmgVe7bQwBo-Ndg1iEK7k73kbu8c8SBzVJpkPOnGvyMIDGcT4DJcPnMMG",
         imagerySet: "RoadOnDemand",
       }),
-      visible: false,
     });
+    this.bingLayer.setVisible(this.activeLayer === this.bingLayer.get("name"));
 
     this.countryLayer = new VectorLayer({
       name: "Страны",
