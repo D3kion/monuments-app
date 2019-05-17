@@ -37,6 +37,8 @@ export class CityView extends View {
 
   onChangeImages(e) {
     this.images = e.target.files;
+
+    this.triggerMethod("show:toast", this, "Изображения", "Изображения добавлены.");
   }
 
   onPlace() {
