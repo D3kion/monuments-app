@@ -240,7 +240,7 @@ export class MapView extends MnView {
       name: "Google Карты",
       switchType: "radio",
       source: new XYZ({
-        url: "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+        url: "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=ru",
         projection: "EPSG:3857",
       }),
     });
@@ -250,7 +250,7 @@ export class MapView extends MnView {
       name: "Google Карты (Спутник)",
       switchType: "radio",
       source: new XYZ({
-        url: "http://mt.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+        url: "http://mt.google.com/vt/lyrs=s&x={x}&y={y}&z={z}&hl=ru",
         projection: "EPSG:3857",
       }),
     });
