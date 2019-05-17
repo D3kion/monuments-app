@@ -1,5 +1,6 @@
 import "bootstrap/js/dist/modal";
 import "bootstrap/js/dist/carousel";
+import "bootstrap/js/dist/tooltip";
 import _ from "underscore";
 import { View } from "backbone.marionette";
 import { CountryModel } from "Models/country";
@@ -34,6 +35,7 @@ export class FeatureView extends View {
     this.loading = true;
     this.featureType = type;
     this.modalImage = null;
+    this.delete = false;
 
     if (type === "country") 
       this.feature = new CountryModel();
@@ -68,12 +70,24 @@ export class FeatureView extends View {
   }
 
   deleteFeature() {
-    this.feature.destroy({
-      success: () => {
-        this.triggerMethod("refresh:map", this);
-        this.triggerMethod("close:menu", this);
-      }
-    });
+    const deleteBtn = this.$el.find("#delete");
+    if (!this.delete) {
+      this.delete = true;
+      deleteBtn.attr("title", "Нажмите еще раз, чтобы удалить.");
+      deleteBtn.tooltip({
+        placement: "right",
+        trigger: "manual",
+      });
+      deleteBtn.tooltip("show");
+    } else {
+      this.feature.destroy({
+        success: () => {
+          this.triggerMethod("refresh:map", this);
+          this.triggerMethod("close:menu", this);
+        }
+      });
+      deleteBtn.tooltip("dispose");
+    }
   }
 
   openCarousel(e) {
