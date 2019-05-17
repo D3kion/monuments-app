@@ -76,7 +76,6 @@ export class CityView extends View {
             });
           }
 
-        this.onEndCb();
         this.triggerMethod("refresh:map", this);
         this.triggerMethod("close:menu", this);
       },
