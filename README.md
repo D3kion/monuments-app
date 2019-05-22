@@ -23,7 +23,7 @@ Deployment instructions:
 3. *Configure and run*
     ```
     $ mkdir public/static
-    $ cp mysite/local_settings.example.py mysite/local_settings.py (and configure this)
+    $ cp mysite/local_settings.example.py mysite/local_settings.py  # and configure this
     $ python manage.py migrate
     $ python manage.py initdb
     $ python manage.py compilemessages -l ru
@@ -47,7 +47,7 @@ And go to [Admin panel](http://127.0.0.1:8000/admin) | [API](http://127.0.0.1:80
     ```
 2. *Build*
     ```
-    $ npm run prod (or dev)
+    $ npm run prod  # or dev
     ```
 
 And go to [Frontend](http://127.0.0.1:8000/)
