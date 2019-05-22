@@ -1,4 +1,5 @@
 import socket
+import sys
 
 from django.contrib.auth import authenticate, get_user_model
 from django.core.exceptions import ObjectDoesNotExist
@@ -86,11 +87,12 @@ class UserCreate(APIView):
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args,
                                  **kwargs):
-    url = socket.gethostbyname(socket.gethostname())
+    url = socket.gethostbyname(socket.gethostname()) + ':' + \
+        sys.argv[-1].split(':')[-1]  # Receiving port
     context = {
         'username': reset_password_token.user.username,
         'token': reset_password_token.key,
-        'url': f'http://{url}:8000/',
+        'url': f'http://{url}/',
     }
 
     email_plaintext_message = render_to_string('email/user_reset_password.txt',
