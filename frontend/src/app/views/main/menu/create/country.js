@@ -11,6 +11,9 @@ export class CountryView extends View {
       events: {
         "click #submit": "onSubmit",
       },
+      ui: {
+        form: "form",
+      }
     });
     super(options);
 
@@ -24,7 +27,7 @@ export class CountryView extends View {
   }
 
   onSubmit() {
-    const $form = this.$el.find("form");
+    const $form = this.getUI("form");
     const helperId = $form.serializeArray()[0].value;
     this.countries.get(helperId).fetch({
       success: model => {

@@ -14,6 +14,10 @@ export class CapitalView extends View {
         "change #country": "onChangeCountry",
         "click #submit": "onSubmit",
       },
+      ui: {
+        country: "#country",
+        form: "form",
+      }
     });
     super(options);
 
@@ -36,7 +40,7 @@ export class CapitalView extends View {
 
   onRender() {
     if (typeof this.activeCountry !== "undefined")
-      this.$el.find("#country").val(this.activeCountry);
+      this.getUI("country").val(this.activeCountry);
   }
 
   onChangeCountry(e) {
@@ -47,7 +51,7 @@ export class CapitalView extends View {
   }
 
   onSubmit() {
-    const $form = this.$el.find("form");
+    const $form = this.getUI("form");
     let data = {};
     $form.serializeArray().map(x => data[x.name] = x.value);
 

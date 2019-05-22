@@ -18,6 +18,9 @@ export class EditCityView extends View {
         "click #submit": "onSubmit",
         "submit form": "onSubmit",
       },
+      ui: {
+        form: "form",
+      }
     });
     super(options);
 
@@ -86,7 +89,7 @@ export class EditCityView extends View {
 
   onSubmit(e) {
     e.preventDefault();
-    const $form = this.$el.find("form");
+    const $form = this.getUI("form");
     let data = {};
     $form.serializeArray().map(x => data[x.name] = x.value);
 

@@ -8,6 +8,9 @@ export class ToastView extends View {
   constructor(type, text, options={}) {
     _.defaults(options, {
       template,
+      ui: {
+        toast: ".toast",
+      }
     });
     super(options);
   
@@ -23,8 +26,8 @@ export class ToastView extends View {
   }
 
   show() {
-    const toast = this.$el.find(".toast");
-    toast.toast({delay: 5000});
+    const toast = this.getUI("toast");
+    toast.toast({ delay: 5000 });
     toast.toast("show");
   }
 }

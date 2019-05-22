@@ -29,6 +29,10 @@ export class FeatureView extends View {
         // city
         "click .cimg": "openCarousel",
       },
+      ui: {
+        delete: "#delete",
+        imgModal: "#imgModal",
+      }
     });
     super(options);
 
@@ -70,7 +74,7 @@ export class FeatureView extends View {
   }
 
   deleteFeature() {
-    const deleteBtn = this.$el.find("#delete");
+    const deleteBtn = this.getUI("delete");
     if (!this.delete) {
       this.delete = true;
       deleteBtn.attr("title", "Нажмите еще раз, чтобы удалить.");
@@ -94,7 +98,7 @@ export class FeatureView extends View {
     this.modalImage = e.target.dataset.id;
     this.render();
 
-    const modal = this.$el.find("#imgModal");
+    const modal = this.getUI("imgModal");
     modal.modal({
       backdrop: false,
     }).modal("show");

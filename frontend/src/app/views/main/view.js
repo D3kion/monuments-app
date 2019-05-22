@@ -55,6 +55,9 @@ export class MainView extends View {
         "edit:feature:city": "editCity",
         "refresh:map": "refreshMap",
       },
+      ui: {
+        printText: "#print-text",
+      }
     });
     super(options);
 
@@ -106,7 +109,7 @@ export class MainView extends View {
 
       head.appendChild(style);
 
-      this.$el.find("#print-text").text(text);
+      this.getUI("printText").text(text);
       this.map.map.once("rendercomplete", () => window.print());
       this.map.map.renderSync();
     }));

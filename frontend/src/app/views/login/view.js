@@ -22,6 +22,18 @@ export class LoginView extends View {
         "click #reset": "onReset",
         "click #submit": "onSubmit",
         "submit .form-signin": "onSubmit",
+      },
+      ui: {
+        signinForm: ".form-signin",
+        registerModal: "#registerModal",
+        registerForm: "#registerModal form",
+        registerSubmit: "#registerSubmit",
+        resetModal: "#resetModal",
+        resetForm: "#resetModal form",
+        resetSubmit: "#resetSubmit",
+        resetSuccessModal: "#resetSuccessModal",
+        resetSuccessForm: "#resetSuccessModal form",
+        resetSuccessSubmit: "#resetSuccessSubmit",
       }
     });
     super(options);
@@ -30,9 +42,9 @@ export class LoginView extends View {
   onRegister(e) {
     e.preventDefault();
 
-    const modal = this.$el.find("#registerModal");
-    const form = modal.find("form");
-    const submit = modal.find("#registerSubmit");
+    const modal = this.getUI("registerModal");
+    const form = this.getUI("registerForm");
+    const submit = this.getUI("registerSubmit");
 
     modal.modal("show");
 
@@ -77,9 +89,9 @@ export class LoginView extends View {
   onReset(e) {
     e.preventDefault();
 
-    const modal = this.$el.find("#resetModal");
-    const form = modal.find("form");
-    const submit = modal.find("#resetSubmit");
+    const modal = this.getUI("resetModal");
+    const form = this.getUI("resetForm");
+    const submit = this.getUI("resetSubmit");
 
     modal.modal("show");
 
@@ -118,9 +130,9 @@ export class LoginView extends View {
   }
 
   onResetSuccess() {
-    const modal = this.$el.find("#resetSuccessModal");
-    const form = modal.find("form");
-    const submit = modal.find("#resetSuccessSubmit");
+    const modal = this.getUI("resetSuccessModal");
+    const form = this.getUI("resetSuccessForm");
+    const submit = this.getUI("resetSuccessSubmit");
 
     modal.modal("show");
 
@@ -164,9 +176,9 @@ export class LoginView extends View {
   onSubmit(e) {
     e.preventDefault();
 
-    const $form = this.$el.find(".form-signin");
+    const form = this.getUI("signinForm");
     let data = {};
-    $form.serializeArray().map(x => data[x.name] = x.value);
+    form.serializeArray().map(x => data[x.name] = x.value);
 
     fetch("POST", "api/token-auth/", JSON.stringify({
       username: data.username,
