@@ -282,13 +282,15 @@ export class MapView extends MnView {
     });
 
     this.map.getLayers().clear();
-    this.map.addLayer(this.osmLayer);
-    this.map.addLayer(this.yandexLayer);
-    this.map.addLayer(this.yandexSatelliteLayer);
-    this.map.addLayer(this.googleLayer);
-    this.map.addLayer(this.googleSatelliteLayer);
-    this.map.addLayer(this.bingLayer);
-    this.map.addLayer(this.countryLayer);
-    this.map.addLayer(this.cityLayer);
+    this.map.getLayers().extend([
+      this.osmLayer,
+      this.yandexLayer,
+      this.yandexSatelliteLayer,
+      this.googleLayer,
+      this.googleSatelliteLayer,
+      this.bingLayer,
+      this.countryLayer,
+      this.cityLayer
+    ]);
   }
 }
