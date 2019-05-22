@@ -22,7 +22,7 @@ function csrfSafeMethod(method) {
 
 const fetch_ = global.fetch;
 export function fetch(method, url, body=null, withToken=true, headers_=null) {
-  let headers = headers_ || new Headers();
+  const headers = headers_ || new Headers();
   if (withToken) {
     headers.append("Authorization", "Token " + localStorage.token);
   }
@@ -31,12 +31,8 @@ export function fetch(method, url, body=null, withToken=true, headers_=null) {
     headers.append("X-CSRFToken", getCookie("csrftoken"));
   }
 
-  let href = "http://" + location.host + "/" + url;
-  let request = new Request(href, {
-    method,
-    body,
-    headers,
-  });
+  const href = `${location.protocol}://${location.host}/${url}`;
+  const request = new Request(href, { method, body, headers });
 
   return fetch_(request);
 }
