@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: [
@@ -43,10 +42,6 @@ module.exports = {
         }
       },
       {
-        test: /\.html$/,
-        use: "html-loader",
-      },
-      {
         test: /\.css$/,
         loader: ["style-loader", "css-loader"],
       },
@@ -87,10 +82,4 @@ module.exports = {
       Views: path.resolve(__dirname, "src/app/views"),
     }
   },
-
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html"
-    }),
-  ],
 };
