@@ -8,14 +8,7 @@ import { CityModel } from "Models/city";
 import countryTemplate from "./featureCountry.hbs";
 import cityTemplate from "./featureCity.hbs";
 
-// eslint-disable-next-line no-undef
-var Handlebars = require("handlebars/runtime");
-
-Handlebars.registerHelper({
-  eq: function (v1, v2) {
-    return v1 == v2;
-  }
-});
+import "Views/hbsHelpers";
 
 export class FeatureView extends View {
   constructor(type, id, options={}) {
