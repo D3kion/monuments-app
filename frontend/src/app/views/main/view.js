@@ -176,8 +176,8 @@ export class MainView extends View {
     this.showMenu(new EditCityView(id, this.map.drawPoint.bind(this.map)));
   }
   
-  refreshMap() {
-    this.map.loadLayers();
+  refreshMap(view, type) {
+    this.map.loadLayers(type);
   }
 
   getUserInfo() {

@@ -184,7 +184,7 @@ export class MapView extends MnView {
     };
   }
 
-  loadLayers() {
+  loadLayers(updated) {
     let countrySource = new Vector({
       format: new GeoJSON({
         defaultDataProjection: "EPSG:4326",
@@ -281,16 +281,23 @@ export class MapView extends MnView {
       selectable: true,
     });
 
-    this.map.getLayers().clear();
-    this.map.getLayers().extend([
-      this.osmLayer,
-      this.yandexLayer,
-      this.yandexSatelliteLayer,
-      this.googleLayer,
-      this.googleSatelliteLayer,
-      this.bingLayer,
-      this.countryLayer,
-      this.cityLayer
-    ]);
+    if (!_.isUndefined(updated)) {
+      const layer = updated == "country" ? this.countryLayer : this.cityLayer;
+      this.map.getLayers().array_ = this.map.getLayers().getArray().filter(x => {
+        return !(x.get("name") == layer.get("name"));
+      });
+      this.map.addLayer(layer);
+    } else if (this.map.getLayers().getArray().length == 0) {
+      this.map.getLayers().extend([
+        this.osmLayer,
+        this.yandexLayer,
+        this.yandexSatelliteLayer,
+        this.googleLayer,
+        this.googleSatelliteLayer,
+        this.bingLayer,
+        this.countryLayer,
+        this.cityLayer,
+      ]);
+    }
   }
 }

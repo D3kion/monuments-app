@@ -79,7 +79,7 @@ export class CityView extends View {
             });
           }
 
-        this.triggerMethod("refresh:map", this);
+        this.triggerMethod("refresh:map", this, "city");
         this.triggerMethod("close:menu", this);
       },
 
