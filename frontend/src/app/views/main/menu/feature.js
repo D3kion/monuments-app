@@ -56,6 +56,11 @@ export class FeatureView extends View {
     };
   }
 
+  onDestroy() {
+    if (!_.isUndefined(this.deleteBtn))
+      this.deleteBtn.tooltip("dispose");
+  }
+
   openFeature(e) {
     this.triggerMethod("open:feature:id", this, e.target.dataset);
   }
@@ -68,15 +73,15 @@ export class FeatureView extends View {
   }
 
   deleteFeature() {
-    const deleteBtn = this.getUI("delete");
+    this.deleteBtn = this.getUI("delete");
     if (!this.delete) {
       this.delete = true;
-      deleteBtn.attr("title", "Нажмите еще раз, чтобы удалить.");
-      deleteBtn.tooltip({
+      this.deleteBtn.attr("title", "Нажмите еще раз, чтобы удалить.");
+      this.deleteBtn.tooltip({
         placement: "right",
         trigger: "manual",
       });
-      deleteBtn.tooltip("show");
+      this.deleteBtn.tooltip("show");
     } else {
       this.feature.destroy({
         success: () => {
@@ -84,7 +89,7 @@ export class FeatureView extends View {
           this.triggerMethod("close:menu", this);
         }
       });
-      deleteBtn.tooltip("dispose");
+      this.deleteBtn.tooltip("dispose");
     }
   }
 
