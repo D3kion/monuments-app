@@ -221,6 +221,7 @@ export class MapView extends MnView {
       switchType: "radio",
       source: new XYZ({
         url: "https://vec0{1-4}.maps.yandex.net/tiles?l=map&v=4.55.2&x={x}&y={y}&z={z}",
+        crossOrigin: "Anonymous",
         projection: "EPSG:3395",
       }),
     });
@@ -231,6 +232,7 @@ export class MapView extends MnView {
       switchType: "radio",
       source: new XYZ({
         url: "https://sat0{1-4}.maps.yandex.net/tiles?l=sat&x={x}&y={y}&z={z}",
+        crossOrigin: "Anonymous",
         projection: "EPSG:3395",
       }),
     });
@@ -241,6 +243,7 @@ export class MapView extends MnView {
       switchType: "radio",
       source: new XYZ({
         url: "http://mt.google.com/vt/lyrs=m&x={x}&y={y}&z={z}&hl=ru",
+        crossOrigin: "Anonymous",
         projection: "EPSG:3857",
       }),
     });
@@ -251,6 +254,7 @@ export class MapView extends MnView {
       switchType: "radio",
       source: new XYZ({
         url: "http://mt.google.com/vt/lyrs=s&x={x}&y={y}&z={z}&hl=ru",
+        crossOrigin: "Anonymous",
         projection: "EPSG:3857",
       }),
     });
