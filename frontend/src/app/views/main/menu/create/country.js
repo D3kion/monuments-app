@@ -36,7 +36,7 @@ export class CountryView extends View {
           geometry: model.get("geometry"),
         }, {
           success: () => {
-            this.triggerMethod("refresh:map", this, "country");
+            this.triggerMethod("refresh:map", this);
             this.triggerMethod("close:menu", this);
           }
         });

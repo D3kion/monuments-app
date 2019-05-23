@@ -99,7 +99,7 @@ export class EditCityView extends View {
       description: data.description,
     }, {
       success: () => {
-        this.triggerMethod("refresh:map", this, "city");
+        this.triggerMethod("refresh:map", this);
         this.triggerMethod("close:menu", this);
       },
 

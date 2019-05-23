@@ -33,9 +33,8 @@ export class FeatureView extends View {
     this.featureType = type;
     this.modalImage = null;
     this.delete = false;
-    this.type = type;
 
-    if (this.type === "country") 
+    if (type === "country") 
       this.feature = new CountryModel();
     else
       this.feature = new CityModel();
@@ -85,7 +84,7 @@ export class FeatureView extends View {
     } else {
       this.feature.destroy({
         success: () => {
-          this.triggerMethod("refresh:map", this, this.type);
+          this.triggerMethod("refresh:map", this);
           this.triggerMethod("close:menu", this);
         }
       });

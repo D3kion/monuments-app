@@ -50,8 +50,8 @@ export class MenuView extends View {
     this.triggerMethod("edit:feature:city", this, id);
   }
 
-  refreshMap(view, type) {
-    this.triggerMethod("refresh:map", this, type);
+  refreshMap() {
+    this.triggerMethod("refresh:map", this);
   }
 
   onClose() {

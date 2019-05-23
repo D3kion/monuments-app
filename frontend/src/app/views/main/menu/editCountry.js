@@ -44,7 +44,7 @@ export class EditCountryView extends View {
       city: data.capital,
     }, {
       success: () => {
-        this.triggerMethod("refresh:map", this, "country");
+        this.triggerMethod("refresh:map", this);
         this.triggerMethod("close:menu", this);
       }
     });

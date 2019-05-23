@@ -184,7 +184,7 @@ export class MapView extends MnView {
     };
   }
 
-  loadLayers(updated) {
+  loadLayers() {
     let countrySource = new Vector({
       format: new GeoJSON({
         defaultDataProjection: "EPSG:4326",
@@ -285,13 +285,7 @@ export class MapView extends MnView {
       selectable: true,
     });
 
-    if (!_.isUndefined(updated)) {
-      const layer = updated == "country" ? this.countryLayer : this.cityLayer;
-      this.map.getLayers().array_ = this.map.getLayers().getArray().filter(x => {
-        return !(x.get("name") == layer.get("name"));
-      });
-      this.map.addLayer(layer);
-    } else if (this.map.getLayers().getArray().length == 0) {
+    if (this.map.getLayers().getArray().length == 0) {
       this.map.getLayers().extend([
         this.osmLayer,
         this.yandexLayer,
@@ -302,6 +296,13 @@ export class MapView extends MnView {
         this.countryLayer,
         this.cityLayer,
       ]);
+    } else {
+      this.map.getLayers().array_ = this.map.getLayers().getArray().filter(x => {
+        return !(x.get("name") == this.countryLayer.get("name") ||
+                 x.get("name") == this.cityLayer.get("name"));
+      });
+      this.map.addLayer(this.countryLayer);
+      this.map.addLayer(this.cityLayer);
     }
   }
 }

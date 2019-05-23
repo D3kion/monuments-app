@@ -70,8 +70,8 @@ export class CreateView extends View {
     this.triggerMethod("show:toast", this, type, text);
   }
 
-  refreshMap(view, type) {
-    this.triggerMethod("refresh:map", this, type);
+  refreshMap() {
+    this.triggerMethod("refresh:map", this);
   }
 
   closeMenu() {
